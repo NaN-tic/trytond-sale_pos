@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+
+        <!-- Reports -->
+        <record model="ir.action.report" id="report_sale_ticket">
+            <field name="name">Sale Ticket</field>
+            <field name="model">sale.sale</field>
+            <field name="report_name">sale_pos.sale_pos_ticket</field>
+            <field name="report">sale_pos/sale_pos_ticket.odt</field>
+
+        </record>
+        <record model="ir.action.keyword" id="report_sale_ticket_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">sale.sale,-1</field>
+            <field name="action" ref="report_sale_ticket"/>
+        </record>
+
+        <record model="ir.action.report" id="report_sales_summary">
+            <field name="name">Sales Summary</field>
+            <field name="model">sale.sale</field>
+            <field name="report_name">sale_pos.sales_summary</field>
+            <field name="report">sale_pos/sale_pos_summary.odt</field>
+            <field name="style">company/letter.odt</field>
+        </record>
+        <record model="ir.action.keyword" id="report_sales_summary_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">sale.sale,-1</field>
+            <field name="action" ref="report_sales_summary"/>
+        </record>
+
+        <record model="ir.action.report" id="report_sales_summary_by_party">
+            <field name="name">Sales Summary by Party</field>
+            <field name="model">sale.sale</field>
+            <field name="report_name">sale_pos.sales_summary_by_party</field>
+            <field name="report">sale_pos/sale_pos_summary_by_party.odt</field>
+            <field name="style">company/letter.odt</field>
+        </record>
+        <record model="ir.action.keyword" id="report_sales_summary_by_party_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">sale.sale,-1</field>
+            <field name="action" ref="report_sales_summary_by_party"/>
+        </record>
+
+        <!-- Wizards -->
+        <record model="ir.action.wizard" id="wizard_add_product">
+            <field name="name">Add Product</field>
+            <field name="wiz_name">sale_pos.add_product</field>
+        </record>
+        <record model="ir.ui.view" id="add_product_view_form">
+            <field name="model">sale_pos.add_product_form</field>
+            <field name="type">form</field>
+            <field name="priority">10</field>
+            <field name="name">add_product_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_sale_payment">
+            <field name="name">Pay</field>
+            <field name="wiz_name">sale_pos.sale_payment</field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_payment_view_form">
+            <field name="model">sale_pos.sale_payment_form</field>
+            <field name="type">form</field>
+            <field name="name">sale_payment_form</field>
+        </record>
+
+        <!-- Views -->
+        <record model="ir.ui.view" id="sale_line_view_tree">
+            <field name="model">sale.line</field>
+            <field name="type">tree</field>
+            <field name="name">sale_line_tree</field>
+        </record>
+        <record model="ir.ui.view" id="sale_line_view_form">
+            <field name="model">sale.line</field>
+            <field name="type">form</field>
+            <field name="name">sale_line_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_view_tree">
+            <field name="model">sale.sale</field>
+            <field name="type">tree</field>
+            <field name="name">sale_tree</field>
+        </record>
+        <record model="ir.ui.view" id="sale_view_form">
+            <field name="model">sale.sale</field>
+            <field name="type">form</field>
+            <field name="priority">10</field>
+            <field name="name">sale_form</field>
+        </record>
+
+        <!-- Actions -->
+        <record model="ir.action.act_window" id="act_sale_form">
+            <field name="name">POS Sales</field>
+            <field name="res_model">sale.sale</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_sale_view_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="sale_view_form"/>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_sale_view_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="sale_view_tree"/>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+
+        <menuitem name="POS Sales" parent="sale.menu_sale" id="menu_sale"
+            sequence="1" icon="tryton-list" action="act_sale_form"/>
+
+    </data>
+</tryton>

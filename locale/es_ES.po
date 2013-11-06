@@ -1,0 +1,592 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:product.code:"
+msgid "Invalid Barcode number!"
+msgstr "El número del código de barras no es correcto."
+
+msgctxt "error:sale_pos.device:"
+msgid "Device %s not found...!"
+msgstr "No se ha encontrado el dispositivo %s."
+
+msgctxt "error:sale_pos.sale_payment:"
+msgid "A customer invoice/refund from POS sale has not been created."
+msgstr ""
+"No se ha creado una factura/abono de cliente a partir de la venta TPV."
+
+msgctxt "error:sale_pos.sale_payment:"
+msgid "A draft statement for \"%s\" payments has not been created."
+msgstr "No se ha creado un extracto borrador para los pagos \"%s\"."
+
+msgctxt "error:sale_pos.sale_payment:"
+msgid "You have not defined a POS device for your user."
+msgstr "No ha asociado un dispositivo TPV a su usuario."
+
+msgctxt "field:account.statement.line,sale:"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "field:product.code,barcode:"
+msgid "Code"
+msgstr "Código"
+
+msgctxt "field:product.code,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:product.code,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:product.code,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.code,number:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:product.code,product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:product.code,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.code,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:product.code,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:product.product,codes:"
+msgid "Codes"
+msgstr "Códigos"
+
+msgctxt "field:res.user,pos_device:"
+msgid "POS device"
+msgstr "Dispositivo TPV"
+
+msgctxt "field:sale.line,amount_w_tax:"
+msgid "Amount with Tax"
+msgstr "Total"
+
+msgctxt "field:sale.line,unit_price_w_tax:"
+msgid "Unit Price with Tax"
+msgstr "Precio unidad imp. incl."
+
+msgctxt "field:sale.sale,paid_amount:"
+msgid "Paid Amount"
+msgstr "Pagado"
+
+msgctxt "field:sale.sale,payments:"
+msgid "Payments"
+msgstr "Pagos"
+
+msgctxt "field:sale.sale,residual_amount:"
+msgid "Residual Amount"
+msgstr "Pendiente"
+
+msgctxt "field:sale.shop,party:"
+msgid "Default Party"
+msgstr "Tercero por defecto"
+
+msgctxt "field:sale_pos.add_product_form,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.add_product_form,product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:sale_pos.add_product_form,product_uom_category:"
+msgid "Product Uom Category"
+msgstr "Categoría UdM del producto"
+
+msgctxt "field:sale_pos.add_product_form,quantity:"
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgctxt "field:sale_pos.add_product_form,sale:"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "field:sale_pos.add_product_form,unit:"
+msgid "Unit"
+msgstr "Unidad"
+
+msgctxt "field:sale_pos.add_product_form,unit_digits:"
+msgid "Unit Digits"
+msgstr "Dígitos unidad"
+
+msgctxt "field:sale_pos.add_product_form,unit_price:"
+msgid "Unit price"
+msgstr "Precio unidad"
+
+msgctxt "field:sale_pos.device,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:sale_pos.device,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:sale_pos.device,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:sale_pos.device,display_baud:"
+msgid "BAUD-Rate"
+msgstr "Velocidad (BAUD)"
+
+msgctxt "field:sale_pos.device,display_digits:"
+msgid "Digits per Row"
+msgstr "Dígitos por fila"
+
+msgctxt "field:sale_pos.device,display_port:"
+msgid "Display port"
+msgstr "Puerto del display"
+
+msgctxt "field:sale_pos.device,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.device,journal:"
+msgid "Default Journal"
+msgstr "Diario por defecto"
+
+msgctxt "field:sale_pos.device,journals:"
+msgid "Journals"
+msgstr "Diarios"
+
+msgctxt "field:sale_pos.device,name:"
+msgid "Device Name"
+msgstr "Nombre dispositivo"
+
+msgctxt "field:sale_pos.device,printer_port:"
+msgid "Printer Port"
+msgstr "Puerto de la impresora"
+
+msgctxt "field:sale_pos.device,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:sale_pos.device,shop:"
+msgid "Shop"
+msgstr "Tienda"
+
+msgctxt "field:sale_pos.device,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:sale_pos.device,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:sale_pos.device_account.statement.journal,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:sale_pos.device_account.statement.journal,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:sale_pos.device_account.statement.journal,device:"
+msgid "Pos Device"
+msgstr "Dispositivo TPV"
+
+msgctxt "field:sale_pos.device_account.statement.journal,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.device_account.statement.journal,journal:"
+msgid "Statement Journal"
+msgstr "Diario de extracto"
+
+msgctxt "field:sale_pos.device_account.statement.journal,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:sale_pos.device_account.statement.journal,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:sale_pos.device_account.statement.journal,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:sale_pos.sale_payment_form,currency_digits:"
+msgid "Currency Digits"
+msgstr "Decimales de moneda"
+
+msgctxt "field:sale_pos.sale_payment_form,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.sale_payment_form,journal:"
+msgid "Statement Journal"
+msgstr "Diario de extracto"
+
+msgctxt "field:sale_pos.sale_payment_form,journals:"
+msgid "Allowed Statement Journals"
+msgstr "Diarios de extracto permitidos"
+
+msgctxt "field:sale_pos.sale_payment_form,payment_amount:"
+msgid "Payment amount"
+msgstr "Importe pago"
+
+msgctxt "help:product.code,barcode:"
+msgid "Setting code will enable validation of the product number."
+msgstr "Indicando el código se podrá validar el número del producto."
+
+msgctxt "help:sale_pos.device,display_port:"
+msgid "Like /dev/ttyS0"
+msgstr "Por ejemplo /dev/ttyS0"
+
+msgctxt "help:sale_pos.device,printer_port:"
+msgid "Port type the receipt printer is conntected to."
+msgstr "Tipo de puerto al que está conectada la impresora de tickets."
+
+msgctxt "model:ir.action,name:act_pos_device"
+msgid "POS Device"
+msgstr "Dispositivo TPV"
+
+msgctxt "model:ir.action,name:act_sale_form"
+msgid "POS Sales"
+msgstr "Ventas TPV"
+
+msgctxt "model:ir.action,name:report_sale_ticket"
+msgid "Sale Ticket"
+msgstr "Ticket de venta"
+
+msgctxt "model:ir.action,name:report_sales_summary"
+msgid "Sales Summary"
+msgstr "Resumen de ventas"
+
+msgctxt "model:ir.action,name:report_sales_summary_by_party"
+msgid "Sales Summary by Party"
+msgstr "Resumen de ventas por tercero"
+
+msgctxt "model:ir.action,name:wizard_add_product"
+msgid "Add Product"
+msgstr "Añadir producto"
+
+msgctxt "model:ir.action,name:wizard_sale_payment"
+msgid "Pay"
+msgstr "Pagar"
+
+msgctxt "model:ir.ui.menu,name:menu_pos_device"
+msgid "POS Devices"
+msgstr "Dispositivos TPV"
+
+msgctxt "model:ir.ui.menu,name:menu_sale"
+msgid "POS Sales"
+msgstr "Ventas TPV"
+
+msgctxt "model:product.code,name:"
+msgid "ProductCode"
+msgstr "Código de producto"
+
+msgctxt "model:sale_pos.add_product_form,name:"
+msgid "Add Product Form"
+msgstr "Formulario añadir producto"
+
+msgctxt "model:sale_pos.device,name:"
+msgid "Pos Device Configuration"
+msgstr "Configuración dispositivo TPV"
+
+msgctxt "model:sale_pos.device_account.statement.journal,name:"
+msgid "Pos Device - Statement Journal"
+msgstr "Dispositivo TPV - Diario de extracto"
+
+msgctxt "model:sale_pos.sale_payment_form,name:"
+msgid "Sale Payment Form"
+msgstr "Formulario pago venta"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Customer:"
+msgstr "Cliente:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Date:"
+msgstr "Fecha:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Draft Sale N°"
+msgstr "Ticket borrador Nº"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Paid:"
+msgstr "Pagado:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Qty"
+msgstr "Cant."
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Residual:"
+msgstr "Pendiente:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Sale N°"
+msgstr "Ticket Nº"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Taxes:"
+msgstr "Impuestos:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Total (excl. taxes):"
+msgstr "Total (sin imp.):"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Total:"
+msgstr "Total:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Unit Price"
+msgstr "Precio u."
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "$"
+msgstr "$"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "("
+msgstr "("
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid ")"
+msgstr ")"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Notes:"
+msgstr "Observaciones:"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "POS SALES SUMMARY"
+msgstr "RESUMEN VENTAS TPV"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "TOTAL"
+msgstr "TOTAL"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Tax"
+msgstr "Impuestos"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Ticket Nº"
+msgstr "Ticket Nº"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "$"
+msgstr "$"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "("
+msgstr "("
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid ")"
+msgstr ")"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "From:"
+msgstr "Desde:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Notes:"
+msgstr "Observaciones:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "POS SALES BY PARTY"
+msgstr "VENTAS TPV POR TERCERO"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "TOTAL"
+msgstr "TOTAL"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Tax"
+msgstr "Impuestos"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "To:"
+msgstr "Hasta:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "selection:product.code,barcode:"
+msgid "CODE39"
+msgstr "CODE39"
+
+msgctxt "selection:product.code,barcode:"
+msgid "EAN"
+msgstr "EAN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "EAN13"
+msgstr "EAN13"
+
+msgctxt "selection:product.code,barcode:"
+msgid "EAN8"
+msgstr "EAN8"
+
+msgctxt "selection:product.code,barcode:"
+msgid "GS1"
+msgstr "GS1"
+
+msgctxt "selection:product.code,barcode:"
+msgid "GTIN"
+msgstr "GTIN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISBN"
+msgstr "ISBN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISBN10"
+msgstr "ISBN10"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISBN13"
+msgstr "ISBN13"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISSN"
+msgstr "ISSN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "JAN"
+msgstr "JAN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "PZN"
+msgstr "PZN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "UPC"
+msgstr "UPC"
+
+msgctxt "selection:product.code,barcode:"
+msgid "UPCA"
+msgstr "UPCA"
+
+msgctxt "view:product.product:"
+msgid "Codes"
+msgstr "Códigos"
+
+msgctxt "view:sale.line:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "view:sale.line:"
+msgid "POS Sale"
+msgstr "Venta TPV"
+
+msgctxt "view:sale.sale:"
+msgid "Add _Sum"
+msgstr "Añadir _suma"
+
+msgctxt "view:sale.sale:"
+msgid "Invoices"
+msgstr "Facturas"
+
+msgctxt "view:sale.sale:"
+msgid "Payments"
+msgstr "Pagos"
+
+msgctxt "view:sale.sale:"
+msgid "Pos Cash Sales"
+msgstr "Ventas TPV"
+
+msgctxt "view:sale.sale:"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "view:sale.sale:"
+msgid "_Add Product"
+msgstr "_Añadir producto"
+
+msgctxt "view:sale.sale:"
+msgid "_Pay"
+msgstr "_Pagar"
+
+msgctxt "view:sale_pos.add_product_form:"
+msgid "Add product"
+msgstr "Añadir producto"
+
+msgctxt "view:sale_pos.device:"
+msgid "POS Device Configuration"
+msgstr "Configuración dispositivo TPV"
+
+msgctxt "view:sale_pos.device:"
+msgid "Test display"
+msgstr "Probar display"
+
+msgctxt "view:sale_pos.device:"
+msgid "Test printer"
+msgstr "Probar impresora"
+
+msgctxt "view:sale_pos.sale_payment_form:"
+msgid "Sale Payment Form"
+msgstr "Formulario pago venta"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add:"
+msgid "Add"
+msgstr "Añadir"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add_new:"
+msgid "Add and New"
+msgstr "Añadir y nuevo"
+
+msgctxt "wizard_button:sale_pos.add_product,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:sale_pos.sale_payment,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:sale_pos.sale_payment,start,pay:"
+msgid "Pay"
+msgstr "Pagar"

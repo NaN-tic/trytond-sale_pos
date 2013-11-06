@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tree string="Pos Cash Sales">
+    <field name="shop"/>
+    <field name="reference"/>
+    <field name="create_date"/>
+    <field name="sale_date"/>
+    <field name="party"/>
+    <field name="untaxed_amount"/>
+    <field name="total_amount"/>
+    <field name="paid_amount"/>
+    <field name="residual_amount"/>
+    <field name="state"/>
+    <field name="invoice_state"/>
+    <field name="currency_digits" tree_invisible="1"/>
+</tree>

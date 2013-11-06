@@ -1,0 +1,592 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:product.code:"
+msgid "Invalid Barcode number!"
+msgstr "El número del codi de barres no és correcte."
+
+msgctxt "error:sale_pos.device:"
+msgid "Device %s not found...!"
+msgstr "No s'ha trobat el dispositiu %s."
+
+msgctxt "error:sale_pos.sale_payment:"
+msgid "A customer invoice/refund from POS sale has not been created."
+msgstr ""
+"No s'ha creat una factura/abonament de client a partir de la venda TPV."
+
+msgctxt "error:sale_pos.sale_payment:"
+msgid "A draft statement for \"%s\" payments has not been created."
+msgstr "No s'ha creat un extracte borrador pels pagaments \"%s\"."
+
+msgctxt "error:sale_pos.sale_payment:"
+msgid "You have not defined a POS device for your user."
+msgstr "No heu associat un dispositiu TPV al vostre usuari."
+
+msgctxt "field:account.statement.line,sale:"
+msgid "Sale"
+msgstr "Venda"
+
+msgctxt "field:product.code,barcode:"
+msgid "Code"
+msgstr "Codi"
+
+msgctxt "field:product.code,create_date:"
+msgid "Create Date"
+msgstr "Data de creació"
+
+msgctxt "field:product.code,create_uid:"
+msgid "Create User"
+msgstr "Usuari de creació"
+
+msgctxt "field:product.code,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.code,number:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:product.code,product:"
+msgid "Product"
+msgstr "Producte"
+
+msgctxt "field:product.code,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.code,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:product.code,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:product.product,codes:"
+msgid "Codes"
+msgstr "Codis"
+
+msgctxt "field:res.user,pos_device:"
+msgid "POS device"
+msgstr "Dispositiu TPV"
+
+msgctxt "field:sale.line,amount_w_tax:"
+msgid "Amount with Tax"
+msgstr "Total"
+
+msgctxt "field:sale.line,unit_price_w_tax:"
+msgid "Unit Price with Tax"
+msgstr "Preu unitat imp. incl."
+
+msgctxt "field:sale.sale,paid_amount:"
+msgid "Paid Amount"
+msgstr "Pagat"
+
+msgctxt "field:sale.sale,payments:"
+msgid "Payments"
+msgstr "Pagaments"
+
+msgctxt "field:sale.sale,residual_amount:"
+msgid "Residual Amount"
+msgstr "Pendent"
+
+msgctxt "field:sale.shop,party:"
+msgid "Default Party"
+msgstr "Tercer per defecte"
+
+msgctxt "field:sale_pos.add_product_form,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.add_product_form,product:"
+msgid "Product"
+msgstr "Producte"
+
+msgctxt "field:sale_pos.add_product_form,product_uom_category:"
+msgid "Product Uom Category"
+msgstr "Categoria UdM del producte"
+
+msgctxt "field:sale_pos.add_product_form,quantity:"
+msgid "Quantity"
+msgstr "Quantitat"
+
+msgctxt "field:sale_pos.add_product_form,sale:"
+msgid "Sale"
+msgstr "Venda"
+
+msgctxt "field:sale_pos.add_product_form,unit:"
+msgid "Unit"
+msgstr "Unitat"
+
+msgctxt "field:sale_pos.add_product_form,unit_digits:"
+msgid "Unit Digits"
+msgstr "Dígits unitat"
+
+msgctxt "field:sale_pos.add_product_form,unit_price:"
+msgid "Unit price"
+msgstr "Preu unitat"
+
+msgctxt "field:sale_pos.device,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:sale_pos.device,create_date:"
+msgid "Create Date"
+msgstr "Data de creació"
+
+msgctxt "field:sale_pos.device,create_uid:"
+msgid "Create User"
+msgstr "Usuari de creació"
+
+msgctxt "field:sale_pos.device,display_baud:"
+msgid "BAUD-Rate"
+msgstr "Velocitat (BAUD)"
+
+msgctxt "field:sale_pos.device,display_digits:"
+msgid "Digits per Row"
+msgstr "Dígits per fila"
+
+msgctxt "field:sale_pos.device,display_port:"
+msgid "Display port"
+msgstr "Port del display"
+
+msgctxt "field:sale_pos.device,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.device,journal:"
+msgid "Default Journal"
+msgstr "Diari per defecte"
+
+msgctxt "field:sale_pos.device,journals:"
+msgid "Journals"
+msgstr "Diaris"
+
+msgctxt "field:sale_pos.device,name:"
+msgid "Device Name"
+msgstr "Nom dispositiu"
+
+msgctxt "field:sale_pos.device,printer_port:"
+msgid "Printer Port"
+msgstr "Port de la impressora"
+
+msgctxt "field:sale_pos.device,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:sale_pos.device,shop:"
+msgid "Shop"
+msgstr "Tenda"
+
+msgctxt "field:sale_pos.device,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:sale_pos.device,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:sale_pos.device_account.statement.journal,create_date:"
+msgid "Create Date"
+msgstr "Data de creació"
+
+msgctxt "field:sale_pos.device_account.statement.journal,create_uid:"
+msgid "Create User"
+msgstr "Usuari de creació"
+
+msgctxt "field:sale_pos.device_account.statement.journal,device:"
+msgid "Pos Device"
+msgstr "Dispositiu TPV"
+
+msgctxt "field:sale_pos.device_account.statement.journal,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.device_account.statement.journal,journal:"
+msgid "Statement Journal"
+msgstr "Diari d'extracte"
+
+msgctxt "field:sale_pos.device_account.statement.journal,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:sale_pos.device_account.statement.journal,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:sale_pos.device_account.statement.journal,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:sale_pos.sale_payment_form,currency_digits:"
+msgid "Currency Digits"
+msgstr "Decimals de moneda"
+
+msgctxt "field:sale_pos.sale_payment_form,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.sale_payment_form,journal:"
+msgid "Statement Journal"
+msgstr "Diari d'extracte"
+
+msgctxt "field:sale_pos.sale_payment_form,journals:"
+msgid "Allowed Statement Journals"
+msgstr "Diaris d'extracte permesos"
+
+msgctxt "field:sale_pos.sale_payment_form,payment_amount:"
+msgid "Payment amount"
+msgstr "Import pagament"
+
+msgctxt "help:product.code,barcode:"
+msgid "Setting code will enable validation of the product number."
+msgstr "Indicant el codi es podrà validar el número del producte."
+
+msgctxt "help:sale_pos.device,display_port:"
+msgid "Like /dev/ttyS0"
+msgstr "Per exemple /dev/ttyS0"
+
+msgctxt "help:sale_pos.device,printer_port:"
+msgid "Port type the receipt printer is conntected to."
+msgstr "Tipus de port al que està connectada la impressora de tiquets."
+
+msgctxt "model:ir.action,name:act_pos_device"
+msgid "POS Device"
+msgstr "Dispositiu TPV"
+
+msgctxt "model:ir.action,name:act_sale_form"
+msgid "POS Sales"
+msgstr "Vendes TPV"
+
+msgctxt "model:ir.action,name:report_sale_ticket"
+msgid "Sale Ticket"
+msgstr "Tiquet de venda"
+
+msgctxt "model:ir.action,name:report_sales_summary"
+msgid "Sales Summary"
+msgstr "Resum de vendes"
+
+msgctxt "model:ir.action,name:report_sales_summary_by_party"
+msgid "Sales Summary by Party"
+msgstr "Resum de vendes per tercer"
+
+msgctxt "model:ir.action,name:wizard_add_product"
+msgid "Add Product"
+msgstr "Afegeix producte"
+
+msgctxt "model:ir.action,name:wizard_sale_payment"
+msgid "Pay"
+msgstr "Paga"
+
+msgctxt "model:ir.ui.menu,name:menu_pos_device"
+msgid "POS Devices"
+msgstr "Dispositius TPV"
+
+msgctxt "model:ir.ui.menu,name:menu_sale"
+msgid "POS Sales"
+msgstr "Vendes TPV"
+
+msgctxt "model:product.code,name:"
+msgid "ProductCode"
+msgstr "Codi de producte"
+
+msgctxt "model:sale_pos.add_product_form,name:"
+msgid "Add Product Form"
+msgstr "Formulari afegeix producte"
+
+msgctxt "model:sale_pos.device,name:"
+msgid "Pos Device Configuration"
+msgstr "Configuració dispositiu TPV"
+
+msgctxt "model:sale_pos.device_account.statement.journal,name:"
+msgid "Pos Device - Statement Journal"
+msgstr "Dispositiu TPV - Diari d'extracte"
+
+msgctxt "model:sale_pos.sale_payment_form,name:"
+msgid "Sale Payment Form"
+msgstr "Formulari pagament venda"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Amount"
+msgstr "Import"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Customer:"
+msgstr "Client:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Date:"
+msgstr "Data:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Description"
+msgstr "Descripció"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Draft Sale N°"
+msgstr "Tiquet esborrany Nº"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Paid:"
+msgstr "Pagat:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Qty"
+msgstr "Quant."
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Residual:"
+msgstr "Pendent:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Sale N°"
+msgstr "Tiquet Nº"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Taxes:"
+msgstr "Impostos:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Total (excl. taxes):"
+msgstr "Total (sense imp.):"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Total:"
+msgstr "Total:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Unit Price"
+msgstr "Preu u."
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "$"
+msgstr "$"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "("
+msgstr "("
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid ")"
+msgstr ")"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Amount"
+msgstr "Import"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Date"
+msgstr "Data"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Notes:"
+msgstr "Observacions:"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "POS SALES SUMMARY"
+msgstr "RESUM VENDES TPV"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Party"
+msgstr "Tercer"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "TOTAL"
+msgstr "TOTAL"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Tax"
+msgstr "Impostos"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Ticket Nº"
+msgstr "Tiquet Nº"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "$"
+msgstr "$"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "("
+msgstr "("
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid ")"
+msgstr ")"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Amount"
+msgstr "Import"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "From:"
+msgstr "Des de:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Notes:"
+msgstr "Observacions:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "POS SALES BY PARTY"
+msgstr "VENDES TPV PER TERCER"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Party"
+msgstr "Tercer"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "TOTAL"
+msgstr "TOTAL"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Tax"
+msgstr "Impostos"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "To:"
+msgstr "Fins:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "selection:product.code,barcode:"
+msgid "CODE39"
+msgstr "CODE39"
+
+msgctxt "selection:product.code,barcode:"
+msgid "EAN"
+msgstr "EAN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "EAN13"
+msgstr "EAN13"
+
+msgctxt "selection:product.code,barcode:"
+msgid "EAN8"
+msgstr "EAN8"
+
+msgctxt "selection:product.code,barcode:"
+msgid "GS1"
+msgstr "GS1"
+
+msgctxt "selection:product.code,barcode:"
+msgid "GTIN"
+msgstr "GTIN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISBN"
+msgstr "ISBN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISBN10"
+msgstr "ISBN10"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISBN13"
+msgstr "ISBN13"
+
+msgctxt "selection:product.code,barcode:"
+msgid "ISSN"
+msgstr "ISSN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "JAN"
+msgstr "JAN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "PZN"
+msgstr "PZN"
+
+msgctxt "selection:product.code,barcode:"
+msgid "UPC"
+msgstr "UPC"
+
+msgctxt "selection:product.code,barcode:"
+msgid "UPCA"
+msgstr "UPCA"
+
+msgctxt "view:product.product:"
+msgid "Codes"
+msgstr "Codis"
+
+msgctxt "view:sale.line:"
+msgid "Lines"
+msgstr "Línies"
+
+msgctxt "view:sale.line:"
+msgid "POS Sale"
+msgstr "Venda TPV"
+
+msgctxt "view:sale.sale:"
+msgid "Add _Sum"
+msgstr "Afegeix _suma"
+
+msgctxt "view:sale.sale:"
+msgid "Invoices"
+msgstr "Factures"
+
+msgctxt "view:sale.sale:"
+msgid "Payments"
+msgstr "Pagaments"
+
+msgctxt "view:sale.sale:"
+msgid "Pos Cash Sales"
+msgstr "Vendes TPV"
+
+msgctxt "view:sale.sale:"
+msgid "Sale"
+msgstr "Venda"
+
+msgctxt "view:sale.sale:"
+msgid "_Add Product"
+msgstr "_Afegeix producte"
+
+msgctxt "view:sale.sale:"
+msgid "_Pay"
+msgstr "_Paga"
+
+msgctxt "view:sale_pos.add_product_form:"
+msgid "Add product"
+msgstr "Afegeix producte"
+
+msgctxt "view:sale_pos.device:"
+msgid "POS Device Configuration"
+msgstr "Configuració dispositiu TPV"
+
+msgctxt "view:sale_pos.device:"
+msgid "Test display"
+msgstr "Prova display"
+
+msgctxt "view:sale_pos.device:"
+msgid "Test printer"
+msgstr "Prova impressora"
+
+msgctxt "view:sale_pos.sale_payment_form:"
+msgid "Sale Payment Form"
+msgstr "Formulari pagament venda"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add:"
+msgid "Add"
+msgstr "Afegeix"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add_new:"
+msgid "Add and New"
+msgstr "Afegeix i nou"
+
+msgctxt "wizard_button:sale_pos.add_product,start,end:"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "wizard_button:sale_pos.sale_payment,start,end:"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "wizard_button:sale_pos.sale_payment,start,pay:"
+msgid "Pay"
+msgstr "Paga"

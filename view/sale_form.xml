@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Pos Cash Sales" col="4">
+    <field name="lines" colspan="2"
+        view_ids="sale_pos.sale_line_view_tree,sale_pos.sale_line_view_form"/>
+    <notebook colspan="2">
+        <page string="Sale" col="2" id="sale">
+            <label name="shop"/>
+            <field name="shop"/>
+            <label name="reference"/>
+            <field name="reference"/>
+            <separator colspan="2" id="party_info"/>
+            <label name="party"/>
+            <field name="party"/>
+            <label name="price_list"/>
+            <field name="price_list"/>
+            <label name="payment_term"/>
+            <field name="payment_term"/>
+            <label name="create_date"/>
+            <field name="create_date"/>
+            <label name="sale_date"/>
+            <field name="sale_date"/>
+            <separator colspan="2" id="amount_info"/>
+            <label name="untaxed_amount"/>
+            <field name="untaxed_amount"/>
+            <label name="tax_amount"/>
+            <field name="tax_amount"/>
+            <label name="total_amount"/>
+            <field name="total_amount"/>
+            <separator colspan="2" id="payment_info"/>
+            <label name="paid_amount"/>
+            <field name="paid_amount"/>
+            <label name="residual_amount"/>
+            <field name="residual_amount"/>
+            <field name="invoice_address" invisible="1"/>
+            <field name="shipment_address" invisible="1"/>
+            <field name="currency" invisible="1"/>
+        </page>
+        <page string="Payments" col="2" id="payments">
+            <field name="payments" colspan="2" readonly="1"/>
+            <label name="paid_amount"/>
+            <field name="paid_amount"/>
+            <label name="outstanding_amount"/>
+            <field name="outstanding_amount"/>
+        </page>
+        <page string="Invoices" col="2" id="invoices">
+            <field name="invoices" colspan="2"/>
+            <label name="invoice_state"/>
+            <field name="invoice_state"/>
+        </page>
+    </notebook>
+    <group name="cash" colspan="2">
+        <button name="wizard_add_product" string="_Add Product"
+            icon="tryton-list-add"/>
+        <button name="add_sum" string="Add _Sum"
+            icon="tryton-list-add"/>
+        <button name="wizard_sale_payment" string="_Pay"
+            icon="tryton-go-next"/>
+    </group>
+    <label name="state"/>
+    <field name="state"/>
+</form>
