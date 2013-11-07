@@ -1,11 +1,21 @@
 #!/usr/bin/env python
+# encoding: utf-8
 #This file is part sale_pos module for Tryton.
 #The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
 
 from setuptools import setup
 import re
+import os
 import ConfigParser
+
+MODULE = 'sale_pos'
+PREFIX = 'trytonzz'
+MODULE2PREFIX = {}
+
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 config = ConfigParser.ConfigParser()
 config.readfp(open('tryton.cfg'))
@@ -20,27 +30,32 @@ minor_version = int(minor_version)
 requires = []
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res|webdav)(\W|$)', dep):
-        requires.append('trytond_%s >= %s.%s, < %s.%s' %
-                (dep, major_version, minor_version, major_version,
-                    minor_version + 1))
+        prefix = MODULE2PREFIX.get(dep, 'trytond')
+        requires.append('%s_%s >= %s.%s, < %s.%s' %
+                (prefix, dep, major_version, minor_version,
+                major_version, minor_version + 1))
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytonzz_sale_pos',
+tests_require = ['proteus >= %s.%s, < %s.%s' %
+    (major_version, minor_version, major_version, minor_version + 1)]
+
+setup(name='%s_%s' % (PREFIX, MODULE),
     version=info.get('version', '0.0.1'),
     description='Tryton module for POS (Point of Sale), to quickly sale and pay',
+    long_description=read('README'),
     author='Zikzakmedia SL',
-    author_email='zikzak@zikzakmedia.com',
-    url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytond-sale_pos",
-    package_dir={'trytond.modules.sale_pos': '.'},
+    url='http://www.zikzakmedia.com/',
+    download_url="https://bitbucket.org/zikzakmedia/trytond-%s" % MODULE,
+    package_dir={'trytond.modules.%s' % MODULE: '.'},
     packages=[
-        'trytond.modules.sale_pos',
-        'trytond.modules.sale_pos.tests',
+        'trytond.modules.%s' % MODULE,
+        'trytond.modules.%s.tests' % MODULE,
         ],
     package_data={
-        'trytond.modules.sale_pos': info.get('xml', []) \
-            + ['tryton.cfg', 'locale/*.po'],
+        'trytond.modules.%s' % MODULE: (info.get('xml', [])
+            + ['tryton.cfg', 'view/*.xml',  'tests/*.rst', '*.odt',
+                'locale/*.po']),
         },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -50,7 +65,14 @@ setup(name='trytonzz_sale_pos',
         'Intended Audience :: Financial and Insurance Industry',
         'Intended Audience :: Legal Industry',
         'License :: OSI Approved :: GNU General Public License (GPL)',
+        'Natural Language :: Bulgarian',
         'Natural Language :: Catalan',
+        'Natural Language :: Czech',
+        'Natural Language :: Dutch',
+        'Natural Language :: English',
+        'Natural Language :: French',
+        'Natural Language :: German',
+        'Natural Language :: Russian',
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2.6',
@@ -62,8 +84,9 @@ setup(name='trytonzz_sale_pos',
     zip_safe=False,
     entry_points="""
     [trytond.modules]
-    sale_pos = trytond.modules.sale_pos
-    """,
+    %s = trytond.modules.%s
+    """ % (MODULE, MODULE),
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
-)
+    tests_require=tests_require,
+    )
