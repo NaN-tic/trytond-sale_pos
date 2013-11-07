@@ -23,9 +23,7 @@ extractos por defecto.
 Venta
 =====
 
-Para gestionar las ventas TPV accederemos al menú Ventas/Ventas TPV |menu_sale|.
-
-.. |menu_sale| tryref:: sale_pos.menu_sale/complete_name
+Para gestionar las ventas TPV accederemos al menú Ventas/Ventas TPV.
 
 Una venta TPV es una venta simplificada: está compuesta principalmente por una
 parte en la que se define los datos de la venta (a la derecha) y otra parte
@@ -37,12 +35,12 @@ definido como el tercero por defecto de la tienda. Posteriormente podemos añadi
 líneas en la venta TPV de dos formas distintas:
 
 * Mediante la introducción directa de las líneas por ser una lista editable tipo
-hoja de cálculo. Puede escanearse el producto o introducir su código o nombre,
-luego pulsar la tecla Enter, introducir la cantidad y volver a pulsar la tecla
-Enter para saltar a una línea nueva. También se pueden usar las teclas Tab y
-Mayús+Tab para saltar al campo siguiente/anterior.
+  hoja de cálculo. Puede escanearse el producto o introducir su código o nombre,
+  luego pulsar la tecla Enter, introducir la cantidad y volver a pulsar la tecla
+  Enter para saltar a una línea nueva. También se pueden usar las teclas Tab y
+  Mayús+Tab para saltar al campo siguiente/anterior.
 * Mediante el botón "Añadir producto" que permite introducir los mismos datos en
-una ventana emergente.
+  una ventana emergente.
 
 Es posible añadir subtotales a la venta con el botón "Añadir suma".
 
@@ -75,14 +73,12 @@ albaranes para el envío/recepción de productos y las facturas/abonos para la
 contabilización de la venta. (todo: También se imprime el ticket de la venta TPV):
 
 * Si la venta TPV tiene sólo cantidades positivas, se crea un albarán de envío y
-una factura de cliente.
-
+  una factura de cliente.
 * Si la venta tiene sólo cantidades negativas (devolución), se crea un albarán
-de devolución y un abono de cliente.
-
+  de devolución y un abono de cliente.
 * Si la venta tiene cantidades positivas y negativas, se crea ambos albaranes y
-facturas: Un albarán de envío y un albarán de devolución y una factura de
-cliente y un abono de cliente.
+  facturas: Un albarán de envío y un albarán de devolución y una factura de
+  cliente y un abono de cliente.
 
 Las facturas/abonos quedan en estado confirmados (contabilizados), de forma que
 es posible imprimir la factura en lugar del tiquet de la venta TPV. Los
@@ -102,7 +98,7 @@ Las ventas TPV cambian entre los siguientes estados:
 
 * Borrador a En proceso, cuando se paga completamente la venta TPV.
 * En proceo a Realizada, cuando se realiza el cierre de caja y las facturas
-asociadas a la venta TPV quedan pagadas.
+  asociadas a la venta TPV quedan pagadas.
 
 Cuando se realiza la validación y confirmación de los extractos contables las
 facturas asociadas quedan pagadas y las ventas TPV realizadas. En algunos casos,
@@ -111,8 +107,8 @@ abonos a la vez, las facturas no quedan pagadas automáticamente y hay que
 ejecutar el asistente de cierre de ventas TPV (todo) para que las facturas
 queden pagadas y las ventas TPV realizadas.
 
-.. warning::  Se generan albaranes sólo si hay al menos una línea del pedido de
-venta relacionada con un producto que sea de tipo Bienes.
+.. note::  Se generan albaranes sólo si hay al menos una línea del pedido de
+           venta relacionada con un producto que sea de tipo Bienes.
 
 Informes
 ========
