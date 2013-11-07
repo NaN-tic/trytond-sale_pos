@@ -32,4 +32,5 @@ def register():
     Pool.register(
         WizardAddProduct,
         WizardSalePayment,
+        WizardSaleReconcile,
         module='sale_pos', type_='wizard')

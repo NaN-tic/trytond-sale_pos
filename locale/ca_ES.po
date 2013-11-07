@@ -163,6 +163,10 @@ msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diaris"
 
+msgctxt "field:sale_pos.device,logo:"
+msgid "Receipt Logo"
+msgstr "Logo tiquet"
+
 msgctxt "field:sale_pos.device,name:"
 msgid "Device Name"
 msgstr "Nom dispositiu"
@@ -333,7 +337,7 @@ msgstr "Pagat:"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Qty"
-msgstr "Quant."
+msgstr "Qtat"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Residual:"
@@ -342,6 +346,10 @@ msgstr "Pendent:"
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Sale N°"
 msgstr "Tiquet Nº"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Salesman:"
+msgstr "Atès per:"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Taxes:"
@@ -550,6 +558,10 @@ msgstr "_Afegeix producte"
 msgctxt "view:sale.sale:"
 msgid "_Pay"
 msgstr "_Paga"
+
+msgctxt "view:sale.sale:"
+msgid "_Ticket"
+msgstr "_Tiquet"
 
 msgctxt "view:sale_pos.add_product_form:"
 msgid "Add product"

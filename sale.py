@@ -13,7 +13,9 @@ from trytond.modules.company import CompanyReport
 __all__ = [
     'Sale', 'SaleLine', 'StatementLine',
     'SaleReportSummary', 'SaleReportSummaryByParty',
-    'AddProductForm', 'WizardAddProduct', 'SalePaymentForm', 'WizardSalePayment'
+    'AddProductForm', 'WizardAddProduct',
+    'SalePaymentForm', 'WizardSalePayment',
+    'WizardSaleReconcile'
 ]
 __metaclass__ = PoolMeta
 
@@ -497,3 +499,13 @@ class WizardSalePayment(Wizard):
         data['id'] = Transaction().context['active_ids'].pop()
         data['ids'] = [data['id']]
         return action, data
+
+
+class WizardSaleReconcile(Wizard):
+    'Reconcile POS Sales'
+    __name__ = 'sale_pos.sale_reconcile'
+    start = StateTransition()
+    reconcile = StateTransition()
+
+    def transition_start(self):
+        return 'end'

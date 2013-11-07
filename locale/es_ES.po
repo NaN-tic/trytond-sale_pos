@@ -163,6 +163,10 @@ msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diarios"
 
+msgctxt "field:sale_pos.device,logo:"
+msgid "Receipt Logo"
+msgstr "Logo ticket"
+
 msgctxt "field:sale_pos.device,name:"
 msgid "Device Name"
 msgstr "Nombre dispositivo"
@@ -342,6 +346,10 @@ msgstr "Pendiente:"
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Sale N°"
 msgstr "Ticket Nº"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Salesman:"
+msgstr "Atendido por:"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Taxes:"
@@ -550,6 +558,10 @@ msgstr "_Añadir producto"
 msgctxt "view:sale.sale:"
 msgid "_Pay"
 msgstr "_Pagar"
+
+msgctxt "view:sale.sale:"
+msgid "_Ticket"
+msgstr "_Ticket"
 
 msgctxt "view:sale_pos.add_product_form:"
 msgid "Add product"
