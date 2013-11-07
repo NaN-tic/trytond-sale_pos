@@ -10,9 +10,7 @@ __metaclass__ = PoolMeta
 
 
 class User:
-    "User"
     __name__ = "res.user"
-
     pos_device = fields.Many2One('sale_pos.device', 'POS device',
             domain=[('shop', '=', Eval('shop'))],
             depends=['shop']

@@ -19,7 +19,6 @@ __metaclass__ = PoolMeta
 
 class Sale:
     __name__ = 'sale.sale'
-
     create_date = fields.DateTime('Create Date')
     payments = fields.One2Many('account.statement.line', 'sale', 'Payments')
     paid_amount = fields.Function(fields.Numeric('Paid Amount', readonly=True),
@@ -96,7 +95,6 @@ class Sale:
 
 class SaleLine:
     __name__ = 'sale.line'
-
     unit_price_w_tax = fields.Function(fields.Numeric('Unit Price with Tax',
             digits=(16, Eval('currency_digits', 2)),
             on_change_with=['type', 'quantity', 'unit_price', 'unit', 'taxes',

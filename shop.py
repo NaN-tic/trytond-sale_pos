@@ -10,5 +10,4 @@ __metaclass__ = PoolMeta
 
 class SaleShop:
     __name__ = 'sale.shop'
-
     party = fields.Many2One('party.party', "Default Party")
