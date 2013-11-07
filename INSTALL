@@ -1,12 +1,12 @@
 Installing trytond_sale_pos
-==================================
+===========================
 
 Prerequisites
 -------------
 
  * Python 2.6 or later (http://www.python.org/)
  * trytond (http://www.tryton.org/)
- * trytond_product (http://www.tryton.org/)
+ * trytond_sale (http://www.tryton.org/)
  * Optional: barcodenumber (https://pypi.python.org/pypi/barcodenumber/)
 
 Installation

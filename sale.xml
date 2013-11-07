@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
-this repository contains the full copyright notices and license terms. -->
+<!-- This file is part sale_pos module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-
         <!-- Reports -->
         <record model="ir.action.report" id="report_sale_ticket">
             <field name="name">Sale Ticket</field>
@@ -111,6 +110,5 @@ this repository contains the full copyright notices and license terms. -->
 
         <menuitem name="POS Sales" parent="sale.menu_sale" id="menu_sale"
             sequence="1" icon="tryton-list" action="act_sale_form"/>
-
     </data>
 </tryton>
