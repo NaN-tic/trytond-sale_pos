@@ -18,7 +18,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <label name="payment_term"/>
             <field name="payment_term"/>
             <label name="create_date"/>
-            <field name="create_date"/>
+            <field name="create_date" readonly="1"/>
             <label name="sale_date"/>
             <field name="sale_date"/>
             <separator colspan="2" id="amount_info"/>
@@ -41,8 +41,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="payments" colspan="2" readonly="1"/>
             <label name="paid_amount"/>
             <field name="paid_amount"/>
-            <label name="outstanding_amount"/>
-            <field name="outstanding_amount"/>
+            <label name="residual_amount"/>
+            <field name="residual_amount"/>
         </page>
         <page string="Invoices" col="2" id="invoices">
             <field name="invoices" colspan="2"/>
@@ -57,6 +57,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             icon="tryton-list-add"/>
         <button name="wizard_sale_payment" string="_Pay"
             icon="tryton-go-next"/>
+        <button name="print_ticket" string="_Ticket"
+            icon="tryton-print"/>
     </group>
     <label name="state"/>
     <field name="state"/>

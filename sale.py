@@ -6,7 +6,8 @@ from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Eval, If, Bool
-from trytond.wizard import Wizard, StateView, StateTransition, Button
+from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
+    Button
 from trytond.modules.company import CompanyReport
 
 __all__ = [
@@ -39,7 +40,10 @@ class Sale:
                 'wizard_add_product': {
                     'invisible': Eval('state') != 'draft'
                     },
-                'wizard_sale_payment': {},
+                'wizard_sale_payment': {
+                    'invisible': Eval('state') == 'done'
+                    },
+                'print_ticket': {}
                 })
 
     @staticmethod
@@ -91,6 +95,11 @@ class Sale:
         #configuration = Configuration.search([])[0]
         #if configuration.display_port:
             #sale._display.show_total(cls.browse(sales))
+
+    @classmethod
+    @ModelView.button_action('sale_pos.report_sale_ticket')
+    def print_ticket(cls, sales):
+        pass
 
 
 class SaleLine:
@@ -324,11 +333,11 @@ class WizardAddProduct(Wizard):
     start = StateView('sale_pos.add_product_form',
         'sale_pos.add_product_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Add and New', 'add_new', 'tryton-go-jump', default=True),
-            Button('Add', 'add', 'tryton-ok'),
+            Button('Add and New', 'add_new_', 'tryton-go-jump', default=True),
+            Button('Add', 'add_', 'tryton-ok'),
         ])
-    add_new = StateTransition()
-    add = StateTransition()
+    add_new_ = StateTransition()
+    add_ = StateTransition()
 
     def default_start(self, fields):
         return {
@@ -350,11 +359,11 @@ class WizardAddProduct(Wizard):
         line.unit_price = form.unit_price
         line.save();
 
-    def transition_add_new(self):
+    def transition_add_new_(self):
         self.add_product()
         return 'start'
 
-    def transition_add(self):
+    def transition_add_(self):
         self.add_product()
         return 'end'
 
@@ -381,9 +390,10 @@ class WizardSalePayment(Wizard):
     start = StateView('sale_pos.sale_payment_form',
         'sale_pos.sale_payment_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Pay', 'pay', 'tryton-ok', default=True),
+            Button('Pay', 'pay_', 'tryton-ok', default=True),
         ])
-    pay = StateTransition()
+    pay_ = StateTransition()
+    print_ = StateAction('sale_pos.report_sale_ticket')
 
     @classmethod
     def __setup__(cls):
@@ -413,7 +423,7 @@ class WizardSalePayment(Wizard):
             'currency_digits': sale.currency_digits,
             }
 
-    def transition_pay(self):
+    def transition_pay_(self):
         pool = Pool()
         Date = pool.get('ir.date')
         Sale = pool.get('sale.sale')
@@ -469,11 +479,21 @@ class WizardSalePayment(Wizard):
         if not sale.invoices:
             self.raise_user_error('not_customer_invoice')
         for invoice in sale.invoices:
-            invoice.description = sale.reference
-            invoice.save()
+            if invoice.state=='draft':
+                invoice.description = sale.reference
+                invoice.save()
         Invoice.post(sale.invoices)
         for payment in sale.payments:
             payment.invoice = sale.invoices[0].id
             payment.save()
         
+        return 'print_'
+
+    def transition_print_(self):
         return 'end'
+
+    def do_print_(self, action):
+        data = {}
+        data['id'] = Transaction().context['active_ids'].pop()
+        data['ids'] = [data['id']]
+        return action, data
