@@ -263,6 +263,10 @@ msgctxt "model:ir.action,name:act_sale_form"
 msgid "POS Sales"
 msgstr "Vendes TPV"
 
+msgctxt "model:ir.action,name:act_sale_reconcile"
+msgid "Reconcile POS Sales"
+msgstr "Concilia vendes TPV"
+
 msgctxt "model:ir.action,name:report_sale_ticket"
 msgid "Sale Ticket"
 msgstr "Tiquet de venda"
@@ -587,7 +591,15 @@ msgctxt "wizard_button:sale_pos.add_product,start,add:"
 msgid "Add"
 msgstr "Afegeix"
 
+msgctxt "wizard_button:sale_pos.add_product,start,add_:"
+msgid "Add"
+msgstr "Afegeix"
+
 msgctxt "wizard_button:sale_pos.add_product,start,add_new:"
+msgid "Add and New"
+msgstr "Afegeix i nou"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add_new_:"
 msgid "Add and New"
 msgstr "Afegeix i nou"
 
@@ -600,5 +612,9 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 msgctxt "wizard_button:sale_pos.sale_payment,start,pay:"
+msgid "Pay"
+msgstr "Paga"
+
+msgctxt "wizard_button:sale_pos.sale_payment,start,pay_:"
 msgid "Pay"
 msgstr "Paga"

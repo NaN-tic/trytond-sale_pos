@@ -508,4 +508,27 @@ class WizardSaleReconcile(Wizard):
     reconcile = StateTransition()
 
     def transition_start(self):
+        pool = Pool()
+        Sale = pool.get('sale.sale')
+        Line = pool.get('account.move.line')
+        for sale in Sale.browse(Transaction().context['active_ids']):
+            account = sale.party.account_receivable
+            lines = []
+            amount = Decimal('0.0')
+            for invoice in sale.invoices:
+                for line in Line.browse(invoice.get_lines_to_pay(None)):
+                    if not line.reconciliation:
+                        lines.append(line)
+                        amount += line.debit - line.credit
+            for payment in sale.payments:
+                if not payment.move:
+                    continue
+                for line in payment.move.lines:
+                    if (not line.reconciliation and
+                            line.account.id == account.id):
+                        lines.append(line)
+                        amount += line.debit - line.credit
+            print amount, lines
+            if lines and amount == Decimal('0.0'):
+                Line.reconcile(lines)
         return 'end'
