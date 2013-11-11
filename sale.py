@@ -72,6 +72,10 @@ class Sale:
         default['payments'] = None
         return super(Sale, cls).copy(sales, default=default)
 
+    def on_change_lines(self):
+        self.carrier = None
+        return super(Sale, self).on_change_lines()
+
     @classmethod
     @ModelView.button_action('sale_pos.wizard_add_product')
     def wizard_add_product(cls, sales):
