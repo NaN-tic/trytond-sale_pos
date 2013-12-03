@@ -21,7 +21,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <field name="display_digits"/>
     <label name="logo"/>
     <field name="logo"/>
-    <group name="grp_buttons" colspan="4" col="2">
+    <group string="grp_buttons" id="grp_buttons" colspan="4" col="2">
         <button name="test_printer" string="Test printer"/>
         <button name="test_display" string="Test display"/>
     </group>

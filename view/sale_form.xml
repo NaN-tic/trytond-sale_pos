@@ -50,7 +50,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="invoice_state"/>
         </page>
     </notebook>
-    <group name="cash" colspan="2">
+    <group string="cash" id="cash" colspan="2">
         <button name="wizard_add_product" string="_Add Product"
             icon="tryton-list-add"/>
         <button name="add_sum" string="Add _Sum"
