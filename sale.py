@@ -111,15 +111,53 @@ class Sale:
 class SaleLine:
     __name__ = 'sale.line'
     unit_price_w_tax = fields.Function(fields.Numeric('Unit Price with Tax',
-            digits=(16, Eval('currency_digits', 2)),
-            on_change_with=['type', 'quantity', 'unit_price', 'unit', 'taxes',
+            digits=(16, Eval('_parent_sale', {}).get('currency_digits',
+                    Eval('currency_digits', 2))),
+            states={
+                'invisible': ~Eval('type').in_(['line', 'subtotal']),
+                },
+            on_change_with=['type', 'unit_price',
                 '_parent_sale.currency'],
-            ), 'get_unit_price_w_tax')
+            depends=['type','currency_digits']), 'get_unit_price_w_tax')
     amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
-            digits=(16, Eval('currency_digits', 2)),
-            on_change_with=['type', 'quantity', 'unit_price', 'unit', 'taxes',
+            digits=(16, Eval('_parent_sale', {}).get('currency_digits',
+                    Eval('currency_digits', 2))),
+            states={
+                'invisible': ~Eval('type').in_(['line', 'subtotal']),
+                },
+            on_change_with=['type', 'unit_price',
                 '_parent_sale.currency'],
-            ), 'get_amount_w_tax')
+            depends=['type', 'currency_digits']), 'get_amount_w_tax')
+
+    currency_digits = fields.Function(fields.Integer('Currency Digits',
+        on_change_with=['currency']), 'on_change_with_currency_digits')
+
+    currency = fields.Many2One('currency.currency', 'Currency',
+        states={
+            'required': ~Eval('sale'),
+            },
+        depends=['sale'])
+
+    @staticmethod
+    def default_currency_digits():
+        Company = Pool().get('company.company')
+        if Transaction().context.get('company'):
+            company = Company(Transaction().context['company'])
+            return company.currency.digits
+        return 2
+
+    @staticmethod
+    def default_currency():
+        Company = Pool().get('company.company')
+        if Transaction().context.get('company'):
+            company = Company(Transaction().context['company'])
+            return company.currency.id
+
+
+    def on_change_with_currency_digits(self, name=None):
+        if self.currency:
+            return self.currency.digits
+        return 2
 
     def get_unit_price_w_tax(self, name):
         if self.type == 'line':
@@ -131,6 +169,9 @@ class SaleLine:
         Tax = pool.get('account.tax')
         Invoice = pool.get('account.invoice')
 
+        currency = (self.sale.currency if self.sale
+            else self.currency)
+
         if self.type == 'line' and self.quantity and self.unit_price:
             tax_list = Tax.compute(self.taxes,
                 self.unit_price or Decimal('0.0'),
@@ -139,6 +180,8 @@ class SaleLine:
             for tax in tax_list:
                 key, val = Invoice._compute_tax(tax, 'out_invoice')
                 tax_amount += val.get('amount')
+            if currency:
+                return currency.round(self.get_amount(name)+tax_amount)
             return self.get_amount(name)+tax_amount
         elif self.type == 'subtotal':
             amount = Decimal('0.0')
@@ -149,6 +192,8 @@ class SaleLine:
                     if self == line2:
                         break
                     amount = Decimal('0.0')
+            if currency:
+                return currency.round(amount)
             return amount
         return Decimal('0.0')
 
@@ -322,12 +367,12 @@ class AddProductForm(ModelView):
 
     def on_change_unit(self):
         return self.on_change_quantity()
-        
+
     def on_change_with_unit_digits(self, name=None):
         if self.unit:
             return self.unit.digits
         return 2
-        
+
     def on_change_with_product_uom_category(self, name=None):
         if self.product:
             return self.product.default_uom_category.id
@@ -451,7 +496,7 @@ class WizardSalePayment(Wizard):
         sale = Sale(active_id)
         if not sale.reference:
             Sale.set_reference([sale])
-                
+
         payment = StatementLine(
             statement = statements[0].id,
             date = Date.today(),
@@ -492,7 +537,7 @@ class WizardSalePayment(Wizard):
         for payment in sale.payments:
             payment.invoice = sale.invoices[0].id
             payment.save()
-        
+
         return 'print_'
 
     def transition_print_(self):
