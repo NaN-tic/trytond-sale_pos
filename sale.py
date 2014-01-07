@@ -408,7 +408,7 @@ class WizardAddProduct(Wizard):
         for f,v in res.iteritems():
             setattr(line, f, v)
         line.unit_price = form.unit_price
-        line.save();
+        line.save()
 
     def transition_add_new_(self):
         self.add_product()
