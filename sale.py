@@ -157,7 +157,7 @@ class SaleLine:
 
     def get_unit_price_w_tax(self, name):
         if self.type == 'line':
-            return self.get_amount_w_tax(name) / Decimal(self.quantity)
+            return self.get_amount_w_tax(name) / Decimal(str(self.quantity))
         return None
 
     def get_amount_w_tax(self, name):
