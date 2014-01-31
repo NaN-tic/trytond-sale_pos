@@ -2,7 +2,7 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from decimal import Decimal
-from trytond.model import ModelView, fields
+from trytond.model import Workflow, ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Eval, If, Bool
@@ -96,6 +96,38 @@ class Sale:
     def print_ticket(cls, sales):
         pass
 
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('processing')
+    def autopicking(cls, sales):
+        Move = Pool().get('stock.move')
+        done = []
+        for sale in sales:
+            if sale.state in ('done', 'cancel'):
+                continue
+            
+            sale.create_invoice('out_invoice')            
+            sale.create_invoice('out_credit_note')            
+            
+            moves_out = sale._get_move_sale_line('out')
+            moves_ret = sale._get_move_sale_line('return')
+            to_create = []
+            for m in moves_out:
+                to_create.append(moves_out[m]._save_values)
+            for m in moves_ret:
+                to_create.append(moves_ret[m]._save_values)
+                
+            Move.create(to_create)
+            Move.do(sale.moves)
+
+            sale.set_shipment_state()
+            if sale.is_done():
+                done.append(sale)
+        if done:
+            cls.write(done, {
+                    'state': 'done',
+                    })
+
 
 class SaleLine:
     __name__ = 'sale.line'
@@ -141,7 +173,6 @@ class SaleLine:
         if Transaction().context.get('company'):
             company = Company(Transaction().context['company'])
             return company.currency.id
-
 
     def on_change_with_currency_digits(self, name=None):
         if self.currency:
@@ -506,26 +537,7 @@ class WizardSalePayment(Wizard):
         sale.save()
         Sale.quote([sale])
         Sale.confirm([sale])
-        Sale.process([sale])
-
-        if sale.shipments:
-            ShipmentOut.assign_force(sale.shipments)
-            ShipmentOut.pack(sale.shipments)
-            ShipmentOut.done(sale.shipments)
-        if sale.shipment_returns:
-            ShipmentOutReturn.receive(sale.shipment_returns)
-            ShipmentOutReturn.done(sale.shipment_returns)
-
-        if not sale.invoices:
-            self.raise_user_error('not_customer_invoice')
-        for invoice in sale.invoices:
-            if invoice.state=='draft':
-                invoice.description = sale.reference
-                invoice.save()
-        Invoice.post(sale.invoices)
-        for payment in sale.payments:
-            payment.invoice = sale.invoices[0].id
-            payment.save()
+        Sale.autopicking([sale])
 
         return 'print_'
 
