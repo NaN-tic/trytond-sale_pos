@@ -85,9 +85,9 @@ class Sale:
         Line = Pool().get('sale.line')
         sale = sales[0]
         line = Line(
-            sale = sale.id,
-            type = 'subtotal',
-            description = 'Subtotal',
+            sale=sale.id,
+            type='subtotal',
+            description='Subtotal',
             )
         line.save()
 
@@ -108,20 +108,20 @@ class Sale:
         for sale in sales:
             if sale.state in ('done', 'cancel'):
                 continue
-            
-            sale.create_invoice('out_invoice')       
+
+            sale.create_invoice('out_invoice')
             sale.create_invoice('out_credit_note')
             if not sale.invoices:
-                self.raise_user_error('not_customer_invoice')
+                cls.raise_user_error('not_customer_invoice')
             for invoice in sale.invoices:
-                if invoice.state=='draft':
+                if invoice.state == 'draft':
                     invoice.description = sale.reference
                     invoice.save()
             Invoice.post(sale.invoices)
             for payment in sale.payments:
                 payment.invoice = sale.invoices[0].id
                 payment.save()
-            
+
             moves_out = sale._get_move_sale_line('out')
             moves_ret = sale._get_move_sale_line('return')
             to_create = []
@@ -129,7 +129,7 @@ class Sale:
                 to_create.append(moves_out[m]._save_values)
             for m in moves_ret:
                 to_create.append(moves_ret[m]._save_values)
-                
+
             Move.create(to_create)
             Move.do(sale.moves)
 
@@ -153,7 +153,7 @@ class SaleLine:
                 },
             on_change_with=['type', 'unit_price',
                 '_parent_sale.currency'],
-            depends=['type','currency_digits']), 'get_unit_price_w_tax')
+            depends=['type', 'currency_digits']), 'get_unit_price_w_tax')
     amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
             digits=(16, Eval('_parent_sale', {}).get('currency_digits',
                     Eval('currency_digits', 2))),
@@ -215,8 +215,8 @@ class SaleLine:
                 key, val = Invoice._compute_tax(tax, 'out_invoice')
                 tax_amount += val.get('amount')
             if currency:
-                return currency.round(self.get_amount(name)+tax_amount)
-            return self.get_amount(name)+tax_amount
+                return currency.round(self.get_amount(name) + tax_amount)
+            return self.get_amount(name) + tax_amount
         elif self.type == 'subtotal':
             amount = Decimal('0.0')
             for line2 in self.sale.lines:
@@ -248,7 +248,7 @@ class SaleReportSummary(CompanyReport):
 
     @classmethod
     def parse(cls, report, objects, data, localcontext):
-        User= Pool().get('res.user')
+        User = Pool().get('res.user')
         user = User(Transaction().user)
         sum_untaxed_amount = Decimal(0)
         sum_tax_amount = Decimal(0)
@@ -274,7 +274,7 @@ class SaleReportSummaryByParty(CompanyReport):
 
     @classmethod
     def parse(cls, report, objects, data, localcontext):
-        User= Pool().get('res.user')
+        User = Pool().get('res.user')
         user = User(Transaction().user)
         sum_untaxed_amount = Decimal(0)
         sum_tax_amount = Decimal(0)
@@ -439,7 +439,7 @@ class WizardAddProduct(Wizard):
         line.description = None
         line.sale = Transaction().context.get('active_id', False)
         res = line.on_change_product()
-        for f,v in res.iteritems():
+        for f, v in res.iteritems():
             setattr(line, f, v)
         line.unit_price = form.unit_price
         line.save()
@@ -484,8 +484,8 @@ class WizardSalePayment(Wizard):
     def __setup__(cls):
         super(WizardSalePayment, cls).__setup__()
         cls._error_messages.update({
-                'not_pos_device': ('You have not defined a POS device for your '
-                    'user.'),
+                'not_pos_device': ('You have not defined a POS device for '
+                    'your user.'),
                 'not_draft_statement': ('A draft statement for "%s" payments '
                     'has not been created.'),
                 'not_customer_invoice': ('A customer invoice/refund '
@@ -514,9 +514,6 @@ class WizardSalePayment(Wizard):
         Sale = pool.get('sale.sale')
         Statement = pool.get('account.statement')
         StatementLine = pool.get('account.statement.line')
-        Invoice = pool.get('account.invoice')
-        ShipmentOut = pool.get('stock.shipment.out')
-        ShipmentOutReturn = pool.get('stock.shipment.out.return')
 
         form = self.start
         statements = Statement.search([
@@ -532,13 +529,13 @@ class WizardSalePayment(Wizard):
             Sale.set_reference([sale])
 
         payment = StatementLine(
-            statement = statements[0].id,
-            date = Date.today(),
-            amount = form.payment_amount,
-            party = sale.party.id,
-            account = sale.party.account_receivable.id,
-            description = sale.reference,
-            sale = active_id
+            statement=statements[0].id,
+            date=Date.today(),
+            amount=form.payment_amount,
+            party=sale.party.id,
+            account=sale.party.account_receivable.id,
+            description=sale.reference,
+            sale=active_id
             )
         payment.save()
 
