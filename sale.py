@@ -122,6 +122,8 @@ class Sale:
                 payment.invoice = sale.invoices[0].id
                 payment.save()
 
+            sale.shipment_method = 'order'
+            sale.save()
             moves_out = sale._get_move_sale_line('out')
             moves_ret = sale._get_move_sale_line('return')
             to_create = []
@@ -543,7 +545,7 @@ class WizardSalePayment(Wizard):
             return 'start'
 
         sale.invoice_method = 'order'
-        sale.shipment_method = 'order'
+        sale.shipment_method = 'manual'
         sale.description = sale.reference
         sale.save()
         Sale.quote([sale])
