@@ -1,14 +1,10 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:product.code:"
 msgid "Invalid Barcode number!"
 msgstr "El número del codi de barres no és correcte."
-
-msgctxt "error:sale_pos.device:"
-msgid "Device %s not found...!"
-msgstr "No s'ha trobat el dispositiu %s."
 
 msgctxt "error:sale_pos.sale_payment:"
 msgid "A customer invoice/refund from POS sale has not been created."
@@ -139,18 +135,6 @@ msgctxt "field:sale_pos.device,create_uid:"
 msgid "Create User"
 msgstr "Usuari de creació"
 
-msgctxt "field:sale_pos.device,display_baud:"
-msgid "BAUD-Rate"
-msgstr "Velocitat (BAUD)"
-
-msgctxt "field:sale_pos.device,display_digits:"
-msgid "Digits per Row"
-msgstr "Dígits per fila"
-
-msgctxt "field:sale_pos.device,display_port:"
-msgid "Display port"
-msgstr "Port del display"
-
 msgctxt "field:sale_pos.device,id:"
 msgid "ID"
 msgstr "ID"
@@ -162,18 +146,6 @@ msgstr "Diari per defecte"
 msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diaris"
-
-msgctxt "field:sale_pos.device,logo:"
-msgid "Receipt Logo"
-msgstr "Logo tiquet"
-
-msgctxt "field:sale_pos.device,name:"
-msgid "Device Name"
-msgstr "Nom dispositiu"
-
-msgctxt "field:sale_pos.device,printer_port:"
-msgid "Printer Port"
-msgstr "Port de la impressora"
 
 msgctxt "field:sale_pos.device,rec_name:"
 msgid "Name"
@@ -246,14 +218,6 @@ msgstr "Import pagament"
 msgctxt "help:product.code,barcode:"
 msgid "Setting code will enable validation of the product number."
 msgstr "Indicant el codi es podrà validar el número del producte."
-
-msgctxt "help:sale_pos.device,display_port:"
-msgid "Like /dev/ttyS0"
-msgstr "Per exemple /dev/ttyS0"
-
-msgctxt "help:sale_pos.device,printer_port:"
-msgid "Port type the receipt printer is conntected to."
-msgstr "Tipus de port al que està connectada la impressora de tiquets."
 
 msgctxt "model:ir.action,name:act_pos_device"
 msgid "POS Device"

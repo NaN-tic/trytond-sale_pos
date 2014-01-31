@@ -5,8 +5,4 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <field name="name"/>
     <field name="shop"/>
     <field name="company"/>
-    <field name="printer_port"/>
-    <field name="display_port"/>
-    <field name="display_baud"/>
-    <field name="display_digits"/>
 </tree>

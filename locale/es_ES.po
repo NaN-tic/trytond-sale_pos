@@ -1,14 +1,10 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:product.code:"
 msgid "Invalid Barcode number!"
 msgstr "El número del código de barras no es correcto."
-
-msgctxt "error:sale_pos.device:"
-msgid "Device %s not found...!"
-msgstr "No se ha encontrado el dispositivo %s."
 
 msgctxt "error:sale_pos.sale_payment:"
 msgid "A customer invoice/refund from POS sale has not been created."
@@ -139,18 +135,6 @@ msgctxt "field:sale_pos.device,create_uid:"
 msgid "Create User"
 msgstr "Usuario de creación"
 
-msgctxt "field:sale_pos.device,display_baud:"
-msgid "BAUD-Rate"
-msgstr "Velocidad (BAUD)"
-
-msgctxt "field:sale_pos.device,display_digits:"
-msgid "Digits per Row"
-msgstr "Dígitos por fila"
-
-msgctxt "field:sale_pos.device,display_port:"
-msgid "Display port"
-msgstr "Puerto del display"
-
 msgctxt "field:sale_pos.device,id:"
 msgid "ID"
 msgstr "ID"
@@ -162,18 +146,6 @@ msgstr "Diario por defecto"
 msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diarios"
-
-msgctxt "field:sale_pos.device,logo:"
-msgid "Receipt Logo"
-msgstr "Logo ticket"
-
-msgctxt "field:sale_pos.device,name:"
-msgid "Device Name"
-msgstr "Nombre dispositivo"
-
-msgctxt "field:sale_pos.device,printer_port:"
-msgid "Printer Port"
-msgstr "Puerto de la impresora"
 
 msgctxt "field:sale_pos.device,rec_name:"
 msgid "Name"
@@ -246,14 +218,6 @@ msgstr "Importe pago"
 msgctxt "help:product.code,barcode:"
 msgid "Setting code will enable validation of the product number."
 msgstr "Indicando el código se podrá validar el número del producto."
-
-msgctxt "help:sale_pos.device,display_port:"
-msgid "Like /dev/ttyS0"
-msgstr "Por ejemplo /dev/ttyS0"
-
-msgctxt "help:sale_pos.device,printer_port:"
-msgid "Port type the receipt printer is conntected to."
-msgstr "Tipo de puerto al que está conectada la impresora de tickets."
 
 msgctxt "model:ir.action,name:act_pos_device"
 msgid "POS Device"

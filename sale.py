@@ -32,9 +32,6 @@ class Sale:
     @classmethod
     def __setup__(cls):
         super(Sale, cls).__setup__()
-        #cls.__rpc__.update({
-                #'add_sum': RPC(readonly=False, instantiate=0),
-                #})
         cls._buttons.update({
                 'add_sum': {
                     'invisible': Eval('state') != 'draft'
@@ -93,10 +90,6 @@ class Sale:
             description = 'Subtotal',
             )
         line.save()
-        #Configuration = Pool().get('sale_pos.configuration')
-        #configuration = Configuration.search([])[0]
-        #if configuration.display_port:
-            #sale._display.show_total(cls.browse(sales))
 
     @classmethod
     @ModelView.button_action('sale_pos.report_sale_ticket')
@@ -573,7 +566,6 @@ class WizardSaleReconcile(Wizard):
                             line.account.id == account.id):
                         lines.append(line)
                         amount += line.debit - line.credit
-            print amount, lines
             if lines and amount == Decimal('0.0'):
                 Line.reconcile(lines)
         return 'end'
