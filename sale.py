@@ -100,14 +100,27 @@ class Sale:
     @ModelView.button
     @Workflow.transition('processing')
     def autopicking(cls, sales):
-        Move = Pool().get('stock.move')
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+        Move = pool.get('stock.move')
+
         done = []
         for sale in sales:
             if sale.state in ('done', 'cancel'):
                 continue
             
-            sale.create_invoice('out_invoice')            
-            sale.create_invoice('out_credit_note')            
+            sale.create_invoice('out_invoice')       
+            sale.create_invoice('out_credit_note')
+            if not sale.invoices:
+                self.raise_user_error('not_customer_invoice')
+            for invoice in sale.invoices:
+                if invoice.state=='draft':
+                    invoice.description = sale.reference
+                    invoice.save()
+            Invoice.post(sale.invoices)
+            for payment in sale.payments:
+                payment.invoice = sale.invoices[0].id
+                payment.save()
             
             moves_out = sale._get_move_sale_line('out')
             moves_ret = sale._get_move_sale_line('return')
@@ -123,6 +136,7 @@ class Sale:
             sale.set_shipment_state()
             if sale.is_done():
                 done.append(sale)
+
         if done:
             cls.write(done, {
                     'state': 'done',
