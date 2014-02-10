@@ -5,7 +5,7 @@ from decimal import Decimal
 from trytond.model import Workflow, ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
-from trytond.pyson import Eval, If, Bool
+from trytond.pyson import Bool, Eval, If, Or
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
     Button
 from trytond.modules.company import CompanyReport
@@ -40,7 +40,8 @@ class Sale:
                     'invisible': Eval('state') != 'draft'
                     },
                 'wizard_sale_payment': {
-                    'invisible': Eval('state') == 'done'
+                    'invisible': Or(Eval('state') == 'done',
+                        Eval('residual_amount', 0) == 0)
                     },
                 'print_ticket': {}
                 })
@@ -153,8 +154,8 @@ class SaleLine:
             states={
                 'invisible': ~Eval('type').in_(['line', 'subtotal']),
                 },
-            on_change_with=['type', 'unit_price',
-                '_parent_sale.currency'],
+            on_change_with=['type', 'unit_price', 'quantity', 'taxes',
+                'sale', '_parent_sale.currency'],
             depends=['type', 'currency_digits']), 'get_unit_price_w_tax')
     amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
             digits=(16, Eval('_parent_sale', {}).get('currency_digits',
@@ -162,13 +163,11 @@ class SaleLine:
             states={
                 'invisible': ~Eval('type').in_(['line', 'subtotal']),
                 },
-            on_change_with=['type', 'unit_price',
-                '_parent_sale.currency'],
+            on_change_with=['type', 'unit_price', 'quantity', 'taxes',
+                'sale', '_parent_sale.currency'],
             depends=['type', 'currency_digits']), 'get_amount_w_tax')
-
     currency_digits = fields.Function(fields.Integer('Currency Digits',
         on_change_with=['currency']), 'on_change_with_currency_digits')
-
     currency = fields.Many2One('currency.currency', 'Currency',
         states={
             'required': ~Eval('sale'),
