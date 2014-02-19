@@ -51,7 +51,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="add_product_view_form">
             <field name="model">sale_pos.add_product_form</field>
             <field name="type">form</field>
-            <field name="priority">10</field>
+            <field name="priority">20</field>
             <field name="name">add_product_form</field>
         </record>
 
