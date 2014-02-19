@@ -33,8 +33,17 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="paid_amount"/>
             <label name="residual_amount"/>
             <field name="residual_amount"/>
-            <field name="invoice_address" invisible="1"/>
-            <field name="shipment_address" invisible="1"/>
+            <separator colspan="2" id="shipment_info"/>
+            <label name="self_pick_up"/>
+            <field name="self_pick_up"/>
+            <label name="shipment_method"/>
+            <field name="shipment_method"/>
+            <label name="shipment_address"/>
+            <field name="shipment_address"/>
+            <label name="invoice_method"/>
+            <field name="invoice_method"/>
+            <label name="invoice_address"/>
+            <field name="invoice_address"/>
             <field name="currency" invisible="1"/>
         </page>
         <page string="Payments" col="2" id="payments">
@@ -49,6 +58,14 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <label name="invoice_state"/>
             <field name="invoice_state"/>
         </page>
+        <page string="Shipments" id="shipments" col="2">
+            <field name="moves" colspan="2"
+                view_ids="sale.move_view_list_shipment"/>
+            <field name="shipments" colspan="2"/>
+            <field name="shipment_returns" colspan="2"/>
+            <label name="shipment_state"/>
+            <field name="shipment_state"/>
+        </page>
     </notebook>
     <group id="cash" colspan="2">
         <button name="wizard_add_product" string="_Add Product"
@@ -62,4 +79,16 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     </group>
     <label name="state"/>
     <field name="state"/>
+    <group col="7" colspan="4" id="full_workflow_buttons"
+        states="{'invisible': Eval('self_pick_up', False)}">
+        <button name="cancel" string="Cancel" icon="tryton-cancel"/>
+        <button name="draft" string="Draft"/>
+        <button name="quote" string="Quote" icon="tryton-go-next"/>
+        <button name="handle_invoice_exception"
+            string="Handle Invoice Exception" icon="tryton-go-next"/>
+        <button name="handle_shipment_exception"
+            string="Handle Shipment Exception" icon="tryton-go-next"/>
+        <button name="confirm" string="Confirm" icon="tryton-go-next"/>
+        <button name="process" string="Process" icon="tryton-go-next"/>
+    </group>
 </form>

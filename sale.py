@@ -2,12 +2,12 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from decimal import Decimal
-from trytond.model import Workflow, ModelView, fields
+from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Bool, Eval, If, Or
-from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
-    Button
+from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
+    Button)
 from trytond.modules.company import CompanyReport
 
 __all__ = [
@@ -22,6 +22,14 @@ __metaclass__ = PoolMeta
 
 class Sale:
     __name__ = 'sale.sale'
+
+    self_pick_up = fields.Boolean('Self Pick Up', states={
+            'readonly': Eval('state') != 'draft',
+            }, depends=['state'],
+        on_change=['shop', 'self_pick_up', 'invoice_method', 'shipment_method',
+            'shipment_address'],
+        help='The goods are picked up by the customer before the sale, so no '
+        'shipment is created.')
     create_date = fields.DateTime('Create Date')
     payments = fields.One2Many('account.statement.line', 'sale', 'Payments')
     paid_amount = fields.Function(fields.Numeric('Paid Amount', readonly=True),
@@ -32,6 +40,25 @@ class Sale:
     @classmethod
     def __setup__(cls):
         super(Sale, cls).__setup__()
+
+        for fname in cls.self_pick_up.on_change:
+            if fname not in cls.shop.on_change:
+                cls.shop.on_change.append(fname)
+            if fname not in cls.party.on_change:
+                cls.party.on_change.append(fname)
+        for fname in cls.party.on_change:
+            if fname not in cls.self_pick_up.on_change:
+                cls.self_pick_up.on_change.append(fname)
+        for fname in ('invoice_method', 'invoice_address', 'shipment_method',
+                'shipment_address'):
+            fstates = getattr(cls, fname).states
+            if fstates.get('readonly'):
+                fstates['readonly'] = Or(fstates['readonly'],
+                    Eval('self_pick_up', False))
+            else:
+                fstates['readonly'] = Eval('self_pick_up', False)
+            getattr(cls, fname).depends.append('self_pick_up')
+
         cls._buttons.update({
                 'add_sum': {
                     'invisible': Eval('state') != 'draft'
@@ -51,6 +78,48 @@ class Sale:
         User = Pool().get('res.user')
         user = User(Transaction().user)
         return user.shop.party.id if user.shop and user.shop.party else None
+
+    @classmethod
+    def default_self_pick_up(cls):
+        pool = Pool()
+        Shop = pool.get('sale.shop')
+        shop_id = cls.default_shop()
+        if shop_id:
+            shop = Shop(shop_id)
+            return shop.self_pick_up
+
+    def on_change_shop(self):
+        res = super(Sale, self).on_change_shop()
+        if self.shop:
+            self.self_pick_up = self.shop.self_pick_up
+            res['self_pick_up'] = self.self_pick_up
+            res.update(self.on_change_self_pick_up())
+        return res
+
+    def on_change_party(self):
+        res = super(Sale, self).on_change_party()
+        if self.self_pick_up:
+            res.update(self.on_change_self_pick_up())
+        return res
+
+    def on_change_self_pick_up(self):
+        if self.self_pick_up:
+            res = {
+                'invoice_method': 'order',
+                'shipment_method': 'order',
+                }
+            if self.shop.address:
+                res['shipment_address'] = self.shop.address.id,
+                res['shipment_address.rec_name'] = self.shop.address.rec_name
+            return res
+        party_onchange = self.on_change_party()
+        return {
+            'invoice_method': self.default_invoice_method(),
+            'shipment_method': self.default_shipment_method(),
+            'shipment_address': party_onchange.get('shipment_address'),
+            'shipment_address.rec_name':
+                party_onchange.get('shipment_address.rec_name'),
+            }
 
     def get_paid_amount(self, name):
         res = Decimal(0)
@@ -97,53 +166,31 @@ class Sale:
     def print_ticket(cls, sales):
         pass
 
-    @classmethod
-    @ModelView.button
-    @Workflow.transition('processing')
-    def autopicking(cls, sales):
+    def create_shipment(self, shipment_type):
+        if self.self_pick_up:
+            return
+        return super(Sale, self).create_shipment(shipment_type)
+
+    def create_moves_without_shipment(self):
         pool = Pool()
-        Invoice = pool.get('account.invoice')
         Move = pool.get('stock.move')
 
-        done = []
-        for sale in sales:
-            if sale.state in ('done', 'cancel'):
-                continue
+        if not self.self_pick_up:
+            return
 
-            sale.create_invoice('out_invoice')
-            sale.create_invoice('out_credit_note')
-            if not sale.invoices:
-                cls.raise_user_error('not_customer_invoice')
-            for invoice in sale.invoices:
-                if invoice.state == 'draft':
-                    invoice.description = sale.reference
-                    invoice.save()
-            Invoice.post(sale.invoices)
-            for payment in sale.payments:
-                payment.invoice = sale.invoices[0].id
-                payment.save()
+        assert self.shipment_method == 'order'
+        moves_out = self._get_move_sale_line('out')
+        moves_ret = self._get_move_sale_line('return')
+        to_create = []
+        for m in moves_out:
+            to_create.append(moves_out[m]._save_values)
+        for m in moves_ret:
+            to_create.append(moves_ret[m]._save_values)
 
-            sale.shipment_method = 'order'
-            sale.save()
-            moves_out = sale._get_move_sale_line('out')
-            moves_ret = sale._get_move_sale_line('return')
-            to_create = []
-            for m in moves_out:
-                to_create.append(moves_out[m]._save_values)
-            for m in moves_ret:
-                to_create.append(moves_ret[m]._save_values)
+        Move.create(to_create)
+        Move.do(self.moves)
 
-            Move.create(to_create)
-            Move.do(sale.moves)
-
-            sale.set_shipment_state()
-            if sale.is_done():
-                done.append(sale)
-
-        if done:
-            cls.write(done, {
-                    'state': 'done',
-                    })
+        self.set_shipment_state()
 
 
 class SaleLine:
@@ -215,7 +262,7 @@ class SaleLine:
                 self.quantity or 0.0)
             tax_amount = Decimal('0.0')
             for tax in tax_list:
-                key, val = Invoice._compute_tax(tax, 'out_invoice')
+                _, val = Invoice._compute_tax(tax, 'out_invoice')
                 tax_amount += val.get('amount')
             if currency:
                 return currency.round(self.get_amount(name) + tax_amount)
@@ -239,6 +286,20 @@ class SaleLine:
 
     def on_change_with_amount_w_tax(self, name=None):
         return self.get_amount_w_tax(name)
+
+    def get_from_location(self, name):
+        res = super(SaleLine, self).get_from_location(name)
+        if self.sale.self_pick_up:
+            if self.warehouse and self.quantity >= 0:
+                return self.warehouse.storage_location.id
+        return res
+
+    def get_to_location(self, name):
+        res = super(SaleLine, self).get_to_location(name)
+        if self.sale.self_pick_up:
+            if self.warehouse and self.quantity < 0:
+                return self.warehouse.storage_location.id
+        return res
 
 
 class StatementLine:
@@ -470,6 +531,8 @@ class SalePaymentForm(ModelView):
         digits=(16, Eval('currency_digits', 2)),
         depends=['currency_digits'])
     currency_digits = fields.Integer('Currency Digits')
+    party = fields.Many2One('party.party', 'Party', readonly=True)
+    self_pick_up = fields.Boolean('Self Pick Up', readonly=True)
 
 
 class WizardSalePayment(Wizard):
@@ -509,11 +572,14 @@ class WizardSalePayment(Wizard):
             'payment_amount': sale.total_amount - sale.paid_amount
                 if sale.paid_amount else sale.total_amount,
             'currency_digits': sale.currency_digits,
+            'self_pick_up': sale.self_pick_up,
+            'party': sale.party.id,
             }
 
     def transition_pay_(self):
         pool = Pool()
         Date = pool.get('ir.date')
+        Invoice = pool.get('account.invoice')
         Sale = pool.get('sale.sale')
         Statement = pool.get('account.statement')
         StatementLine = pool.get('account.statement.line')
@@ -544,14 +610,35 @@ class WizardSalePayment(Wizard):
 
         if sale.total_amount != sale.paid_amount:
             return 'start'
+        if sale.state != 'draft':
+            return 'print_'
 
-        sale.invoice_method = 'order'
-        sale.shipment_method = 'manual'
         sale.description = sale.reference
         sale.save()
+
         Sale.quote([sale])
         Sale.confirm([sale])
-        Sale.autopicking([sale])
+        Sale.process([sale])
+
+        if not sale.invoices:
+            self.raise_user_error('not_customer_invoice')
+
+        sale.create_moves_without_shipment()
+
+        grouping = getattr(sale.party, 'sale_invoice_grouping_method', False)
+        if not grouping:
+            for invoice in sale.invoices:
+                if invoice.state == 'draft':
+                    invoice.description = sale.reference
+                    invoice.save()
+            Invoice.post(sale.invoices)
+            for payment in sale.payments:
+                payment.invoice = sale.invoices[0].id
+                payment.save()
+
+        if sale.is_done():
+            sale.state = 'done'
+            sale.save()
 
         return 'print_'
 
