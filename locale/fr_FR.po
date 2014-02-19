@@ -1,21 +1,10 @@
-#
-# , 2013.
+# 
 msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Last-Translator: \n"
-"PO-Revision-Date: 2013-11-28 22:47+0100\n"
-"Project-Id-Version: \n"
-"Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
-"Content-Transfer-Encoding: 8bit\n"
-"MIME-Version: 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.4\n"
+msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:sale_pos.device:"
-msgid "Device %s not found...!"
-msgstr "Périphérique %s non trouvé ... !"
+msgctxt "error:sale.sale:"
+msgid "Go to user preferences and select a shop (\"%s\")"
+msgstr ""
 
 msgctxt "error:sale_pos.sale_payment:"
 msgid "A customer invoice/refund from POS sale has not been created."
@@ -41,6 +30,16 @@ msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Montant TTC"
 
+#, fuzzy
+msgctxt "field:sale.line,currency:"
+msgid "Currency"
+msgstr "Devises"
+
+#, fuzzy
+msgctxt "field:sale.line,currency_digits:"
+msgid "Currency Digits"
+msgstr "Décimales de la devise"
+
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"
 msgstr "Prix unit. TTC"
@@ -60,6 +59,10 @@ msgstr "Reste à payer"
 msgctxt "field:sale.shop,party:"
 msgid "Default Party"
 msgstr "Tiers par défaut"
+
+msgctxt "field:sale.shop,self_pick_up:"
+msgid "Default Self Pick Up"
+msgstr ""
 
 msgctxt "field:sale_pos.add_product_form,id:"
 msgid "ID"
@@ -105,18 +108,6 @@ msgctxt "field:sale_pos.device,create_uid:"
 msgid "Create User"
 msgstr "Créé par"
 
-msgctxt "field:sale_pos.device,display_baud:"
-msgid "BAUD-Rate"
-msgstr "Vitesse (BAUD)"
-
-msgctxt "field:sale_pos.device,display_digits:"
-msgid "Digits per Row"
-msgstr "Chiffre par ligne"
-
-msgctxt "field:sale_pos.device,display_port:"
-msgid "Display port"
-msgstr "Port de l'afficheur"
-
 msgctxt "field:sale_pos.device,id:"
 msgid "ID"
 msgstr "ID"
@@ -129,17 +120,9 @@ msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Journaux"
 
-msgctxt "field:sale_pos.device,logo:"
-msgid "Receipt Logo"
-msgstr "Logo du reçu"
-
 msgctxt "field:sale_pos.device,name:"
 msgid "Device Name"
 msgstr "Nom du périphérique"
-
-msgctxt "field:sale_pos.device,printer_port:"
-msgid "Printer Port"
-msgstr "Port de l'imprimante"
 
 msgctxt "field:sale_pos.device,rec_name:"
 msgid "Name"
@@ -205,17 +188,24 @@ msgctxt "field:sale_pos.sale_payment_form,journals:"
 msgid "Allowed Statement Journals"
 msgstr "Journaux de relevés permis"
 
+#, fuzzy
+msgctxt "field:sale_pos.sale_payment_form,party:"
+msgid "Party"
+msgstr "Tiers"
+
 msgctxt "field:sale_pos.sale_payment_form,payment_amount:"
 msgid "Payment amount"
 msgstr "Montant du paiement"
 
-msgctxt "help:sale_pos.device,display_port:"
-msgid "Like /dev/ttyS0"
-msgstr "Ex : /dev/ttyS0"
+msgctxt "field:sale_pos.sale_payment_form,self_pick_up:"
+msgid "Self Pick Up"
+msgstr ""
 
-msgctxt "help:sale_pos.device,printer_port:"
-msgid "Port type the receipt printer is conntected to."
-msgstr "Type de port auquel est connecté l'imprimante des reçus."
+msgctxt "help:sale.shop,self_pick_up:"
+msgid ""
+"The goods are picked up by the customer before the sale, so no shipment is "
+"created."
+msgstr ""
 
 msgctxt "model:ir.action,name:act_pos_device"
 msgid "POS Device"
@@ -437,6 +427,31 @@ msgctxt "view:sale.sale:"
 msgid "Add _Sum"
 msgstr "Ajout _S/Total"
 
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Cancel"
+msgstr "Annuler"
+
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Confirm"
+msgstr "Confirmer"
+
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Draft"
+msgstr "Brouillon"
+
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Handle Invoice Exception"
+msgstr "Gérer l'exception de facture"
+
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Handle Shipment Exception"
+msgstr "Gérer l'exception d'expédition"
+
 msgctxt "view:sale.sale:"
 msgid "Invoices"
 msgstr "Factures"
@@ -449,9 +464,24 @@ msgctxt "view:sale.sale:"
 msgid "Pos Cash Sales"
 msgstr "Ventes PdV en espèces"
 
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Process"
+msgstr "Traiter"
+
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Quote"
+msgstr "Devis"
+
 msgctxt "view:sale.sale:"
 msgid "Sale"
 msgstr "Vente"
+
+#, fuzzy
+msgctxt "view:sale.sale:"
+msgid "Shipments"
+msgstr "Expéditions"
 
 msgctxt "view:sale.sale:"
 msgid "_Add Product"
@@ -473,13 +503,18 @@ msgctxt "view:sale_pos.device:"
 msgid "POS Device Configuration"
 msgstr "Conf. du périphérique PdV"
 
-msgctxt "view:sale_pos.device:"
-msgid "Test display"
-msgstr "Essais de l'afficheur"
+msgctxt "view:sale_pos.sale_payment_form:"
+msgid ""
+"If you pay the entire amount, it will process this sale, moving the products"
+" without shipment and invoicing it."
+msgstr ""
 
-msgctxt "view:sale_pos.device:"
-msgid "Test printer"
-msgstr "Essais de l'imprimante"
+msgctxt "view:sale_pos.sale_payment_form:"
+msgid ""
+"If you want to manage the sale step by step or generate a shipment to manage"
+" the delivery, uncheck the Self Pick Up field in Sale's form and use the "
+"buttons in the bottom line."
+msgstr ""
 
 msgctxt "view:sale_pos.sale_payment_form:"
 msgid "Sale Payment Form"
@@ -504,5 +539,3 @@ msgstr "Annuler"
 msgctxt "wizard_button:sale_pos.sale_payment,start,pay_:"
 msgid "Pay"
 msgstr "Payer"
-
-

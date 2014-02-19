@@ -1,10 +1,14 @@
-#
+# 
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:product.code:"
 msgid "Invalid Barcode number!"
 msgstr "El número del codi de barres no és correcte."
+
+msgctxt "error:sale.sale:"
+msgid "Go to user preferences and select a shop (\"%s\")"
+msgstr "Selecciona una botiga en les seves preferencies (\"%s\")"
 
 msgctxt "error:sale_pos.sale_payment:"
 msgid "A customer invoice/refund from POS sale has not been created."
@@ -71,6 +75,14 @@ msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Total"
 
+msgctxt "field:sale.line,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:sale.line,currency_digits:"
+msgid "Currency Digits"
+msgstr "Dígits de la moneda"
+
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"
 msgstr "Preu unitat imp. incl."
@@ -90,6 +102,10 @@ msgstr "Pendent"
 msgctxt "field:sale.shop,party:"
 msgid "Default Party"
 msgstr "Tercer per defecte"
+
+msgctxt "field:sale.shop,self_pick_up:"
+msgid "Default Self Pick Up"
+msgstr "Auto-recollida per defecte"
 
 msgctxt "field:sale_pos.add_product_form,id:"
 msgid "ID"
@@ -146,6 +162,10 @@ msgstr "Diari per defecte"
 msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diaris"
+
+msgctxt "field:sale_pos.device,name:"
+msgid "Device Name"
+msgstr "Nom dispositiu"
 
 msgctxt "field:sale_pos.device,rec_name:"
 msgid "Name"
@@ -211,13 +231,29 @@ msgctxt "field:sale_pos.sale_payment_form,journals:"
 msgid "Allowed Statement Journals"
 msgstr "Diaris d'extracte permesos"
 
+msgctxt "field:sale_pos.sale_payment_form,party:"
+msgid "Party"
+msgstr "Tercers"
+
 msgctxt "field:sale_pos.sale_payment_form,payment_amount:"
 msgid "Payment amount"
 msgstr "Import pagament"
 
+msgctxt "field:sale_pos.sale_payment_form,self_pick_up:"
+msgid "Self Pick Up"
+msgstr "Auto-recollida"
+
 msgctxt "help:product.code,barcode:"
 msgid "Setting code will enable validation of the product number."
 msgstr "Indicant el codi es podrà validar el número del producte."
+
+msgctxt "help:sale.shop,self_pick_up:"
+msgid ""
+"The goods are picked up by the customer before the sale, so no shipment is "
+"created."
+msgstr ""
+"Els productes són recollits pel propi client abans de la venda, pel que no "
+"es generà albarà."
 
 msgctxt "model:ir.action,name:act_pos_device"
 msgid "POS Device"
@@ -431,62 +467,6 @@ msgctxt "odt:sale_pos.sales_summary_by_party:"
 msgid "Total"
 msgstr "Total"
 
-msgctxt "selection:product.code,barcode:"
-msgid "CODE39"
-msgstr "CODE39"
-
-msgctxt "selection:product.code,barcode:"
-msgid "EAN"
-msgstr "EAN"
-
-msgctxt "selection:product.code,barcode:"
-msgid "EAN13"
-msgstr "EAN13"
-
-msgctxt "selection:product.code,barcode:"
-msgid "EAN8"
-msgstr "EAN8"
-
-msgctxt "selection:product.code,barcode:"
-msgid "GS1"
-msgstr "GS1"
-
-msgctxt "selection:product.code,barcode:"
-msgid "GTIN"
-msgstr "GTIN"
-
-msgctxt "selection:product.code,barcode:"
-msgid "ISBN"
-msgstr "ISBN"
-
-msgctxt "selection:product.code,barcode:"
-msgid "ISBN10"
-msgstr "ISBN10"
-
-msgctxt "selection:product.code,barcode:"
-msgid "ISBN13"
-msgstr "ISBN13"
-
-msgctxt "selection:product.code,barcode:"
-msgid "ISSN"
-msgstr "ISSN"
-
-msgctxt "selection:product.code,barcode:"
-msgid "JAN"
-msgstr "JAN"
-
-msgctxt "selection:product.code,barcode:"
-msgid "PZN"
-msgstr "PZN"
-
-msgctxt "selection:product.code,barcode:"
-msgid "UPC"
-msgstr "UPC"
-
-msgctxt "selection:product.code,barcode:"
-msgid "UPCA"
-msgstr "UPCA"
-
 msgctxt "view:product.product:"
 msgid "Codes"
 msgstr "Codis"
@@ -504,6 +484,26 @@ msgid "Add _Sum"
 msgstr "Afegeix _suma"
 
 msgctxt "view:sale.sale:"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "view:sale.sale:"
+msgid "Confirm"
+msgstr "Confirma"
+
+msgctxt "view:sale.sale:"
+msgid "Draft"
+msgstr "Esborrany"
+
+msgctxt "view:sale.sale:"
+msgid "Handle Invoice Exception"
+msgstr "Gestionar excepció de factura"
+
+msgctxt "view:sale.sale:"
+msgid "Handle Shipment Exception"
+msgstr "Gestionar excepció d'enviament"
+
+msgctxt "view:sale.sale:"
 msgid "Invoices"
 msgstr "Factures"
 
@@ -516,8 +516,20 @@ msgid "Pos Cash Sales"
 msgstr "Vendes TPV"
 
 msgctxt "view:sale.sale:"
+msgid "Process"
+msgstr "Processa"
+
+msgctxt "view:sale.sale:"
+msgid "Quote"
+msgstr "Pressupost"
+
+msgctxt "view:sale.sale:"
 msgid "Sale"
 msgstr "Venda"
+
+msgctxt "view:sale.sale:"
+msgid "Shipments"
+msgstr "Enviaments"
 
 msgctxt "view:sale.sale:"
 msgid "_Add Product"
@@ -539,29 +551,31 @@ msgctxt "view:sale_pos.device:"
 msgid "POS Device Configuration"
 msgstr "Configuració dispositiu TPV"
 
-msgctxt "view:sale_pos.device:"
-msgid "Test display"
-msgstr "Prova display"
+msgctxt "view:sale_pos.sale_payment_form:"
+msgid ""
+"If you pay the entire amount, it will process this sale, moving the products"
+" without shipment and invoicing it."
+msgstr ""
+"Si paga la quantitat total es processarà la venda, movent els productes "
+"sense albarà i facturant-los."
 
-msgctxt "view:sale_pos.device:"
-msgid "Test printer"
-msgstr "Prova impressora"
+msgctxt "view:sale_pos.sale_payment_form:"
+msgid ""
+"If you want to manage the sale step by step or generate a shipment to manage"
+" the delivery, uncheck the Self Pick Up field in Sale's form and use the "
+"buttons in the bottom line."
+msgstr ""
+"Si vol gestionar la venda pas a pas o generar albarà per gestionar "
+"l'enviament, desmarqui l'opció Auto-recollida del formulari de la venda i "
+"utilitzi els botons de la part inferior."
 
 msgctxt "view:sale_pos.sale_payment_form:"
 msgid "Sale Payment Form"
 msgstr "Formulari pagament venda"
 
-msgctxt "wizard_button:sale_pos.add_product,start,add:"
-msgid "Add"
-msgstr "Afegeix"
-
 msgctxt "wizard_button:sale_pos.add_product,start,add_:"
 msgid "Add"
 msgstr "Afegeix"
-
-msgctxt "wizard_button:sale_pos.add_product,start,add_new:"
-msgid "Add and New"
-msgstr "Afegeix i nou"
 
 msgctxt "wizard_button:sale_pos.add_product,start,add_new_:"
 msgid "Add and New"
@@ -574,10 +588,6 @@ msgstr "Cancel·la"
 msgctxt "wizard_button:sale_pos.sale_payment,start,end:"
 msgid "Cancel"
 msgstr "Cancel·la"
-
-msgctxt "wizard_button:sale_pos.sale_payment,start,pay:"
-msgid "Pay"
-msgstr "Paga"
 
 msgctxt "wizard_button:sale_pos.sale_payment,start,pay_:"
 msgid "Pay"
