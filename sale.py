@@ -27,7 +27,7 @@ class Sale:
             'readonly': Eval('state') != 'draft',
             }, depends=['state'],
         on_change=['shop', 'self_pick_up', 'invoice_method', 'shipment_method',
-            'shipment_address'],
+            'shipment_address', 'party'],
         help='The goods are picked up by the customer before the sale, so no '
         'shipment is created.')
     create_date = fields.DateTime('Create Date')
