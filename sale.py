@@ -620,13 +620,13 @@ class WizardSalePayment(Wizard):
         Sale.confirm([sale])
         Sale.process([sale])
 
-        if not sale.invoices:
+        if not sale.invoices and sale.invoice_method == 'order':
             self.raise_user_error('not_customer_invoice')
 
         sale.create_moves_without_shipment()
 
         grouping = getattr(sale.party, 'sale_invoice_grouping_method', False)
-        if not grouping:
+        if sale.invoices and not grouping:
             for invoice in sale.invoices:
                 if invoice.state == 'draft':
                     invoice.description = sale.reference
