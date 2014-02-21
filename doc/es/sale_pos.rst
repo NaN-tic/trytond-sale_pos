@@ -7,8 +7,10 @@ Configuración
 
 Desde el menú Ventas/Configuración/Tiendas se definen las tiendas físicas donde
 se harán las ventas TPV, indicando la secuencia de las ventas (pedidos), el
-almacén desde donde se envían/reciben los productos y la tarifa, plazo de pago y
-tercero por defecto.
+almacén desde donde se envían/reciben los productos y la tarifa, plazo de pago,
+tercero por defecto y si se desea que por defecto se cree albarán para entregar
+los productos vendidos en el domicilio del cliente, o éste se los lleva en el
+momento de la venta.
 
 Desde el menú Ventas/Configuración/Dispositivos se definen los dispositivos
 físicos (terminales de venta) de cada tienda. Cada dispositivo tiene un nombre,
