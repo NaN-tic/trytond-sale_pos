@@ -67,8 +67,7 @@ class Sale:
                     'invisible': Eval('state') != 'draft'
                     },
                 'wizard_sale_payment': {
-                    'invisible': Or(Eval('state') == 'done',
-                        Eval('residual_amount', 0) == 0)
+                    'invisible': Eval('state') == 'done'
                     },
                 'print_ticket': {}
                 })
