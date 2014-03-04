@@ -242,9 +242,10 @@ class SaleLine:
 
     def get_unit_price_w_tax(self, name):
         if self.type == 'line':
-            return (self.quantity and
-                self.get_amount_w_tax(name) / Decimal(str(self.quantity)) or
-                Decimal('0.0'))
+            amount_w_tax = self.get_amount_w_tax(name)
+            if self.quantity:
+                return amount_w_tax / Decimal(str(self.quantity))
+            return amount_w_tax
         return None
 
     def get_amount_w_tax(self, name):
