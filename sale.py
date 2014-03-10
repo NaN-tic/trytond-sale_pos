@@ -108,7 +108,7 @@ class Sale:
                 'shipment_method': 'order',
                 }
             if self.shop.address:
-                res['shipment_address'] = self.shop.address.id,
+                res['shipment_address'] = self.shop.address.id
                 res['shipment_address.rec_name'] = self.shop.address.rec_name
             return res
         party_onchange = self.on_change_party()
