@@ -90,17 +90,17 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">sale_line_form</field>
         </record>
 
-        <record model="ir.ui.view" id="sale_view_tree">
+        <record model="ir.ui.view" id="sale_pos_view_tree">
             <field name="model">sale.sale</field>
             <field name="type">tree</field>
             <field name="priority">20</field>
-            <field name="name">sale_tree</field>
+            <field name="name">sale_pos_tree</field>
         </record>
-        <record model="ir.ui.view" id="sale_view_form">
+        <record model="ir.ui.view" id="sale_pos_view_form">
             <field name="model">sale.sale</field>
             <field name="type">form</field>
             <field name="priority">20</field>
-            <field name="name">sale_form</field>
+            <field name="name">sale_pos_form</field>
         </record>
 
         <!-- Actions -->
@@ -111,13 +111,13 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
 
         <record model="ir.action.act_window.view" id="act_sale_view_form">
             <field name="sequence" eval="20"/>
-            <field name="view" ref="sale_view_form"/>
+            <field name="view" ref="sale_pos_view_form"/>
             <field name="act_window" ref="act_sale_form"/>
         </record>
 
         <record model="ir.action.act_window.view" id="act_sale_view_tree">
             <field name="sequence" eval="10"/>
-            <field name="view" ref="sale_view_tree"/>
+            <field name="view" ref="sale_pos_view_tree"/>
             <field name="act_window" ref="act_sale_form"/>
         </record>
 
