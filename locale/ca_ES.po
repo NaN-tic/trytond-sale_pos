@@ -303,6 +303,30 @@ msgctxt "model:ir.action,name:wizard_sale_payment"
 msgid "Pay"
 msgstr "Paga"
 
+msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
+msgid "All"
+msgstr "Tot"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_confirmed"
+msgid "Confirmed"
+msgstr "Confirmat"
+
+#, fuzzy
+msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_draft"
+msgid "Draft"
+msgstr "Esborrany"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_processing"
+msgid "Processing"
+msgstr "En procés"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_quotation"
+msgid "Quotation"
+msgstr "Pressupost"
+
 msgctxt "model:ir.ui.menu,name:menu_pos_device"
 msgid "POS Devices"
 msgstr "Dispositius TPV"

@@ -126,6 +126,37 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="act_window" ref="act_sale_form"/>
         </record>
 
+        <record model="ir.action.act_window.domain" id="act_sale_form_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_sale_form_domain_quotation">
+            <field name="name">Quotation</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain">[('state', '=', 'quotation')]</field>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_sale_form_domain_confirmed">
+            <field name="name">Confirmed</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('state', '=', 'confirmed')]</field>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_sale_form_domain_processing">
+            <field name="name">Processing</field>
+            <field name="sequence" eval="40"/>
+            <field name="domain">[('state', '=', 'processing')]</field>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_sale_form_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_sale_form"/>
+        </record>
+
         <menuitem name="POS Sales" parent="sale.menu_sale" id="menu_sale"
             sequence="1" icon="tryton-list" action="act_sale_form"/>
     </data>
