@@ -97,7 +97,7 @@ class Sale:
 
     def on_change_party(self):
         res = super(Sale, self).on_change_party()
-        if self.self_pick_up:
+        if hasattr(self, 'self_pick_up') and self.self_pick_up:
             res.update(self.on_change_self_pick_up())
         return res
 
