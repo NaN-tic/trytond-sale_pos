@@ -107,6 +107,14 @@ msgctxt "field:sale.sale,shop_address:"
 msgid "Shop Address"
 msgstr "Adreça botiga"
 
+msgctxt "field:sale.shop,address:"
+msgid ""
+msgstr ""
+
+msgctxt "field:sale.shop,company_party:"
+msgid ""
+msgstr ""
+
 msgctxt "field:sale.shop,party:"
 msgid "Default Party"
 msgstr "Tercer per defecte"
@@ -373,7 +381,7 @@ msgstr "Descripció"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Draft Sale N°"
-msgstr "Tiquet esborrany Nº"
+msgstr "Factura esborrany Núm."
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Paid:"
@@ -453,7 +461,7 @@ msgstr "Impostos"
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "Ticket Nº"
-msgstr "Tiquet Nº"
+msgstr "Factura simplificada Núm."
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "Total"

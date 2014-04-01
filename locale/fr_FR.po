@@ -56,6 +56,22 @@ msgctxt "field:sale.sale,residual_amount:"
 msgid "Residual Amount"
 msgstr "Reste à payer"
 
+msgctxt "field:sale.sale,self_pick_up:"
+msgid ""
+msgstr ""
+
+msgctxt "field:sale.sale,shop_address:"
+msgid "Shop Address"
+msgstr ""
+
+msgctxt "field:sale.shop,address:"
+msgid ""
+msgstr ""
+
+msgctxt "field:sale.shop,company_party:"
+msgid ""
+msgstr ""
+
 msgctxt "field:sale.shop,party:"
 msgid "Default Party"
 msgstr "Tiers par défaut"
@@ -201,6 +217,10 @@ msgctxt "field:sale_pos.sale_payment_form,self_pick_up:"
 msgid "Self Pick Up"
 msgstr ""
 
+msgctxt "help:sale.sale,self_pick_up:"
+msgid ""
+msgstr ""
+
 msgctxt "help:sale.shop,self_pick_up:"
 msgid ""
 "The goods are picked up by the customer before the sale, so no shipment is "
@@ -238,6 +258,34 @@ msgstr "Ajout de produit"
 msgctxt "model:ir.action,name:wizard_sale_payment"
 msgid "Pay"
 msgstr "Payer"
+
+#, fuzzy
+msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
+msgid "All"
+msgstr "Toutes"
+
+#, fuzzy
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_confirmed"
+msgid "Confirmed"
+msgstr "Confirmée"
+
+#, fuzzy
+msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_draft"
+msgid "Draft"
+msgstr "Brouillon"
+
+#, fuzzy
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_processing"
+msgid "Processing"
+msgstr "Traitement"
+
+#, fuzzy
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_quotation"
+msgid "Quotation"
+msgstr "Devis"
 
 msgctxt "model:ir.ui.menu,name:menu_pos_device"
 msgid "POS Devices"
@@ -418,10 +466,6 @@ msgstr "Total"
 msgctxt "view:sale.line:"
 msgid "Lines"
 msgstr "Lignes"
-
-msgctxt "view:sale.line:"
-msgid "POS Sale"
-msgstr "Vente PdV"
 
 msgctxt "view:sale.sale:"
 msgid "Add _Sum"
