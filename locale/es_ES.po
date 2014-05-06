@@ -2,9 +2,17 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "error:account.statement.line:"
+msgid "Amount should be a positive or negative value."
+msgstr ""
+
 msgctxt "error:product.code:"
 msgid "Invalid Barcode number!"
 msgstr "El número del código de barras no es correcto."
+
+msgctxt "error:res.user:"
+msgid "You can not have two users with the same login!"
+msgstr ""
 
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
@@ -71,6 +79,10 @@ msgctxt "field:res.user,pos_device:"
 msgid "POS device"
 msgstr "Dispositivo TPV"
 
+msgctxt "field:sale.configuration,pos_sequence:"
+msgid "Sale Pos Code Sequence"
+msgstr "Sequencia Venta TPV"
+
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Total"
@@ -106,6 +118,10 @@ msgstr "Autorecogida"
 msgctxt "field:sale.sale,shop_address:"
 msgid "Shop Address"
 msgstr "Dirección tienda"
+
+msgctxt "field:sale.sale,ticket_number:"
+msgid "Ticket Number"
+msgstr "Número de ticket"
 
 msgctxt "field:sale.shop,address:"
 msgid ""
@@ -334,6 +350,14 @@ msgctxt ""
 msgid "Quotation"
 msgstr "Presupuesto"
 
+msgctxt "model:ir.sequence.strict,name:sequence_sale_pos"
+msgid "Sale Pos"
+msgstr "Venta TPV"
+
+msgctxt "model:ir.sequence.type,name:sequence_type_sale_pos"
+msgid "Sale Pos"
+msgstr "Venta TPV"
+
 msgctxt "model:ir.ui.menu,name:menu_pos_device"
 msgid "POS Devices"
 msgstr "Dispositivos TPV"
@@ -396,7 +420,7 @@ msgstr "Pendiente:"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Sale N°"
-msgstr "Factura simplificada Nº"
+msgstr "Venta Nº"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Salesman:"
@@ -405,6 +429,10 @@ msgstr "Atendido por:"
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Taxes:"
 msgstr "Impuestos:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Ticket Nº"
+msgstr "Factura simplificada Nº"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Total (excl. taxes):"

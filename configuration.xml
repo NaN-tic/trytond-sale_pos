@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="sale_configuration_view_form">
+            <field name="model">sale.configuration</field>
+            <field name="name">configuration_form</field>
+            <field name="inherit" ref="sale.sale_configuration_view_form" />
+        </record>
+
+        <record model="ir.sequence.type" id="sequence_type_sale_pos">
+            <field name="name">Sale Pos</field>
+            <field name="code">sale.pos</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_sale_group_admin">
+            <field name="sequence_type" ref="sequence_type_sale_pos"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_sale_group_sale_admin">
+            <field name="sequence_type" ref="sequence_type_sale_pos"/>
+            <field name="group" ref="sale.group_sale_admin"/>
+        </record>
+
+        <record model="ir.sequence.strict" id="sequence_sale_pos">
+            <field name="name">Sale Pos</field>
+            <field name="code">sale.pos</field>
+        </record>
+
+        <record model="ir.property" id="property_sale_sequence">
+            <field name="field"
+                search="[('model.model', '=', 'sale.configuration'), ('name', '=', 'pos_sequence')]"/>
+            <field name="value" eval="'ir.sequence,' + str(ref('sequence_sale_pos'))"/>
+        </record>
+    </data>
+</tryton>

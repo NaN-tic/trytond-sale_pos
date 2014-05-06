@@ -23,6 +23,7 @@ __metaclass__ = PoolMeta
 class Sale:
     __name__ = 'sale.sale'
 
+    ticket_number = fields.Char('Ticket Number', readonly=True, select=True)
     self_pick_up = fields.Boolean('Self Pick Up', states={
             'readonly': Eval('state') != 'draft',
             }, depends=['state'],
@@ -135,6 +136,7 @@ class Sale:
         if default is None:
             default = {}
         default = default.copy()
+        default['ticket_number'] = None
         default['payments'] = None
         return super(Sale, cls).copy(sales, default=default)
 
@@ -163,7 +165,16 @@ class Sale:
     @classmethod
     @ModelView.button_action('sale_pos.report_sale_ticket')
     def print_ticket(cls, sales):
-        pass
+        pool = Pool()
+        Config = pool.get('sale.configuration')
+        Sequence = pool.get('ir.sequence.strict')
+        sequence = Config(1).pos_sequence
+
+        for sale in sales:
+            if (not sale.ticket_number and
+                    sale.residual_amount == Decimal('0.0')):
+                sale.ticket_number = Sequence.get_id(sequence.id)
+                sale.save()
 
     def create_shipment(self, shipment_type):
         if self.self_pick_up:
@@ -607,6 +618,7 @@ class WizardSalePayment(Wizard):
             sale=active_id
             )
         payment.save()
+        Sale.print_ticket([sale])
 
         if sale.total_amount != sale.paid_amount:
             return 'start'

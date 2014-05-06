@@ -2,6 +2,14 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "error:account.statement.line:"
+msgid "Amount should be a positive or negative value."
+msgstr ""
+
+msgctxt "error:res.user:"
+msgid "You can not have two users with the same login!"
+msgstr ""
+
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
 msgstr ""
@@ -25,6 +33,10 @@ msgstr "Vente"
 msgctxt "field:res.user,pos_device:"
 msgid "POS device"
 msgstr "Périphérique PdV"
+
+msgctxt "field:sale.configuration,pos_sequence:"
+msgid "Sale Pos Code Sequence"
+msgstr ""
 
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
@@ -62,6 +74,10 @@ msgstr ""
 
 msgctxt "field:sale.sale,shop_address:"
 msgid "Shop Address"
+msgstr ""
+
+msgctxt "field:sale.sale,ticket_number:"
+msgid "Ticket Number"
 msgstr ""
 
 msgctxt "field:sale.shop,address:"
@@ -287,6 +303,14 @@ msgctxt ""
 msgid "Quotation"
 msgstr "Devis"
 
+msgctxt "model:ir.sequence.strict,name:sequence_sale_pos"
+msgid "Sale Pos"
+msgstr ""
+
+msgctxt "model:ir.sequence.type,name:sequence_type_sale_pos"
+msgid "Sale Pos"
+msgstr ""
+
 msgctxt "model:ir.ui.menu,name:menu_pos_device"
 msgid "POS Devices"
 msgstr "Périph. PdV"
@@ -354,6 +378,11 @@ msgstr "Vendeur :"
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Taxes:"
 msgstr "Taxes :"
+
+#, fuzzy
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Ticket Nº"
+msgstr "Ticket n°"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Total (excl. taxes):"
