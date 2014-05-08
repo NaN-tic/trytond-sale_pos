@@ -4,7 +4,7 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:account.statement.line:"
 msgid "Amount should be a positive or negative value."
-msgstr ""
+msgstr "Importe debe ser una cantidad positiva o negativa."
 
 msgctxt "error:product.code:"
 msgid "Invalid Barcode number!"
@@ -12,7 +12,7 @@ msgstr "El número del código de barras no es correcto."
 
 msgctxt "error:res.user:"
 msgid "You can not have two users with the same login!"
-msgstr ""
+msgstr "¡No puede tener dos usuarios con el mismo registro de entrada!"
 
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
@@ -265,7 +265,7 @@ msgstr "Diarios de extracto permitidos"
 
 msgctxt "field:sale_pos.sale_payment_form,party:"
 msgid "Party"
-msgstr "Terceros"
+msgstr "Tercero"
 
 msgctxt "field:sale_pos.sale_payment_form,payment_amount:"
 msgid "Payment amount"
@@ -404,7 +404,7 @@ msgstr "Descripción"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Draft Sale N°"
-msgstr "Factura borrador Nº"
+msgstr "Venta borrador Nº"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Paid:"
@@ -627,8 +627,8 @@ msgid ""
 "If you pay the entire amount, it will process this sale, moving the products"
 " without shipment and invoicing it."
 msgstr ""
-"Si paga la cantidad total, se procesará esta venta moviendo los productos "
-"sin albarán y facturándolos."
+"Si paga el importe total, se procesará esta venta moviendo los productos sin"
+" albarán y facturándolos."
 
 msgctxt "view:sale_pos.sale_payment_form:"
 msgid ""

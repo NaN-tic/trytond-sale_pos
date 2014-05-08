@@ -4,7 +4,7 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:account.statement.line:"
 msgid "Amount should be a positive or negative value."
-msgstr ""
+msgstr "L'import hauria de ser un valor positiu o negatiu."
 
 msgctxt "error:product.code:"
 msgid "Invalid Barcode number!"
@@ -12,7 +12,7 @@ msgstr "El número del codi de barres no és correcte."
 
 msgctxt "error:res.user:"
 msgid "You can not have two users with the same login!"
-msgstr ""
+msgstr "No podeu tenir dos usuaris amb el mateix identificador d'entrada!"
 
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
@@ -93,7 +93,7 @@ msgstr "Moneda"
 
 msgctxt "field:sale.line,currency_digits:"
 msgid "Currency Digits"
-msgstr "Dígits de la moneda"
+msgstr "Decimals de la moneda"
 
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"
@@ -124,8 +124,8 @@ msgid "Ticket Number"
 msgstr "Número de tiquet"
 
 msgctxt "field:sale.shop,address:"
-msgid ""
-msgstr ""
+msgid "Address"
+msgstr "Adreces"
 
 msgctxt "field:sale.shop,company_party:"
 msgid ""
@@ -205,7 +205,7 @@ msgstr "Nom"
 
 msgctxt "field:sale_pos.device,shop:"
 msgid "Shop"
-msgstr "Tenda"
+msgstr "Botiga"
 
 msgctxt "field:sale_pos.device,write_date:"
 msgid "Write Date"
@@ -265,7 +265,7 @@ msgstr "Diaris d'extracte permesos"
 
 msgctxt "field:sale_pos.sale_payment_form,party:"
 msgid "Party"
-msgstr "Tercers"
+msgstr "Tercer"
 
 msgctxt "field:sale_pos.sale_payment_form,payment_amount:"
 msgid "Payment amount"
