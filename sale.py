@@ -27,8 +27,6 @@ class Sale:
     self_pick_up = fields.Boolean('Self Pick Up', states={
             'readonly': Eval('state') != 'draft',
             }, depends=['state'],
-        on_change=['shop', 'self_pick_up', 'invoice_method', 'shipment_method',
-            'shipment_address', 'party'],
         help='The goods are picked up by the customer before the sale, so no '
         'shipment is created.')
     create_date = fields.DateTime('Create Date')
@@ -44,12 +42,12 @@ class Sale:
 
         for fname in cls.self_pick_up.on_change:
             if fname not in cls.shop.on_change:
-                cls.shop.on_change.append(fname)
+                cls.shop.on_change.add(fname)
             if fname not in cls.party.on_change:
-                cls.party.on_change.append(fname)
+                cls.party.on_change.add(fname)
         for fname in cls.party.on_change:
             if fname not in cls.self_pick_up.on_change:
-                cls.self_pick_up.on_change.append(fname)
+                cls.self_pick_up.on_change.add(fname)
         for fname in ('invoice_method', 'invoice_address', 'shipment_method',
                 'shipment_address'):
             fstates = getattr(cls, fname).states
@@ -102,6 +100,8 @@ class Sale:
             res.update(self.on_change_self_pick_up())
         return res
 
+    @fields.depends('shop', 'self_pick_up', 'invoice_method', 'party'
+        'shipment_address', 'shipment_method')
     def on_change_self_pick_up(self):
         if self.self_pick_up:
             res = {
