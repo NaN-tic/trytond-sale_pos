@@ -392,27 +392,23 @@ class SaleReportSummaryByParty(CompanyReport):
 class AddProductForm(ModelView):
     'Add Product Form'
     __name__ = 'sale_pos.add_product_form'
-    product = fields.Many2One('product.product', 'Product',
-        on_change=['product', 'unit', 'quantity', 'sale'], required=True)
+    product = fields.Many2One('product.product', 'Product', required=True)
     unit = fields.Many2One('product.uom', 'Unit',
         domain=[
             If(Bool(Eval('product_uom_category')),
                 ('category', '=', Eval('product_uom_category')),
                 ('category', '!=', -1)),
             ],
-        on_change=['product', 'unit', 'quantity', 'sale'],
         depends=['product_uom_category'], required=True)
-    unit_digits = fields.Function(fields.Integer('Unit Digits',
-            on_change_with=['unit']), 'on_change_with_unit_digits')
+    unit_digits = fields.Function(fields.Integer('Unit Digits'),
+        'on_change_with_unit_digits')
     product_uom_category = fields.Function(
-        fields.Many2One('product.uom.category', 'Product Uom Category',
-            on_change_with=['product']),
+        fields.Many2One('product.uom.category', 'Product Uom Category'),
         'on_change_with_product_uom_category')
     unit_price = fields.Numeric('Unit price', digits=(16, 2), depends=['sale'],
         required=True)
     quantity = fields.Float('Quantity',
         digits=(16, Eval('unit_digits', 2)),
-        on_change=['product', 'unit', 'quantity', 'sale'],
         depends=['unit_digits'], required=True)
     sale = fields.Many2One('sale.sale', 'Sale')
 
@@ -434,6 +430,7 @@ class AddProductForm(ModelView):
             context['uom'] = self.product.sale_uom.id
         return context
 
+    @fields.depends('product', 'unit', 'quantity', 'sale')
     def on_change_product(self):
         Product = Pool().get('product.product')
 
@@ -458,6 +455,7 @@ class AddProductForm(ModelView):
         self.unit_price = res['unit_price']
         return res
 
+    @fields.depends('product', 'unit', 'quantity', 'sale')
     def on_change_quantity(self):
         Product = Pool().get('product.product')
 
@@ -474,6 +472,7 @@ class AddProductForm(ModelView):
                     Decimal(1) / 10 ** self.__class__.unit_price.digits[1])
         return res
 
+    @fields.depends('product', 'unit', 'quantity', 'sale')
     def on_change_unit(self):
         return self.on_change_quantity()
 

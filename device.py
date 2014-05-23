@@ -13,8 +13,7 @@ class PosDevice(ModelSQL, ModelView):
     'Pos Device Configuration'
     __name__ = 'sale_pos.device'
     name = fields.Char('Device Name', required=True, select=True)
-    shop = fields.Many2One('sale.shop', 'Shop', required=True,
-        on_change=['shop'])
+    shop = fields.Many2One('sale.shop', 'Shop', required=True)
     company = fields.Function(fields.Many2One('company.company', 'Company',),
         'get_company', searcher='search_company')
     journals = fields.Many2Many('sale_pos.device_account.statement.journal',
@@ -28,6 +27,7 @@ class PosDevice(ModelSQL, ModelView):
         domain=[('id', 'in', Eval('journals', []))],
         )
 
+    @fields.depends('shop')
     def on_change_shop(self):
         return {
             'company': self.shop.company.id if self.shop else None
