@@ -211,8 +211,6 @@ class SaleLine:
             states={
                 'invisible': ~Eval('type').in_(['line', 'subtotal']),
                 },
-            on_change_with=['type', 'unit_price', 'quantity', 'taxes',
-                'sale', '_parent_sale.currency'],
             depends=['type', 'currency_digits']), 'get_unit_price_w_tax')
     amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
             digits=(16, Eval('_parent_sale', {}).get('currency_digits',
@@ -220,11 +218,9 @@ class SaleLine:
             states={
                 'invisible': ~Eval('type').in_(['line', 'subtotal']),
                 },
-            on_change_with=['type', 'unit_price', 'quantity', 'taxes',
-                'sale', '_parent_sale.currency'],
             depends=['type', 'currency_digits']), 'get_amount_w_tax')
-    currency_digits = fields.Function(fields.Integer('Currency Digits',
-        on_change_with=['currency']), 'on_change_with_currency_digits')
+    currency_digits = fields.Function(fields.Integer('Currency Digits'),
+        'on_change_with_currency_digits')
     currency = fields.Many2One('currency.currency', 'Currency',
         states={
             'required': ~Eval('sale'),
@@ -246,6 +242,7 @@ class SaleLine:
             company = Company(Transaction().context['company'])
             return company.currency.id
 
+    @fields.depends('currency')
     def on_change_with_currency_digits(self, name=None):
         if self.currency:
             return self.currency.digits
@@ -292,9 +289,13 @@ class SaleLine:
             return amount
         return Decimal('0.0')
 
+    @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
+        '_parent_sale.currency')
     def on_change_with_unit_price_w_tax(self, name=None):
         return self.get_unit_price_w_tax(name)
 
+    @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
+        '_parent_sale.currency')
     def on_change_with_amount_w_tax(self, name=None):
         return self.get_amount_w_tax(name)
 
