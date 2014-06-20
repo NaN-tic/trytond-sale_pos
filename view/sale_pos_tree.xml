@@ -5,7 +5,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <field name="shop"/>
     <field name="reference"/>
     <field name="ticket_number"/>
-    <!--<field name="create_date"/>-->
+    <field name="pos_create_date"/>
     <field name="sale_date"/>
     <field name="party"/>
     <field name="untaxed_amount"/>

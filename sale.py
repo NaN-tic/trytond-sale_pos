@@ -29,7 +29,8 @@ class Sale:
             }, depends=['state'],
         help='The goods are picked up by the customer before the sale, so no '
         'shipment is created.')
-    create_date = fields.DateTime('Create Date')
+    pos_create_date = fields.Function(fields.Char('Create Date'),
+        'get_pos_create_date')
     payments = fields.One2Many('account.statement.line', 'sale', 'Payments')
     paid_amount = fields.Function(fields.Numeric('Paid Amount', readonly=True),
         'get_paid_amount')
@@ -130,6 +131,15 @@ class Sale:
 
     def get_residual_amount(self, name):
         return self.total_amount - self.paid_amount
+
+    @classmethod
+    def get_pos_create_date(cls, records, name):
+        """Returns create date of current POS"""
+        res = {}
+        DATE_FORMAT = '%s %s' % (Transaction().context['locale']['date'], '%H:%M:%S')
+        for record in records:
+            res[record.id] = record.create_date.strftime(DATE_FORMAT) or ''
+        return res
 
     @classmethod
     def copy(cls, sales, default=None):

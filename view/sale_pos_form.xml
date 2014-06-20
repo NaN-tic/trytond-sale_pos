@@ -19,8 +19,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="price_list"/>
             <label name="payment_term"/>
             <field name="payment_term"/>
-            <!--<label name="create_date"/>
-            <field name="create_date" readonly="1"/>-->
+            <label name="pos_create_date"/>
+            <field name="pos_create_date"/>
             <label name="sale_date"/>
             <field name="sale_date"/>
             <separator colspan="2" id="amount_info"/>
