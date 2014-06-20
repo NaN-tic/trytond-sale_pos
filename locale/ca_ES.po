@@ -18,6 +18,10 @@ msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
 msgstr "Selecciona una botiga en les seves preferencies (\"%s\")"
 
+msgctxt "error:sale_pos.device:"
+msgid "Device %s not found...!"
+msgstr "Dispositiu %s no trobat..."
+
 msgctxt "error:sale_pos.sale_payment:"
 msgid "A customer invoice/refund from POS sale has not been created."
 msgstr ""
@@ -41,11 +45,11 @@ msgstr "Codi"
 
 msgctxt "field:product.code,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:product.code,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:product.code,id:"
 msgid "ID"
@@ -106,6 +110,10 @@ msgstr "Pagat"
 msgctxt "field:sale.sale,payments:"
 msgid "Payments"
 msgstr "Pagaments"
+
+msgctxt "field:sale.sale,pos_create_date:"
+msgid "Create Date"
+msgstr "Data creació"
 
 msgctxt "field:sale.sale,residual_amount:"
 msgid "Residual Amount"
@@ -177,11 +185,23 @@ msgstr "Empresa"
 
 msgctxt "field:sale_pos.device,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:sale_pos.device,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
+
+msgctxt "field:sale_pos.device,display_baud:"
+msgid "BAUD-Rate"
+msgstr "BAUD-Rate"
+
+msgctxt "field:sale_pos.device,display_digits:"
+msgid "Digits per Row"
+msgstr "Digits per files"
+
+msgctxt "field:sale_pos.device,display_port:"
+msgid "Display port"
+msgstr "Mostrar port"
 
 msgctxt "field:sale_pos.device,id:"
 msgid "ID"
@@ -195,9 +215,17 @@ msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diaris"
 
+msgctxt "field:sale_pos.device,logo:"
+msgid "Receipt Logo"
+msgstr "Logo tiquet"
+
 msgctxt "field:sale_pos.device,name:"
 msgid "Device Name"
 msgstr "Nom dispositiu"
+
+msgctxt "field:sale_pos.device,printer_port:"
+msgid "Printer Port"
+msgstr "Port impresora"
 
 msgctxt "field:sale_pos.device,rec_name:"
 msgid "Name"
@@ -217,11 +245,11 @@ msgstr "Usuari modificació"
 
 msgctxt "field:sale_pos.device_account.statement.journal,create_date:"
 msgid "Create Date"
-msgstr "Data de creació"
+msgstr "Data creació"
 
 msgctxt "field:sale_pos.device_account.statement.journal,create_uid:"
 msgid "Create User"
-msgstr "Usuari de creació"
+msgstr "Usuari creació"
 
 msgctxt "field:sale_pos.device_account.statement.journal,device:"
 msgid "Pos Device"
@@ -294,6 +322,14 @@ msgid ""
 msgstr ""
 "Els productes són recollits pel propi client abans de la venda, pel que no "
 "es generà albarà."
+
+msgctxt "help:sale_pos.device,display_port:"
+msgid "Like /dev/ttyS0"
+msgstr "Similar /dev/ttyS0"
+
+msgctxt "help:sale_pos.device,printer_port:"
+msgid "Port type the receipt printer is conntected to."
+msgstr "Tipus de port en el tiquet es troba conectat"
 
 msgctxt "model:ir.action,name:act_pos_device"
 msgid "POS Device"

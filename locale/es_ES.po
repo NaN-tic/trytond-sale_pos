@@ -18,6 +18,10 @@ msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
 msgstr "Seleccione una tienda en sus preferencias (\"%s\")"
 
+msgctxt "error:sale_pos.device:"
+msgid "Device %s not found...!"
+msgstr "Dispositivo %s no encontrado..."
+
 msgctxt "error:sale_pos.sale_payment:"
 msgid "A customer invoice/refund from POS sale has not been created."
 msgstr ""
@@ -41,7 +45,7 @@ msgstr "Código"
 
 msgctxt "field:product.code,create_date:"
 msgid "Create Date"
-msgstr "Fecha de creación"
+msgstr "Fecha creación"
 
 msgctxt "field:product.code,create_uid:"
 msgid "Create User"
@@ -106,6 +110,10 @@ msgstr "Pagado"
 msgctxt "field:sale.sale,payments:"
 msgid "Payments"
 msgstr "Pagos"
+
+msgctxt "field:sale.sale,pos_create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
 
 msgctxt "field:sale.sale,residual_amount:"
 msgid "Residual Amount"
@@ -177,11 +185,23 @@ msgstr "Empresa"
 
 msgctxt "field:sale_pos.device,create_date:"
 msgid "Create Date"
-msgstr "Fecha de creación"
+msgstr "Fecha creación"
 
 msgctxt "field:sale_pos.device,create_uid:"
 msgid "Create User"
 msgstr "Usuario de creación"
+
+msgctxt "field:sale_pos.device,display_baud:"
+msgid "BAUD-Rate"
+msgstr "BAUD-Rate"
+
+msgctxt "field:sale_pos.device,display_digits:"
+msgid "Digits per Row"
+msgstr "Dígitos por filas"
+
+msgctxt "field:sale_pos.device,display_port:"
+msgid "Display port"
+msgstr "Mostrar puerto"
 
 msgctxt "field:sale_pos.device,id:"
 msgid "ID"
@@ -195,9 +215,17 @@ msgctxt "field:sale_pos.device,journals:"
 msgid "Journals"
 msgstr "Diarios"
 
+msgctxt "field:sale_pos.device,logo:"
+msgid "Receipt Logo"
+msgstr "Logo tique"
+
 msgctxt "field:sale_pos.device,name:"
 msgid "Device Name"
 msgstr "Nombre dispositivo"
+
+msgctxt "field:sale_pos.device,printer_port:"
+msgid "Printer Port"
+msgstr "Puerto impresora"
 
 msgctxt "field:sale_pos.device,rec_name:"
 msgid "Name"
@@ -217,7 +245,7 @@ msgstr "Usuario modificación"
 
 msgctxt "field:sale_pos.device_account.statement.journal,create_date:"
 msgid "Create Date"
-msgstr "Fecha de creación"
+msgstr "Fecha creación"
 
 msgctxt "field:sale_pos.device_account.statement.journal,create_uid:"
 msgid "Create User"
@@ -294,6 +322,14 @@ msgid ""
 msgstr ""
 "Los productos son recogidos por el propio cliente antes de la venta, por lo "
 "que no se crea albarán."
+
+msgctxt "help:sale_pos.device,display_port:"
+msgid "Like /dev/ttyS0"
+msgstr "Similar /dev/ttyS0"
+
+msgctxt "help:sale_pos.device,printer_port:"
+msgid "Port type the receipt printer is conntected to."
+msgstr "tipo puerto impresora tique es conectada"
 
 msgctxt "model:ir.action,name:act_pos_device"
 msgid "POS Device"
