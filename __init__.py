@@ -6,9 +6,6 @@ from trytond.pool import Pool
 from .configuration import *
 from .sale import *
 from .shop import *
-from .device import *
-from .user import *
-from .statement import *
 
 
 def register():
@@ -20,10 +17,6 @@ def register():
         AddProductForm,
         SalePaymentForm,
         SaleShop,
-        PosDevice,
-        PosDeviceStatementJournal,
-        User,
-        Line,
         module='sale_pos', type_='model')
     Pool.register(
         SaleReportSummary,
@@ -32,5 +25,4 @@ def register():
     Pool.register(
         WizardAddProduct,
         WizardSalePayment,
-        WizardSaleReconcile,
         module='sale_pos', type_='wizard')

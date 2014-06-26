@@ -11,12 +11,10 @@ from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
 from trytond.modules.company import CompanyReport
 
 __all__ = [
-    'Sale', 'SaleLine', 'StatementLine',
-    'SaleReportSummary', 'SaleReportSummaryByParty',
-    'AddProductForm', 'WizardAddProduct',
+    'Sale', 'SaleLine', 'StatementLine', 'SaleReportSummary',
+    'SaleReportSummaryByParty', 'AddProductForm', 'WizardAddProduct',
     'SalePaymentForm', 'WizardSalePayment',
-    'WizardSaleReconcile'
-]
+    ]
 __metaclass__ = PoolMeta
 
 
@@ -31,11 +29,6 @@ class Sale:
         'shipment is created.')
     pos_create_date = fields.Function(fields.Char('Create Date'),
         'get_pos_create_date')
-    payments = fields.One2Many('account.statement.line', 'sale', 'Payments')
-    paid_amount = fields.Function(fields.Numeric('Paid Amount', readonly=True),
-        'get_paid_amount')
-    residual_amount = fields.Function(fields.Numeric('Residual Amount',
-            readonly=True), 'get_residual_amount')
 
     @classmethod
     def __setup__(cls):
@@ -65,9 +58,6 @@ class Sale:
                     },
                 'wizard_add_product': {
                     'invisible': Eval('state') != 'draft'
-                    },
-                'wizard_sale_payment': {
-                    'invisible': Eval('state') == 'done'
                     },
                 'print_ticket': {}
                 })
@@ -122,16 +112,6 @@ class Sale:
                 party_onchange.get('shipment_address.rec_name'),
             }
 
-    def get_paid_amount(self, name):
-        res = Decimal(0)
-        if self.payments:
-            for payment in self.payments:
-                res += payment.amount
-        return res
-
-    def get_residual_amount(self, name):
-        return self.total_amount - self.paid_amount
-
     @classmethod
     def get_pos_create_date(cls, records, name):
         """Returns create date of current POS"""
@@ -147,17 +127,11 @@ class Sale:
             default = {}
         default = default.copy()
         default['ticket_number'] = None
-        default['payments'] = None
         return super(Sale, cls).copy(sales, default=default)
 
     @classmethod
     @ModelView.button_action('sale_pos.wizard_add_product')
     def wizard_add_product(cls, sales):
-        pass
-
-    @classmethod
-    @ModelView.button_action('sale_pos.wizard_sale_payment')
-    def wizard_sale_payment(cls, sales):
         pass
 
     @classmethod
@@ -538,131 +512,32 @@ class WizardAddProduct(Wizard):
         return 'end'
 
 
-class SalePaymentForm(ModelView):
-    'Sale Payment Form'
-    __name__ = 'sale_pos.sale_payment_form'
-    journal = fields.Many2One('account.statement.journal', 'Statement Journal',
-        domain=[
-            ('id', 'in', Eval('journals', [])),
-            ],
-        depends=['journals'], required=True)
-    journals = fields.One2Many('account.statement.journal', None,
-        'Allowed Statement Journals')
-    payment_amount = fields.Numeric('Payment amount', required=True,
-        digits=(16, Eval('currency_digits', 2)),
-        depends=['currency_digits'])
-    currency_digits = fields.Integer('Currency Digits')
-    party = fields.Many2One('party.party', 'Party', readonly=True)
+class SalePaymentForm:
+    __name__ = 'sale.payment.form'
     self_pick_up = fields.Boolean('Self Pick Up', readonly=True)
 
 
-class WizardSalePayment(Wizard):
-    'Wizard Sale Payment'
-    __name__ = 'sale_pos.sale_payment'
-    start = StateView('sale_pos.sale_payment_form',
-        'sale_pos.sale_payment_view_form', [
-            Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Pay', 'pay_', 'tryton-ok', default=True),
-        ])
-    pay_ = StateTransition()
+class WizardSalePayment:
+    __name__ = 'sale.payment'
     print_ = StateAction('sale_pos.report_sale_ticket')
-
-    @classmethod
-    def __setup__(cls):
-        super(WizardSalePayment, cls).__setup__()
-        cls._error_messages.update({
-                'not_pos_device': ('You have not defined a POS device for '
-                    'your user.'),
-                'not_draft_statement': ('A draft statement for "%s" payments '
-                    'has not been created.'),
-                'not_customer_invoice': ('A customer invoice/refund '
-                    'from POS sale has not been created.'),
-                })
 
     def default_start(self, fields):
         Sale = Pool().get('sale.sale')
-        User = Pool().get('res.user')
         sale = Sale(Transaction().context['active_id'])
-        user = User(Transaction().user)
-        if user.id != 0 and not user.pos_device:
-            self.raise_user_error('not_pos_device')
-        return {
-            'journal': user.pos_device.journal.id
-                if user.pos_device.journal else None,
-            'journals': [j.id for j in user.pos_device.journals],
-            'payment_amount': sale.total_amount - sale.paid_amount
-                if sale.paid_amount else sale.total_amount,
-            'currency_digits': sale.currency_digits,
-            'self_pick_up': sale.self_pick_up,
-            'party': sale.party.id,
-            }
+        result = super(WizardSalePayment, self).default_start(fields)
+        result['self_pick_up'] = sale.self_pick_up
+        return result
 
     def transition_pay_(self):
         pool = Pool()
-        Date = pool.get('ir.date')
-        Invoice = pool.get('account.invoice')
         Sale = pool.get('sale.sale')
-        Statement = pool.get('account.statement')
-        StatementLine = pool.get('account.statement.line')
-
-        form = self.start
-        statements = Statement.search([
-                ('journal', '=', form.journal),
-                ('state', '=', 'draft'),
-                ], order=[('date', 'DESC')])
-        if not statements:
-            self.raise_user_error('not_draft_statement', (form.journal.name,))
-
         active_id = Transaction().context.get('active_id', False)
         sale = Sale(active_id)
-        if not sale.reference:
-            Sale.set_reference([sale])
-
-        payment = StatementLine(
-            statement=statements[0].id,
-            date=Date.today(),
-            amount=form.payment_amount,
-            party=sale.party.id,
-            account=sale.party.account_receivable.id,
-            description=sale.reference,
-            sale=active_id
-            )
-        payment.save()
+        result = super(WizardSalePayment, self).transition_pay_()
         Sale.print_ticket([sale])
-
-        if sale.total_amount != sale.paid_amount:
-            return 'start'
-        if sale.state != 'draft':
+        if result == 'end':
             return 'print_'
-
-        sale.description = sale.reference
-        sale.save()
-
-        Sale.quote([sale])
-        Sale.confirm([sale])
-        Sale.process([sale])
-
-        if not sale.invoices and sale.invoice_method == 'order':
-            self.raise_user_error('not_customer_invoice')
-
-        sale.create_moves_without_shipment()
-
-        grouping = getattr(sale.party, 'sale_invoice_grouping_method', False)
-        if sale.invoices and not grouping:
-            for invoice in sale.invoices:
-                if invoice.state == 'draft':
-                    invoice.description = sale.reference
-                    invoice.save()
-            Invoice.post(sale.invoices)
-            for payment in sale.payments:
-                payment.invoice = sale.invoices[0].id
-                payment.save()
-
-        if sale.is_done():
-            sale.state = 'done'
-            sale.save()
-
-        return 'print_'
+        return result
 
     def transition_print_(self):
         return 'end'
@@ -672,35 +547,3 @@ class WizardSalePayment(Wizard):
         data['id'] = Transaction().context['active_ids'].pop()
         data['ids'] = [data['id']]
         return action, data
-
-
-class WizardSaleReconcile(Wizard):
-    'Reconcile POS Sales'
-    __name__ = 'sale_pos.sale_reconcile'
-    start = StateTransition()
-    reconcile = StateTransition()
-
-    def transition_start(self):
-        pool = Pool()
-        Sale = pool.get('sale.sale')
-        Line = pool.get('account.move.line')
-        for sale in Sale.browse(Transaction().context['active_ids']):
-            account = sale.party.account_receivable
-            lines = []
-            amount = Decimal('0.0')
-            for invoice in sale.invoices:
-                for line in Line.browse(invoice.get_lines_to_pay(None)):
-                    if not line.reconciliation:
-                        lines.append(line)
-                        amount += line.debit - line.credit
-            for payment in sale.payments:
-                if not payment.move:
-                    continue
-                for line in payment.move.lines:
-                    if (not line.reconciliation and
-                            line.account.id == account.id):
-                        lines.append(line)
-                        amount += line.debit - line.credit
-            if lines and amount == Decimal('0.0'):
-                Line.reconcile(lines)
-        return 'end'
