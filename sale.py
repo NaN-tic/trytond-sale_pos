@@ -116,7 +116,11 @@ class Sale:
     def get_pos_create_date(cls, records, name):
         """Returns create date of current POS"""
         res = {}
-        DATE_FORMAT = '%s %s' % (Transaction().context['locale']['date'], '%H:%M:%S')
+        context = Transaction().context
+        if 'locale' in context:
+            DATE_FORMAT = '%s %s' % (context['locale']['date'], '%H:%M:%S')
+        else:
+            DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
         for record in records:
             res[record.id] = record.create_date.strftime(DATE_FORMAT) or ''
         return res
