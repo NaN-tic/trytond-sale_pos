@@ -7,7 +7,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <notebook colspan="2">
         <page string="Sale" col="2" id="sale">
             <label name="shop"/>
-            <field name="shop"/>
+            <field name="shop" widget="selection"/>
             <label name="reference"/>
             <field name="reference"/>
             <label name="ticket_number"/>
