@@ -89,9 +89,24 @@ implica que los productos son transportados por el propio cliente en el momento
 de la venta.
 
 Pueden consultarse los pagos y las facturas asociadas a la venta TPV en las
-pestañas "Pagos" y "Facturas". Los albaranes no son visibles desde las ventas
-TPV por no ser importantes (pueden ser consultados si se accede a las ventas
-desde el menú Ventas/Ventas donde se ofrece una ficha completa de las mismas).
+pestañas "Pagos" y "Facturas".
+
+Autorecogida
+============
+
+Una venta TPV por defecto no genera albaranes. Sólo genera los movimientos de stock.
+
+Si al procesar un pedido de venta desea que genere los albaranes, debe desmarcar en
+el pedido de venta la opción "Autorecogida".
+
+A la configuración de la tienda puede configurar si la opción de "Autorecogida"
+se activa o no cada vez que genere un nuevo pedido de venta. Si a la tienda desmarca
+la opción "Autorecogida", cuando genere un pedido estará desmarcado el campo "Autorecogida"
+y generá el albarán y sus movimientos.
+
+Los pedidos o ventas que el cliente se lleva en el momento la mercadería no hace falta
+generar albaranes, pues no se realizará una entrega posterior y no hace falta generar
+un albarán.
 
 Estados
 =======
