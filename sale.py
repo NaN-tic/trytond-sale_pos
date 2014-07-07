@@ -27,8 +27,7 @@ class Sale:
             }, depends=['state'],
         help='The goods are picked up by the customer before the sale, so no '
         'shipment is created.')
-    pos_create_date = fields.Function(fields.Char('Create Date'),
-        'get_pos_create_date')
+    pos_create_date = fields.Date('Create Date', readonly=True)
 
     @classmethod
     def __setup__(cls):
@@ -113,17 +112,14 @@ class Sale:
             }
 
     @classmethod
-    def get_pos_create_date(cls, records, name):
-        """Returns create date of current POS"""
-        res = {}
-        context = Transaction().context
-        if 'locale' in context:
-            DATE_FORMAT = '%s %s' % (context['locale']['date'], '%H:%M:%S')
-        else:
-            DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-        for record in records:
-            res[record.id] = record.create_date.strftime(DATE_FORMAT) or ''
-        return res
+    def create(cls, vlist):
+        Date = Pool().get('ir.date')
+
+        today = Date.today()
+        vlist = [x.copy() for x in vlist]
+        for vals in vlist:
+            vals['pos_create_date'] = today
+        return super(Sale, cls).create(vlist)
 
     @classmethod
     def copy(cls, sales, default=None):
