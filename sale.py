@@ -2,6 +2,7 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from decimal import Decimal
+from datetime import datetime
 from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
@@ -27,7 +28,7 @@ class Sale:
             }, depends=['state'],
         help='The goods are picked up by the customer before the sale, so no '
         'shipment is created.')
-    pos_create_date = fields.Date('Create Date', readonly=True)
+    pos_create_date = fields.DateTime('Create Date', readonly=True)
 
     @classmethod
     def __register__(cls, module_name):
@@ -124,12 +125,10 @@ class Sale:
 
     @classmethod
     def create(cls, vlist):
-        Date = Pool().get('ir.date')
-
-        today = Date.today()
+        now = datetime.now()
         vlist = [x.copy() for x in vlist]
         for vals in vlist:
-            vals['pos_create_date'] = today
+            vals['pos_create_date'] = now
         return super(Sale, cls).create(vlist)
 
     @classmethod
