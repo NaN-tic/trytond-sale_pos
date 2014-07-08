@@ -30,6 +30,17 @@ class Sale:
     pos_create_date = fields.Date('Create Date', readonly=True)
 
     @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().cursor
+        sql_table = cls.__table__()
+
+        super(Sale, cls).__register__(module_name)
+        cursor.execute(*sql_table.update(
+                columns=[sql_table.pos_create_date],
+                values=[sql_table.create_date],
+                where=sql_table.pos_create_date == None))
+
+    @classmethod
     def __setup__(cls):
         super(Sale, cls).__setup__()
 
