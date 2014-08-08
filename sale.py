@@ -205,14 +205,14 @@ class SaleLine:
             states={
                 'invisible': ~Eval('type').in_(['line', 'subtotal']),
                 },
-            depends=['type', 'currency_digits']), 'get_unit_price_w_tax')
+            depends=['type', 'currency_digits']), 'get_price_with_tax')
     amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
             digits=(16, Eval('_parent_sale', {}).get('currency_digits',
                     Eval('currency_digits', 2))),
             states={
                 'invisible': ~Eval('type').in_(['line', 'subtotal']),
                 },
-            depends=['type', 'currency_digits']), 'get_amount_w_tax')
+            depends=['type', 'currency_digits']), 'get_price_with_tax')
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
         'on_change_with_currency_digits')
     currency = fields.Many2One('currency.currency', 'Currency',
@@ -242,56 +242,67 @@ class SaleLine:
             return self.currency.digits
         return 2
 
-    def get_unit_price_w_tax(self, name):
-        if self.type == 'line':
-            amount_w_tax = self.get_amount_w_tax(name)
-            if self.quantity:
-                return amount_w_tax / Decimal(str(self.quantity))
-            return amount_w_tax
-        return None
-
-    def get_amount_w_tax(self, name):
+    @classmethod
+    def get_price_with_tax(cls, lines, names):
         pool = Pool()
         Tax = pool.get('account.tax')
         Invoice = pool.get('account.invoice')
 
-        currency = (self.sale.currency if self.sale
-            else self.currency)
+        result = {n: {l.id: Decimal('0.0') for l in lines} for n in names}
 
-        if self.type == 'line' and self.quantity and self.unit_price:
-            tax_list = Tax.compute(self.taxes,
-                self.unit_price or Decimal('0.0'),
-                self.quantity or 0.0)
+        def compute_amount_with_tax(line):
+            tax_list = Tax.compute(line.taxes,
+                line.unit_price or Decimal('0.0'),
+                line.quantity or 0.0)
             tax_amount = Decimal('0.0')
             for tax in tax_list:
                 _, val = Invoice._compute_tax(tax, 'out_invoice')
                 tax_amount += val.get('amount')
-            if currency:
-                return currency.round(self.get_amount(name) + tax_amount)
-            return self.get_amount(name) + tax_amount
-        elif self.type == 'subtotal':
-            amount = Decimal('0.0')
-            for line2 in self.sale.lines:
-                if line2.type == 'line':
-                    amount += line2.get_amount_w_tax(name)
-                elif line2.type == 'subtotal':
-                    if self == line2:
-                        break
-                    amount = Decimal('0.0')
-            if currency:
-                return currency.round(amount)
-            return amount
-        return Decimal('0.0')
+            return line.get_amount(None) + tax_amount
+
+        for line in sorted(lines):
+            amount_w_tax = Decimal('0.0')
+            currency = (line.sale.currency if line.sale
+                else line.currency)
+            if line.type == 'line':
+                amount_w_tax = compute_amount_with_tax(line)
+
+                if currency:
+                    amount_w_tax = currency.round(amount_w_tax)
+                result['amount_w_tax'][line.id] = amount_w_tax
+
+                if line.quantity:
+                    result['unit_price_w_tax'][line.id] = (amount_w_tax /
+                        Decimal(str(line.quantity)))
+                else:
+                    result['unit_price_w_tax'][line.id] = amount_w_tax
+
+            elif line.type == 'subtotal':
+                for line2 in line.sale.lines:
+                    if line2.type == 'line':
+                        amount_w_tax += result['amount_w_tax'][line2.id]
+                    elif line2.type == 'subtotal':
+                        if line == line2:
+                            break
+                        amount_w_tax = Decimal('0.0')
+
+                if currency:
+                    amount_w_tax = currency.round(amount_w_tax)
+                result['amount_w_tax'][line.id] = amount_w_tax
+
+        return result
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency')
+        '_parent_sale.currency', 'product')
     def on_change_with_unit_price_w_tax(self, name=None):
-        return self.get_unit_price_w_tax(name)
+        return SaleLine.get_price_with_tax([self],
+            ['unit_price_w_tax', 'amount_w_tax'])['unit_price_w_tax'][self.id]
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency')
+        '_parent_sale.currency', 'product')
     def on_change_with_amount_w_tax(self, name=None):
-        return self.get_amount_w_tax(name)
+        return SaleLine.get_price_with_tax([self],
+            ['amount_w_tax', 'unit_price_w_tax'])['amount_w_tax'][self.id]
 
     def get_from_location(self, name):
         res = super(SaleLine, self).get_from_location(name)
