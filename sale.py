@@ -206,11 +206,11 @@ class Sale:
         if self.lines:
             res['untaxed_amount'] = reduce(lambda x, y: x + y,
                 [(getattr(l, 'amount', None) or Decimal(0))
-                    for l in self.lines]
+                    for l in self.lines if l.type == 'line'], Decimal(0)
                 )
             res['total_amount'] = reduce(lambda x, y: x + y,
                 [(getattr(l, 'amount_w_tax', None) or Decimal(0))
-                    for l in self.lines]
+                    for l in self.lines if l.type == 'line'], Decimal(0)
                 )
         if self.currency:
             res['untaxed_amount'] = self.currency.round(res['untaxed_amount'])
