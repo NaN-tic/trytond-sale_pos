@@ -196,6 +196,30 @@ class Sale:
 
         self.set_shipment_state()
 
+    @fields.depends('lines', 'currency', 'party')
+    def on_change_lines(self):
+        res = {
+            'untaxed_amount': Decimal('0.0'),
+            'tax_amount': Decimal('0.0'),
+            'total_amount': Decimal('0.0'),
+            }
+        if self.lines:
+            res['untaxed_amount'] = reduce(lambda x, y: x + y,
+                [(getattr(l, 'amount', None) or Decimal(0))
+                    for l in self.lines]
+                )
+            res['total_amount'] = reduce(lambda x, y: x + y,
+                [(getattr(l, 'amount_w_tax', None) or Decimal(0))
+                    for l in self.lines]
+                )
+        if self.currency:
+            res['untaxed_amount'] = self.currency.round(res['untaxed_amount'])
+            res['total_amount'] = self.currency.round(res['total_amount'])
+        res['tax_amount'] = res['total_amount'] - res['untaxed_amount']
+        if self.currency:
+            res['tax_amount'] = self.currency.round(res['tax_amount'])
+        return res
+
 
 class SaleLine:
     __name__ = 'sale.line'
