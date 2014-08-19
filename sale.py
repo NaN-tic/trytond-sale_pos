@@ -247,8 +247,8 @@ class SaleLine:
         pool = Pool()
         Tax = pool.get('account.tax')
         Invoice = pool.get('account.invoice')
-
-        result = {n: {l.id: Decimal('0.0') for l in lines} for n in names}
+        amount_w_tax = {}
+        unit_price_w_tax = {}
 
         def compute_amount_with_tax(line):
             tax_list = Tax.compute(line.taxes,
@@ -261,35 +261,42 @@ class SaleLine:
             return line.get_amount(None) + tax_amount
 
         for line in sorted(lines):
-            amount_w_tax = Decimal('0.0')
+            amount_w_tax[line.id] = Decimal('0.0')
             currency = (line.sale.currency if line.sale
                 else line.currency)
             if line.type == 'line':
-                amount_w_tax = compute_amount_with_tax(line)
+                amount_w_tax[line.id] = compute_amount_with_tax(line)
 
                 if currency:
-                    amount_w_tax = currency.round(amount_w_tax)
-                result['amount_w_tax'][line.id] = amount_w_tax
+                    amount_w_tax[line.id] = currency.round(
+                        amount_w_tax[line.id])
 
                 if line.quantity:
-                    result['unit_price_w_tax'][line.id] = (amount_w_tax /
+                    unit_price_w_tax[line.id] = (amount_w_tax[line.id] /
                         Decimal(str(line.quantity)))
                 else:
-                    result['unit_price_w_tax'][line.id] = amount_w_tax
+                    unit_price_w_tax[line.id] = amount_w_tax[line.id]
 
             elif line.type == 'subtotal':
                 for line2 in line.sale.lines:
                     if line2.type == 'line':
-                        amount_w_tax += result['amount_w_tax'][line2.id]
+                        amount_w_tax[line.id] += amount_w_tax[line2.id]
                     elif line2.type == 'subtotal':
                         if line == line2:
                             break
-                        amount_w_tax = Decimal('0.0')
+                        amount_w_tax[line.id] = Decimal('0.0')
 
                 if currency:
-                    amount_w_tax = currency.round(amount_w_tax)
-                result['amount_w_tax'][line.id] = amount_w_tax
+                    amount_w_tax[line.id] = currency.round(
+                        amount_w_tax[line.id])
 
+        result = {
+            'amount_w_tax': amount_w_tax,
+            'unit_price_w_tax': unit_price_w_tax,
+            }
+        for key in result.keys():
+            if key not in names:
+                del result[key]
         return result
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
