@@ -196,8 +196,20 @@ class Sale:
 
         self.set_shipment_state()
 
-    @fields.depends('lines', 'currency', 'party')
+    @fields.depends(methods=['lines'])
+    def on_change_self_pick_up(self):
+        return self.on_change_lines()
+
+    @fields.depends('lines', 'currency', 'party', 'self_pick_up')
     def on_change_lines(self):
+        '''
+        Overrides this method completely if the sale is self pick up to improve
+        performance: Computes untaxed, total and tax amounts from the already
+        computed values in sale lines.
+        '''
+        if not self.self_pick_up:
+            return super(Sale, self).on_change_lines()
+
         res = {
             'untaxed_amount': Decimal('0.0'),
             'tax_amount': Decimal('0.0'),
