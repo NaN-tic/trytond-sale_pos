@@ -297,34 +297,34 @@ class SaleLine:
             return line.get_amount(None) + tax_amount
 
         for line in sorted(lines):
-            amount_w_tax[line.id] = Decimal('0.0')
-            currency = (line.sale.currency if line.sale
-                else line.currency)
+            amount = Decimal('0.0')
+            unit_price = Decimal('0.0')
+            currency = (line.sale.currency if line.sale else line.currency)
+
             if line.type == 'line':
-                amount_w_tax[line.id] = compute_amount_with_tax(line)
-
-                if currency:
-                    amount_w_tax[line.id] = currency.round(
-                        amount_w_tax[line.id])
-
-                if line.quantity:
-                    unit_price_w_tax[line.id] = (amount_w_tax[line.id] /
-                        Decimal(str(line.quantity)))
-                else:
-                    unit_price_w_tax[line.id] = amount_w_tax[line.id]
+                if line.quantity and line.product:
+                    amount = compute_amount_with_tax(line)
+                    unit_price = amount / Decimal(str(line.quantity))
+                elif line.product:
+                    print line.quantity
+                    old_quantity = line.quantity
+                    line.quantity = 1.0
+                    unit_price = compute_amount_with_tax(line)
+                    line.quantity = old_quantity
 
             elif line.type == 'subtotal':
                 for line2 in line.sale.lines:
                     if line2.type == 'line':
-                        amount_w_tax[line.id] += amount_w_tax[line2.id]
+                        amount += amount_w_tax[line2.id]
                     elif line2.type == 'subtotal':
                         if line == line2:
                             break
-                        amount_w_tax[line.id] = Decimal('0.0')
+                        amount = Decimal('0.0')
 
-                if currency:
-                    amount_w_tax[line.id] = currency.round(
-                        amount_w_tax[line.id])
+            if currency:
+                amount = currency.round(amount)
+            amount_w_tax[line.id] = amount
+            unit_price_w_tax[line.id] = unit_price
 
         result = {
             'amount_w_tax': amount_w_tax,
