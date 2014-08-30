@@ -296,7 +296,7 @@ class SaleLine:
                 tax_amount += val.get('amount')
             return line.get_amount(None) + tax_amount
 
-        for line in sorted(lines):
+        for line in lines:
             amount = Decimal('0.0')
             unit_price = Decimal('0.0')
             currency = (line.sale.currency if line.sale else line.currency)
@@ -306,16 +306,19 @@ class SaleLine:
                     amount = compute_amount_with_tax(line)
                     unit_price = amount / Decimal(str(line.quantity))
                 elif line.product:
-                    print line.quantity
                     old_quantity = line.quantity
                     line.quantity = 1.0
                     unit_price = compute_amount_with_tax(line)
                     line.quantity = old_quantity
 
-            elif line.type == 'subtotal':
+            # Only compute subtotals if the two fields are provided to speed up
+            elif line.type == 'subtotal' and len(names) == 2:
                 for line2 in line.sale.lines:
                     if line2.type == 'line':
-                        amount += amount_w_tax[line2.id]
+                        amount2 = compute_amount_with_tax(line2)
+                        if currency:
+                            amount2 = currency.round(amount2)
+                        amount += amount2
                     elif line2.type == 'subtotal':
                         if line == line2:
                             break
@@ -339,13 +342,13 @@ class SaleLine:
         '_parent_sale.currency', 'product')
     def on_change_with_unit_price_w_tax(self, name=None):
         return SaleLine.get_price_with_tax([self],
-            ['unit_price_w_tax', 'amount_w_tax'])['unit_price_w_tax'][self.id]
+            ['unit_price_w_tax'])['unit_price_w_tax'][self.id]
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
         '_parent_sale.currency', 'product')
     def on_change_with_amount_w_tax(self, name=None):
         return SaleLine.get_price_with_tax([self],
-            ['amount_w_tax', 'unit_price_w_tax'])['amount_w_tax'][self.id]
+            ['amount_w_tax'])['amount_w_tax'][self.id]
 
     def get_from_location(self, name):
         res = super(SaleLine, self).get_from_location(name)
