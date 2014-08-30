@@ -239,7 +239,7 @@ class SaleLine:
             digits=(16, Eval('_parent_sale', {}).get('currency_digits',
                     Eval('currency_digits', 2))),
             states={
-                'invisible': ~Eval('type').in_(['line', 'subtotal']),
+                'invisible': Eval('type') != 'line',
                 },
             depends=['type', 'currency_digits']), 'get_price_with_tax')
     amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
