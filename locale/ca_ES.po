@@ -20,7 +20,7 @@ msgstr "Venda"
 
 msgctxt "field:sale.configuration,pos_sequence:"
 msgid "Sale Pos Code Sequence"
-msgstr "Seqüencia Venta TPV"
+msgstr "Seqüencia Venda TPV"
 
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
@@ -183,11 +183,11 @@ msgstr "Pressupost"
 
 msgctxt "model:ir.sequence.strict,name:sequence_sale_pos"
 msgid "Sale Pos"
-msgstr "Venta TPV"
+msgstr "Venda TPV"
 
 msgctxt "model:ir.sequence.type,name:sequence_type_sale_pos"
 msgid "Sale Pos"
-msgstr "Venta TPV"
+msgstr "Venda TPV"
 
 msgctxt "model:ir.ui.menu,name:"
 msgid "POS Devices"
@@ -235,7 +235,7 @@ msgstr "Pendent:"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Sale N°"
-msgstr "Venta Núm"
+msgstr "Venda Núm"
 
 msgctxt "odt:sale_pos.sale_pos_ticket:"
 msgid "Salesman:"
