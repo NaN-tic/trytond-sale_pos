@@ -102,8 +102,8 @@ class Sale:
             res.update(self.on_change_self_pick_up())
         return res
 
-    @fields.depends('shop', 'self_pick_up', 'invoice_method', 'party'
-        'shipment_address', 'shipment_method')
+    @fields.depends('shop', 'self_pick_up', 'invoice_method', 'party',
+        'shipment_address', 'shipment_method', methods=['lines'])
     def on_change_self_pick_up(self):
         if self.self_pick_up:
             res = {
@@ -113,15 +113,17 @@ class Sale:
             if self.shop and self.shop.address:
                 res['shipment_address'] = self.shop.address.id
                 res['shipment_address.rec_name'] = self.shop.address.rec_name
-            return res
-        party_onchange = self.on_change_party()
-        return {
-            'invoice_method': self.default_invoice_method(),
-            'shipment_method': self.default_shipment_method(),
-            'shipment_address': party_onchange.get('shipment_address'),
-            'shipment_address.rec_name':
-                party_onchange.get('shipment_address.rec_name'),
-            }
+        else:
+            party_onchange = self.on_change_party()
+            res = {
+                'invoice_method': self.default_invoice_method(),
+                'shipment_method': self.default_shipment_method(),
+                'shipment_address': party_onchange.get('shipment_address'),
+                'shipment_address.rec_name':
+                    party_onchange.get('shipment_address.rec_name'),
+                }
+        res.update(self.on_change_lines())
+        return res
 
     @classmethod
     def create(cls, vlist):
@@ -195,10 +197,6 @@ class Sale:
         Move.do(self.moves)
 
         self.set_shipment_state()
-
-    @fields.depends(methods=['lines'])
-    def on_change_self_pick_up(self):
-        return self.on_change_lines()
 
     @fields.depends('lines', 'currency', 'party', 'self_pick_up')
     def on_change_lines(self):
