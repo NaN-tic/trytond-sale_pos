@@ -61,6 +61,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="invoice_state"/>
         </page>
         <page string="Shipments" id="shipments" col="2">
+            <label name="warehouse"/>
+            <field name="warehouse"/>
             <field name="moves" colspan="2"
                 view_ids="sale.move_view_list_shipment"/>
             <field name="shipments" colspan="2"/>
