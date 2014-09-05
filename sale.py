@@ -79,15 +79,6 @@ class Sale:
         user = User(Transaction().user)
         return user.shop.party.id if user.shop and user.shop.party else None
 
-    @classmethod
-    def default_self_pick_up(cls):
-        pool = Pool()
-        Shop = pool.get('sale.shop')
-        shop_id = cls.default_shop()
-        if shop_id:
-            shop = Shop(shop_id)
-            return shop.self_pick_up
-
     def on_change_shop(self):
         res = super(Sale, self).on_change_shop()
         if self.shop:
