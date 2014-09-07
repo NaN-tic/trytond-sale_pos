@@ -45,7 +45,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
 
         <!-- Wizards -->
         <record model="ir.action.wizard" id="wizard_add_product">
-            <field name="name">Add Product</field>
+            <field name="name">Add Products</field>
             <field name="wiz_name">sale_pos.add_product</field>
         </record>
         <record model="ir.ui.view" id="add_product_view_form">

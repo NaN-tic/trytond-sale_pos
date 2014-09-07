@@ -72,7 +72,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </page>
     </notebook>
     <group id="cash" colspan="2">
-        <button name="wizard_add_product" string="_Add Product"
+        <button name="wizard_add_product" string="_Add Products"
             icon="tryton-list-add"/>
         <button name="add_sum" string="Add _Sum"
             icon="tryton-list-add"/>

@@ -6,7 +6,7 @@ from datetime import datetime
 from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
-from trytond.pyson import Bool, Eval, If, Or
+from trytond.pyson import Eval, Or
 from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
@@ -246,6 +246,22 @@ class SaleLine:
             },
         depends=['sale'])
 
+    @classmethod
+    def __setup__(cls):
+        super(SaleLine, cls).__setup__()
+
+        # Allow edit product, quantity and unit in lines without parent sale
+        for fname in ('product', 'quantity', 'unit'):
+            field = getattr(cls, fname)
+            if field.states.get('readonly'):
+                del field.states['readonly']
+
+    @staticmethod
+    def default_sale():
+        if Transaction().context.get('sale'):
+            return Transaction().context.get('sale')
+        return None
+
     @staticmethod
     def default_currency_digits():
         Company = Pool().get('company.company')
@@ -266,6 +282,24 @@ class SaleLine:
         if self.currency:
             return self.currency.digits
         return 2
+
+    @fields.depends('sale')
+    def on_change_product(self):
+        if not self.sale:
+            self.sale = Transaction().context.get('sale')
+        return super(SaleLine, self).on_change_product()
+
+    @fields.depends('sale')
+    def on_change_quantity(self):
+        if not self.sale:
+            self.sale = Transaction().context.get('sale')
+        return super(SaleLine, self).on_change_quantity()
+
+    @fields.depends('sale')
+    def on_change_with_amount(self):
+        if not self.sale:
+            self.sale = Transaction().context.get('sale')
+        return super(SaleLine, self).on_change_with_amount()
 
     @classmethod
     def get_price_with_tax(cls, lines, names):
@@ -328,14 +362,18 @@ class SaleLine:
         return result
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency', 'product')
+        '_parent_sale.currency', 'currency', 'product')
     def on_change_with_unit_price_w_tax(self, name=None):
+        if not self.sale:
+            self.sale = Transaction().context.get('sale')
         return SaleLine.get_price_with_tax([self],
             ['unit_price_w_tax'])['unit_price_w_tax'][self.id]
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency', 'product')
+        '_parent_sale.currency', 'currency', 'product')
     def on_change_with_amount_w_tax(self, name=None):
+        if not self.sale:
+            self.sale = Transaction().context.get('sale')
         return SaleLine.get_price_with_tax([self],
             ['amount_w_tax'])['amount_w_tax'][self.id]
 
@@ -433,100 +471,12 @@ class SaleReportSummaryByParty(CompanyReport):
 class AddProductForm(ModelView):
     'Add Product Form'
     __name__ = 'sale_pos.add_product_form'
-    product = fields.Many2One('product.product', 'Product', required=True)
-    unit = fields.Many2One('product.uom', 'Unit',
-        domain=[
-            If(Bool(Eval('product_uom_category')),
-                ('category', '=', Eval('product_uom_category')),
-                ('category', '!=', -1)),
-            ],
-        depends=['product_uom_category'], required=True)
-    unit_digits = fields.Function(fields.Integer('Unit Digits'),
-        'on_change_with_unit_digits')
-    product_uom_category = fields.Function(
-        fields.Many2One('product.uom.category', 'Product Uom Category'),
-        'on_change_with_product_uom_category')
-    unit_price = fields.Numeric('Unit price',
-        digits=(16, Eval('unit_price_digits', 2)),
-        depends=['unit_price_digits', 'sale'], required=True)
-    unit_price_digits = fields.Integer('Unit Price Digits')
-    quantity = fields.Float('Quantity',
-        digits=(16, Eval('unit_digits', 2)),
-        depends=['unit_digits'], required=True)
     sale = fields.Many2One('sale.sale', 'Sale')
-
-    @staticmethod
-    def default_quantity():
-        return 1
-
-    def _get_context_sale_price(self):
-        context = {}
-        if getattr(self.sale, 'currency', None):
-            context['currency'] = self.sale.currency.id
-        if getattr(self.sale, 'party', None):
-            context['customer'] = self.sale.party.id
-        if getattr(self.sale, 'sale_date', None):
-            context['sale_date'] = self.sale.sale_date
-        if self.unit:
-            context['uom'] = self.unit.id
-        else:
-            context['uom'] = self.product.sale_uom.id
-        return context
-
-    @fields.depends('product', 'unit', 'quantity', 'unit_price_digits', 'sale')
-    def on_change_product(self):
-        Product = Pool().get('product.product')
-
-        if not self.product:
-            return {}
-        res = {}
-
-        category = self.product.sale_uom.category
-        if not self.unit or self.unit not in category.uoms:
-            res['unit'] = self.product.sale_uom.id
-            self.unit = self.product.sale_uom
-            res['unit.rec_name'] = self.product.sale_uom.rec_name
-            res['unit_digits'] = self.product.sale_uom.digits
-
-        with Transaction().set_context(self._get_context_sale_price()):
-            res['unit_price'] = Product.get_sale_price([self.product],
-                    self.quantity or 0)[self.product.id]
-            if res['unit_price']:
-                res['unit_price'] = res['unit_price'].quantize(
-                    Decimal(1) / 10 ** self.unit_price_digits)
-
-        self.unit_price = res['unit_price']
-        return res
-
-    @fields.depends('product', 'unit', 'quantity', 'unit_price_digits', 'sale')
-    def on_change_quantity(self):
-        Product = Pool().get('product.product')
-
-        if not self.product:
-            return {}
-        res = {}
-
-        with Transaction().set_context(
-                self._get_context_sale_price()):
-            res['unit_price'] = Product.get_sale_price([self.product],
-                self.quantity or 0)[self.product.id]
-            if res['unit_price']:
-                res['unit_price'] = res['unit_price'].quantize(
-                    Decimal(1) / 10 ** self.unit_price_digits)
-        return res
-
-    @fields.depends('product', 'unit', 'quantity', 'sale')
-    def on_change_unit(self):
-        return self.on_change_quantity()
-
-    def on_change_with_unit_digits(self, name=None):
-        if self.unit:
-            return self.unit.digits
-        return 2
-
-    def on_change_with_product_uom_category(self, name=None):
-        if self.product:
-            return self.product.default_uom_category.id
+    lines = fields.One2Many('sale.line', None, 'Lines',
+        context={
+            'sale': Eval('sale'),
+            },
+        depends=['sale'],)
 
 
 class WizardAddProduct(Wizard):
@@ -542,33 +492,21 @@ class WizardAddProduct(Wizard):
     add_ = StateTransition()
 
     def default_start(self, fields):
-        SaleLine = Pool().get('sale.line')
         return {
             'sale': Transaction().context.get('active_id'),
-            'unit_price_digits': SaleLine._fields['unit_price'].digits[1],
             }
 
-    def add_product(self):
-        SaleLine = Pool().get('sale.line')
-        form = self.start
-        line = SaleLine()
-        line.product = form.product
-        line.unit = form.unit
-        line.quantity = form.quantity
-        line.description = None
-        line.sale = Transaction().context.get('active_id', False)
-        res = line.on_change_product()
-        for f, v in res.iteritems():
-            setattr(line, f, v)
-        line.unit_price = form.unit_price
-        line.save()
+    def add_lines(self):
+        for line in self.start.lines:
+            line.sale = Transaction().context.get('active_id', False)
+            line.save()
 
     def transition_add_new_(self):
-        self.add_product()
+        self.add_lines()
         return 'start'
 
     def transition_add_(self):
-        self.add_product()
+        self.add_lines()
         return 'end'
 
 
