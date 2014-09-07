@@ -12,7 +12,7 @@ msgstr "¡No puede tener dos usuarios con el mismo registro de entrada!"
 
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
-msgstr "Seleccione una tienda en sus preferencias (\"%s\")"
+msgstr "Seleccione una tienda en sus preferencias (\"%s\")."
 
 msgctxt "field:account.statement.line,sale:"
 msgid "Sale"

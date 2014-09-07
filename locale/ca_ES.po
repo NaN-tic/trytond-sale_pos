@@ -12,7 +12,7 @@ msgstr "No podeu tenir dos usuaris amb el mateix identificador d'entrada!"
 
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
-msgstr "Selecciona una botiga en les seves preferencies (\"%s\")"
+msgstr "Seleccioneu una botiga a les vostres preferencies (\"%s\")."
 
 msgctxt "field:account.statement.line,sale:"
 msgid "Sale"
@@ -136,7 +136,7 @@ msgstr ""
 
 msgctxt "model:ir.action,name:"
 msgid "POS Device"
-msgstr "Paga"
+msgstr "Dispositiu TPV"
 
 msgctxt "model:ir.action,name:act_sale_form"
 msgid "POS Sales"
@@ -405,11 +405,11 @@ msgstr "Esborrany"
 
 msgctxt "view:sale.sale:"
 msgid "Handle Invoice Exception"
-msgstr "Gestionar excepció de factura"
+msgstr "Gestiona excepció de factura"
 
 msgctxt "view:sale.sale:"
 msgid "Handle Shipment Exception"
-msgstr "Gestionar excepció d'enviament"
+msgstr "Gestiona excepció d'enviament"
 
 msgctxt "view:sale.sale:"
 msgid "Invoices"
