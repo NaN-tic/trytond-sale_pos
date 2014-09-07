@@ -90,33 +90,13 @@ msgctxt "field:sale_pos.add_product_form,id:"
 msgid "ID"
 msgstr "ID"
 
-msgctxt "field:sale_pos.add_product_form,product:"
-msgid "Product"
-msgstr "Producte"
-
-msgctxt "field:sale_pos.add_product_form,product_uom_category:"
-msgid "Product Uom Category"
-msgstr "Categoria UdM del producte"
-
-msgctxt "field:sale_pos.add_product_form,quantity:"
-msgid "Quantity"
-msgstr "Quantitat"
+msgctxt "field:sale_pos.add_product_form,lines:"
+msgid "Lines"
+msgstr "Línies"
 
 msgctxt "field:sale_pos.add_product_form,sale:"
 msgid "Sale"
 msgstr "Venda"
-
-msgctxt "field:sale_pos.add_product_form,unit:"
-msgid "Unit"
-msgstr "Unitat"
-
-msgctxt "field:sale_pos.add_product_form,unit_digits:"
-msgid "Unit Digits"
-msgstr "Dígits unitat"
-
-msgctxt "field:sale_pos.add_product_form,unit_price:"
-msgid "Unit price"
-msgstr "Preu unitat"
 
 msgctxt "help:sale.sale,self_pick_up:"
 msgid ""
@@ -153,10 +133,6 @@ msgstr "Resum de vendes"
 msgctxt "model:ir.action,name:report_sales_summary_by_party"
 msgid "Sales Summary by Party"
 msgstr "Resum de vendes per tercer"
-
-msgctxt "model:ir.action,name:wizard_add_product"
-msgid "Add Product"
-msgstr "Afegeix producte"
 
 msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
 msgid "All"
@@ -448,8 +424,8 @@ msgid "Untaxed Amount"
 msgstr "Base imponible"
 
 msgctxt "view:sale.sale:"
-msgid "_Add Product"
-msgstr "_Afegeix producte"
+msgid "_Add Products"
+msgstr "_Afegeix productes"
 
 msgctxt "view:sale.sale:"
 msgid "_Pay"
@@ -460,8 +436,8 @@ msgid "_Ticket"
 msgstr "_Tiquet"
 
 msgctxt "view:sale_pos.add_product_form:"
-msgid "Add product"
-msgstr "Afegeix producte"
+msgid "Add products"
+msgstr "Afegeix productes"
 
 msgctxt "wizard_button:sale_pos.add_product,start,add_:"
 msgid "Add"
