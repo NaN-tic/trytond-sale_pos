@@ -313,10 +313,7 @@ class SaleLine:
             tax_list = Tax.compute(line.taxes,
                 line.unit_price or Decimal('0.0'),
                 line.quantity or 0.0)
-            tax_amount = Decimal('0.0')
-            for tax in tax_list:
-                _, val = Invoice._compute_tax(tax, 'out_invoice')
-                tax_amount += val.get('amount')
+            tax_amount = sum([t['amount'] for t in tax_list], Decimal('0.0'))
             return line.get_amount(None) + tax_amount
 
         for line in lines:
