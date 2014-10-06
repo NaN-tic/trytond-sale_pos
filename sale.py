@@ -305,7 +305,6 @@ class SaleLine:
     def get_price_with_tax(cls, lines, names):
         pool = Pool()
         Tax = pool.get('account.tax')
-        Invoice = pool.get('account.invoice')
         amount_w_tax = {}
         unit_price_w_tax = {}
 
