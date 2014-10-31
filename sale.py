@@ -79,6 +79,7 @@ class Sale:
         user = User(Transaction().user)
         return user.shop.party.id if user.shop and user.shop.party else None
 
+    @fields.depends(methods=['self_pick_up'])
     def on_change_shop(self):
         res = super(Sale, self).on_change_shop()
         if self.shop:
@@ -93,8 +94,7 @@ class Sale:
             res.update(self.on_change_self_pick_up())
         return res
 
-    @fields.depends('shop', 'self_pick_up', 'invoice_method', 'party',
-        'shipment_address', 'shipment_method', methods=['lines'])
+    @fields.depends('self_pick_up', 'shop', methods=['party', 'lines'])
     def on_change_self_pick_up(self):
         if self.self_pick_up:
             res = {
