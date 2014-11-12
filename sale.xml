@@ -147,12 +147,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             sequence="1" icon="tryton-list" action="act_sale_form"/>
     </data>
     <data depends="sale_shipment_cost">
-        <record model="ir.ui.view" id="sale_shipment_cost_view_form">
-            <field name="model">sale.sale</field>
-            <field name="type">form</field>
-            <field name="inherit" ref="sale.sale_view_form"/>
-            <field name="name">sale_shipment_cost_form</field>
-        </record>
         <record model="ir.ui.view" id="sale_line_shipment_cost_view_tree">
             <field name="model">sale.line</field>
             <field name="type">tree</field>
