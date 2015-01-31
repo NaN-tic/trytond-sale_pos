@@ -97,7 +97,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.act_window" id="act_sale_form">
             <field name="name">POS Sales</field>
             <field name="res_model">sale.sale</field>
-            <field name="search_value">[('shop', '=',  Eval('context', {}).get('shop.rec_name', ''))]</field>
+            <field name="search_value">[('shop', 'ilike',  Eval('context', {}).get('shop.rec_name', '%'))]</field>
         </record>
 
         <record model="ir.action.act_window.view" id="act_sale_view_form">
