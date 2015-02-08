@@ -72,6 +72,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <label name="shipment_state"/>
             <field name="shipment_state"/>
         </page>
+        <page string="Comment" id="comment" col="2">
+            <field name="comment"/>
+        </page>
     </notebook>
     <group id="cash" colspan="2">
         <button name="wizard_add_product" string="_Add Products"

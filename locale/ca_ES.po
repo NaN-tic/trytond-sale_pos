@@ -134,6 +134,10 @@ msgctxt "model:ir.action,name:report_sales_summary_by_party"
 msgid "Sales Summary by Party"
 msgstr "Resum de vendes per tercer"
 
+msgctxt "model:ir.action,name:wizard_add_product"
+msgid "Add Products"
+msgstr "Afegeix productes"
+
 msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
 msgid "All"
 msgstr "Tot"
@@ -370,6 +374,10 @@ msgstr "Afegeix _suma"
 msgctxt "view:sale.sale:"
 msgid "Cancel"
 msgstr "Cancel·la"
+
+msgctxt "view:sale.sale:"
+msgid "Comment"
+msgstr "Comentari"
 
 msgctxt "view:sale.sale:"
 msgid "Confirm"

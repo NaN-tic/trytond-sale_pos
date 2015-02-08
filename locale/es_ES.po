@@ -8,7 +8,7 @@ msgstr "Importe debe ser una cantidad positiva o negativa."
 
 msgctxt "error:res.user:"
 msgid "You can not have two users with the same login!"
-msgstr "¡No puede tener dos usuarios con el mismo registro de entrada!"
+msgstr "No puede tener dos usuarios con el mismo identificador de entrada."
 
 msgctxt "error:sale.sale:"
 msgid "Go to user preferences and select a shop (\"%s\")"
@@ -20,7 +20,7 @@ msgstr "Venta"
 
 msgctxt "field:sale.configuration,pos_sequence:"
 msgid "Sale Pos Code Sequence"
-msgstr "Sequencia Venta TPV"
+msgstr "Secuencia Venta TPV"
 
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
@@ -133,6 +133,10 @@ msgstr "Resumen de ventas"
 msgctxt "model:ir.action,name:report_sales_summary_by_party"
 msgid "Sales Summary by Party"
 msgstr "Resumen de ventas por tercero"
+
+msgctxt "model:ir.action,name:wizard_add_product"
+msgid "Add Products"
+msgstr "Añadir productos"
 
 msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
 msgid "All"
@@ -370,6 +374,10 @@ msgstr "Añadir _suma"
 msgctxt "view:sale.sale:"
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgctxt "view:sale.sale:"
+msgid "Comment"
+msgstr "Comentario"
 
 msgctxt "view:sale.sale:"
 msgid "Confirm"
