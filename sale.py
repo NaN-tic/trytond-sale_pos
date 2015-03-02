@@ -6,7 +6,7 @@ from datetime import datetime
 from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
-from trytond.pyson import Eval, Or
+from trytond.pyson import Bool, Eval, Or
 from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
@@ -62,6 +62,13 @@ class Sale:
             else:
                 fstates['readonly'] = Eval('self_pick_up', False)
             getattr(cls, fname).depends.append('self_pick_up')
+        if hasattr(cls, 'carrier'):
+            if 'invisible' not in cls.carrier.states:
+                cls.carrier.states['invisible'] = Bool(Eval('self_pick_up'))
+            else:
+                invisible = cls.carrier.states['invisible']
+                cls.carrier.states['invisible'] = Or(invisible,
+                    Bool(Eval('self_pick_up')))
 
         cls._buttons.update({
                 'add_sum': {
