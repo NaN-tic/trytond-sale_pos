@@ -1,0 +1,408 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.configuration,pos_sequence:"
+msgid "Sale Pos Code Sequence"
+msgstr "Código de Secuencia Venta POS"
+
+msgctxt "field:sale.line,amount_w_tax:"
+msgid "Amount with Tax"
+msgstr "Valor Total"
+
+msgctxt "field:sale.line,currency:"
+msgid "Currency"
+msgstr "Monedas"
+
+msgctxt "field:sale.line,currency_digits:"
+msgid "Currency Digits"
+msgstr "Decimales de Moneda"
+
+msgctxt "field:sale.line,unit_price_w_tax:"
+msgid "Unit Price with Tax"
+msgstr "Precio Unitario con Impuestos"
+
+msgctxt "field:sale.payment.form,self_pick_up:"
+msgid "Self Pick Up"
+msgstr "Entrega Directa"
+
+msgctxt "field:sale.sale,pos_create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:sale.sale,self_pick_up:"
+msgid "Self Pick Up"
+msgstr "Entrega Directa"
+
+msgctxt "field:sale.sale,ticket_number:"
+msgid "Ticket Number"
+msgstr "Número de Recibo"
+
+msgctxt "field:sale.shop,party:"
+msgid "Default Party"
+msgstr "Tercero por Defecto"
+
+msgctxt "field:sale.shop,self_pick_up:"
+msgid "Default Self Pick Up"
+msgstr "Seleccionado por Defecto"
+
+msgctxt "field:sale_pos.add_product_form,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:sale_pos.add_product_form,lines:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "field:sale_pos.add_product_form,sale:"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "help:sale.sale,self_pick_up:"
+msgid ""
+"The goods are picked up by the customer before the sale, so no shipment is "
+"created."
+msgstr ""
+"Los articulos están seleccionados por el cliente antes de la venta, no "
+"tienen envio creado."
+
+msgctxt "help:sale.shop,self_pick_up:"
+msgid ""
+"The goods are picked up by the customer before the sale, so no shipment is "
+"created."
+msgstr ""
+"Los articulos están seleccionados por el cliente antes de la venta, no "
+"tienen envio creado."
+
+msgctxt "model:ir.action,name:act_sale_form"
+msgid "POS Sales"
+msgstr "Venta POS"
+
+msgctxt "model:ir.action,name:report_sale_ticket"
+msgid "Sale Ticket"
+msgstr "Recibo de Venta"
+
+msgctxt "model:ir.action,name:report_sales_summary"
+msgid "Sales Summary"
+msgstr "Resumen de Ventas"
+
+msgctxt "model:ir.action,name:report_sales_summary_by_party"
+msgid "Sales Summary by Party"
+msgstr "Resumen de Ventas por Cliente"
+
+msgctxt "model:ir.action,name:wizard_add_product"
+msgid "Add Products"
+msgstr "Agregar Productos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_confirmed"
+msgid "Confirmed"
+msgstr "Confirmada"
+
+msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_draft"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_processing"
+msgid "Processing"
+msgstr "Procesada"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_sale_form_domain_quotation"
+msgid "Quotation"
+msgstr "Cotización"
+
+msgctxt "model:ir.sequence.strict,name:sequence_sale_pos"
+msgid "Sale Pos"
+msgstr "Venta POS"
+
+msgctxt "model:ir.sequence.type,name:sequence_type_sale_pos"
+msgid "Sale Pos"
+msgstr "Venta POS"
+
+msgctxt "model:ir.ui.menu,name:menu_sale"
+msgid "POS Sales"
+msgstr "Ventas POS"
+
+msgctxt "model:sale_pos.add_product_form,name:"
+msgid "Add Product Form"
+msgstr "Formulario Agregar Producto"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Amount"
+msgstr "Valor"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Customer:"
+msgstr "Cliente:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Date:"
+msgstr "Fecha:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Draft Sale N°"
+msgstr "Venta en Borrador N°"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Paid:"
+msgstr "Pagado:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Qty"
+msgstr "Cant."
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Residual:"
+msgstr "Cambio:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Sale N°"
+msgstr "Factura Venta N°"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Salesman:"
+msgstr "Vendedor:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Taxes:"
+msgstr "Impuestos:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Ticket Nº"
+msgstr "Recibo N°"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Total (excl. taxes):"
+msgstr "Total (sin impuestos):"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Total:"
+msgstr "Total:"
+
+msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgid "Unit Price"
+msgstr "Precio Unitario"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "$"
+msgstr "$"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "("
+msgstr "("
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid ")"
+msgstr ")"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Amount"
+msgstr "Valor"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Notes:"
+msgstr "Notas:"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "POS SALES SUMMARY"
+msgstr "RESUMEN DE VENTAS"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Party"
+msgstr "Cliente"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "TOTAL"
+msgstr "TOTAL"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Tax"
+msgstr "Impuesto"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Ticket Nº"
+msgstr "Recibo N°"
+
+msgctxt "odt:sale_pos.sales_summary:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "$"
+msgstr "$"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "("
+msgstr "("
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid ")"
+msgstr ")"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Amount"
+msgstr "Valor"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "From:"
+msgstr "De:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Notes:"
+msgstr "Notas:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "POS SALES BY PARTY"
+msgstr "VENTAS POR CLIENTE"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Party"
+msgstr "Cliente"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "TOTAL"
+msgstr "TOTAL"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Tax"
+msgstr "Impuesto"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "To:"
+msgstr "A:"
+
+msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "view:sale.line:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "view:sale.payment.form:"
+msgid ""
+"If you pay the entire amount, it will process this sale, moving the products"
+" without shipment and invoicing it."
+msgstr ""
+"Si usted paga el valor total, se procesará esta venta, moviendo productos "
+"sin factura ni envío."
+
+msgctxt "view:sale.payment.form:"
+msgid ""
+"If you want to manage the sale step by step or generate a shipment to manage"
+" the delivery, uncheck the Self Pick Up field in Sale's form and use the "
+"buttons in the bottom line."
+msgstr ""
+"Si desea gestionar la venta paso a paso o generar un envío para gestionar la"
+" entrega, desmarque el campo Entrega Directa en la Venta y use los botones "
+"abajo de líneas."
+
+msgctxt "view:sale.payment.form:"
+msgid "Sale Payment Form"
+msgstr "Formulario de Pago"
+
+msgctxt "view:sale.sale:"
+msgid "Add _Sum"
+msgstr "Agregar _Suma"
+
+msgctxt "view:sale.sale:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "view:sale.sale:"
+msgid "Comment"
+msgstr "Observaciones"
+
+msgctxt "view:sale.sale:"
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgctxt "view:sale.sale:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "view:sale.sale:"
+msgid "Handle Invoice Exception"
+msgstr "Gestionar Excepción de Factura"
+
+msgctxt "view:sale.sale:"
+msgid "Handle Shipment Exception"
+msgstr "Gestionar Excepción de Envío"
+
+msgctxt "view:sale.sale:"
+msgid "Invoices"
+msgstr "Facturas"
+
+msgctxt "view:sale.sale:"
+msgid "Payments"
+msgstr "Pagos"
+
+msgctxt "view:sale.sale:"
+msgid "Pos Cash Sales"
+msgstr "Ventas POS"
+
+msgctxt "view:sale.sale:"
+msgid "Process"
+msgstr "Procesar"
+
+msgctxt "view:sale.sale:"
+msgid "Quote"
+msgstr "Cotizar"
+
+msgctxt "view:sale.sale:"
+msgid "Sale"
+msgstr "Venta"
+
+msgctxt "view:sale.sale:"
+msgid "Shipments"
+msgstr "Envíos"
+
+msgctxt "view:sale.sale:"
+msgid "Total Amount"
+msgstr "Valor Total"
+
+msgctxt "view:sale.sale:"
+msgid "Untaxed Amount"
+msgstr "Subtotal (Base)"
+
+msgctxt "view:sale.sale:"
+msgid "_Add Products"
+msgstr "_Agregar Productos"
+
+msgctxt "view:sale.sale:"
+msgid "_Pay"
+msgstr "_Pago"
+
+msgctxt "view:sale.sale:"
+msgid "_Ticket"
+msgstr "_Recibo"
+
+msgctxt "view:sale_pos.add_product_form:"
+msgid "Add products"
+msgstr "Agregar Productos"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add_:"
+msgid "Add"
+msgstr "Añadir"
+
+msgctxt "wizard_button:sale_pos.add_product,start,add_new_:"
+msgid "Add and New"
+msgstr "Agregar y Continuar"
+
+msgctxt "wizard_button:sale_pos.add_product,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
