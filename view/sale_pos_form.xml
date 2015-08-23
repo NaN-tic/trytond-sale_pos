@@ -88,8 +88,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     </group>
     <label name="state"/>
     <field name="state"/>
-    <group col="7" colspan="4" id="full_workflow_buttons"
-        states="{'invisible': Eval('self_pick_up', False)}">
+    <group col="7" colspan="4" id="full_workflow_buttons">
         <button name="cancel" string="Cancel" icon="tryton-cancel"/>
         <button name="draft" string="Draft"/>
         <button name="quote" string="Quote" icon="tryton-go-next"/>

@@ -124,6 +124,13 @@ class Sale:
         return res
 
     @classmethod
+    def view_attributes(cls):
+        return super(Sale, cls).view_attributes() + [
+            ('//group[@id="full_workflow_buttons"]', 'states', {
+                    'invisible': Eval('self_pick_up', False),
+                    })]
+
+    @classmethod
     def create(cls, vlist):
         now = datetime.now()
         vlist = [x.copy() for x in vlist]
@@ -513,6 +520,19 @@ class WizardAddProduct(Wizard):
 class SalePaymentForm:
     __name__ = 'sale.payment.form'
     self_pick_up = fields.Boolean('Self Pick Up', readonly=True)
+
+    @classmethod
+    def view_attributes(cls):
+        return super(SalePaymentForm, cls).view_attributes() + [
+            ('//label[@id="self_pick_up_note1"]', 'states', {
+                    'invisible': ~Eval('self_pick_up', False),
+                    }),
+            ('//label[@id="self_pick_up_note2"]', 'states', {
+                    'invisible': ~Eval('self_pick_up', False),
+                    }),
+            ('//separator[@id="workflow_notes"]', 'states', {
+                    'invisible': ~Eval('self_pick_up', False),
+                    })]
 
 
 class WizardSalePayment:
