@@ -18,6 +18,8 @@ __all__ = [
     ]
 __metaclass__ = PoolMeta
 
+_ZERO = Decimal('0.00')
+
 
 class Sale:
     __name__ = 'sale.sale'
@@ -88,40 +90,27 @@ class Sale:
 
     @fields.depends(methods=['self_pick_up'])
     def on_change_shop(self):
-        res = super(Sale, self).on_change_shop()
+        super(Sale, self).on_change_shop()
         if self.shop:
             self.self_pick_up = self.shop.self_pick_up
-            res['self_pick_up'] = self.self_pick_up
-            res.update(self.on_change_self_pick_up())
-        return res
+            self.on_change_self_pick_up()
 
     def on_change_party(self):
-        res = super(Sale, self).on_change_party()
+        super(Sale, self).on_change_party()
         if hasattr(self, 'self_pick_up') and self.self_pick_up:
-            res.update(self.on_change_self_pick_up())
-        return res
+            self.on_change_self_pick_up()
 
     @fields.depends('self_pick_up', 'shop', methods=['party', 'lines'])
     def on_change_self_pick_up(self):
         if self.self_pick_up:
-            res = {
-                'invoice_method': 'order',
-                'shipment_method': 'order',
-                }
+            self.invoice_method = 'order'
+            self.shipment_method = 'order'
             if self.shop and self.shop.address:
-                res['shipment_address'] = self.shop.address.id
-                res['shipment_address.rec_name'] = self.shop.address.rec_name
+                self.shipment_address = self.shop.address
         else:
-            party_onchange = self.on_change_party()
-            res = {
-                'invoice_method': self.default_invoice_method(),
-                'shipment_method': self.default_shipment_method(),
-                'shipment_address': party_onchange.get('shipment_address'),
-                'shipment_address.rec_name':
-                    party_onchange.get('shipment_address.rec_name'),
-                }
-        res.update(self.on_change_lines())
-        return res
+            self.on_change_party()
+            self.invoice_method = self.default_invoice_method()
+            self.shipment_method = self.default_shipment_method()
 
     @classmethod
     def view_attributes(cls):
@@ -208,29 +197,27 @@ class Sale:
         computed values in sale lines.
         '''
         if not self.self_pick_up:
-            return super(Sale, self).on_change_lines()
+            super(Sale, self).on_change_lines()
 
-        res = {
-            'untaxed_amount': Decimal('0.0'),
-            'tax_amount': Decimal('0.0'),
-            'total_amount': Decimal('0.0'),
-            }
+        self.untaxed_amount = Decimal('0.0')
+        self.tax_amount = Decimal('0.0')
+        self.total_amount = Decimal('0.0')
+
         if self.lines:
-            res['untaxed_amount'] = reduce(lambda x, y: x + y,
+            self.untaxed_amount = reduce(lambda x, y: x + y,
                 [(getattr(l, 'amount', None) or Decimal(0))
                     for l in self.lines if l.type == 'line'], Decimal(0)
                 )
-            res['total_amount'] = reduce(lambda x, y: x + y,
+            self.total_amount = reduce(lambda x, y: x + y,
                 [(getattr(l, 'amount_w_tax', None) or Decimal(0))
                     for l in self.lines if l.type == 'line'], Decimal(0)
                 )
         if self.currency:
-            res['untaxed_amount'] = self.currency.round(res['untaxed_amount'])
-            res['total_amount'] = self.currency.round(res['total_amount'])
-        res['tax_amount'] = res['total_amount'] - res['untaxed_amount']
+            self.untaxed_amount = self.currency.round(self.untaxed_amount)
+            self.total_amount = self.currency.round(self.total_amount)
+        self.tax_amount = self.total_amount - self.untaxed_amount
         if self.currency:
-            res['tax_amount'] = self.currency.round(res['tax_amount'])
-        return res
+            self.tax_amount = self.currency.round(self.tax_amount)
 
 
 class SaleLine:
@@ -298,13 +285,13 @@ class SaleLine:
     def on_change_product(self):
         if not self.sale:
             self.sale = Transaction().context.get('sale')
-        return super(SaleLine, self).on_change_product()
+        super(SaleLine, self).on_change_product()
 
     @fields.depends('sale')
     def on_change_quantity(self):
         if not self.sale:
             self.sale = Transaction().context.get('sale')
-        return super(SaleLine, self).on_change_quantity()
+        super(SaleLine, self).on_change_quantity()
 
     @fields.depends('sale')
     def on_change_with_amount(self):
@@ -324,7 +311,8 @@ class SaleLine:
                 line.unit_price or Decimal('0.0'),
                 line.quantity or 0.0)
             tax_amount = sum([t['amount'] for t in tax_list], Decimal('0.0'))
-            return line.get_amount(None) + tax_amount
+            amount = line.amount
+            return (line.amount if amount else _ZERO) + tax_amount
 
         for line in lines:
             amount = Decimal('0.0')
@@ -369,7 +357,7 @@ class SaleLine:
         return result
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency', 'currency', 'product')
+        '_parent_sale.currency', 'currency', 'product', 'amount')
     def on_change_with_unit_price_w_tax(self, name=None):
         if not self.sale:
             self.sale = Transaction().context.get('sale')
@@ -377,7 +365,7 @@ class SaleLine:
             ['unit_price_w_tax'])['unit_price_w_tax'][self.id]
 
     @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency', 'currency', 'product')
+        '_parent_sale.currency', 'currency', 'product', 'amount')
     def on_change_with_amount_w_tax(self, name=None):
         if not self.sale:
             self.sale = Transaction().context.get('sale')
