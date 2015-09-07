@@ -320,14 +320,9 @@ class SaleLine:
             currency = (line.sale.currency if line.sale else line.currency)
 
             if line.type == 'line':
-                if line.quantity and line.product:
+                if line.quantity:
                     amount = compute_amount_with_tax(line)
                     unit_price = amount / Decimal(str(line.quantity))
-                elif line.product:
-                    old_quantity = line.quantity
-                    line.quantity = 1.0
-                    unit_price = compute_amount_with_tax(line)
-                    line.quantity = old_quantity
 
             # Only compute subtotals if the two fields are provided to speed up
             elif line.type == 'subtotal' and len(names) == 2:
