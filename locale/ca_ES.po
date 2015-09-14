@@ -76,7 +76,7 @@ msgstr "Adreces"
 
 msgctxt "field:sale.shop,company_party:"
 msgid ""
-msgstr " "
+msgstr ""
 
 msgctxt "field:sale.shop,party:"
 msgid "Default Party"
