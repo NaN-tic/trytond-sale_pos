@@ -114,6 +114,54 @@ msgstr ""
 "Los productos son recogidos por el propio cliente antes de la venta, por lo "
 "que no se crea albarán."
 
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Paid Amount"
+msgstr "Pagado"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Payment Type"
+msgstr "Tipo de pago"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Qty"
+msgstr "Cant."
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Residual Amount"
+msgstr "Pendiente"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Salesman"
+msgstr "Vendedor"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Simplified Invoice"
+msgstr "Factura simplificada"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Tax"
+msgstr "Impuesto"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Ticket"
+msgstr "Ticket"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Untaxed"
+msgstr "Base imponible"
+
 msgctxt "model:ir.action,name:"
 msgid "POS Device"
 msgstr "Dispositivo TPV"
@@ -263,7 +311,7 @@ msgstr "Fecha"
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "Notes:"
-msgstr "Observaciones:"
+msgstr "Notas:"
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "POS SALES SUMMARY"
@@ -311,7 +359,7 @@ msgstr "Desde:"
 
 msgctxt "odt:sale_pos.sales_summary_by_party:"
 msgid "Notes:"
-msgstr "Observaciones:"
+msgstr "Notas:"
 
 msgctxt "odt:sale_pos.sales_summary_by_party:"
 msgid "POS SALES BY PARTY"
@@ -422,6 +470,10 @@ msgstr "Venta"
 msgctxt "view:sale.sale:"
 msgid "Shipments"
 msgstr "Envíos"
+
+msgctxt "view:sale.sale:"
+msgid "Time"
+msgstr "Hora"
 
 msgctxt "view:sale.sale:"
 msgid "Total Amount"

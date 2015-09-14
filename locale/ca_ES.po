@@ -76,7 +76,7 @@ msgstr "Adreces"
 
 msgctxt "field:sale.shop,company_party:"
 msgid ""
-msgstr ""
+msgstr " "
 
 msgctxt "field:sale.shop,party:"
 msgid "Default Party"
@@ -113,6 +113,54 @@ msgid ""
 msgstr ""
 "Els productes són recollits pel propi client abans de la venda, pel que no "
 "es generà albarà."
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Date"
+msgstr "Data"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Description"
+msgstr "Descripció"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Paid Amount"
+msgstr "Pagat"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Payment Type"
+msgstr "Tipus pagament"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Qty"
+msgstr "Qtat"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Residual Amount"
+msgstr "Pendent"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Salesman"
+msgstr "Venedor"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Simplified Invoice"
+msgstr "Factura simplificada"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Tax"
+msgstr "Imposts"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Ticket"
+msgstr "Tiquet"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "jasper:sale.sale_ticket:"
+msgid "Untaxed"
+msgstr "Base imposable"
 
 msgctxt "model:ir.action,name:"
 msgid "POS Device"
@@ -263,7 +311,7 @@ msgstr "Data"
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "Notes:"
-msgstr "Observacions:"
+msgstr "Notes:"
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "POS SALES SUMMARY"
@@ -311,7 +359,7 @@ msgstr "Des de:"
 
 msgctxt "odt:sale_pos.sales_summary_by_party:"
 msgid "Notes:"
-msgstr "Observacions:"
+msgstr "Notes:"
 
 msgctxt "odt:sale_pos.sales_summary_by_party:"
 msgid "POS SALES BY PARTY"
@@ -422,6 +470,10 @@ msgstr "Venda"
 msgctxt "view:sale.sale:"
 msgid "Shipments"
 msgstr "Enviaments"
+
+msgctxt "view:sale.sale:"
+msgid "Time"
+msgstr "Hora"
 
 msgctxt "view:sale.sale:"
 msgid "Total Amount"
