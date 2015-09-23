@@ -24,7 +24,7 @@ msgstr "Seqüencia Venda TPV"
 
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
-msgstr "Total"
+msgstr "Total amb impostos"
 
 msgctxt "field:sale.line,currency:"
 msgid "Currency"
