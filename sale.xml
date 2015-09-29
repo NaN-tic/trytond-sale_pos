@@ -7,7 +7,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.report" id="report_sale_ticket">
             <field name="name">Sale Ticket</field>
             <field name="model">sale.sale</field>
-            <field name="report_name">sale_pos.sale_pos_ticket</field>
+            <field name="report_name">sale_pos.sale_ticket</field>
             <field name="report">sale_pos/sale_pos_ticket.odt</field>
         </record>
         <record model="ir.action.keyword" id="report_sale_ticket_keyword">

@@ -7,12 +7,13 @@ from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Bool, Eval, Or
-from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
+from trytond.report import Report
+from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
 
 __all__ = [
-    'Sale', 'SaleLine', 'StatementLine', 'SaleReportSummary',
+    'Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport', 'SaleReportSummary',
     'SaleReportSummaryByParty', 'AddProductForm', 'WizardAddProduct',
     'SalePaymentForm', 'WizardSalePayment',
     ]
@@ -387,6 +388,10 @@ class StatementLine:
     sale = fields.Many2One('sale.sale', 'Sale', ondelete='RESTRICT')
 
 
+class SaleTicketReport(Report):
+    __name__ = 'sale_pos.sale_ticket'
+
+
 class SaleReportSummary(CompanyReport):
     __name__ = 'sale_pos.sales_summary'
 
@@ -520,7 +525,7 @@ class SalePaymentForm:
 
 class WizardSalePayment:
     __name__ = 'sale.payment'
-    print_ = StateAction('sale_pos.report_sale_ticket')
+    print_ = StateReport('sale_pos.sale_ticket')
 
     def default_start(self, fields):
         Sale = Pool().get('sale.sale')
