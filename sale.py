@@ -396,42 +396,40 @@ class SaleReportSummary(CompanyReport):
     __name__ = 'sale_pos.sales_summary'
 
     @classmethod
-    def parse(cls, report, objects, data, localcontext):
-        User = Pool().get('res.user')
-        user = User(Transaction().user)
+    def get_context(cls, records, data):
+        report_context = super(SaleReportSummary, cls).get_context(records, data)
+
         sum_untaxed_amount = Decimal(0)
         sum_tax_amount = Decimal(0)
         sum_total_amount = Decimal(0)
-        new_objects = []
-        for sale in objects:
+        for sale in records:
             sum_untaxed_amount += sale.untaxed_amount
             sum_tax_amount += sale.tax_amount
             sum_total_amount += sale.total_amount
-            new_objects.append(sale)
-        data['sum_untaxed_amount'] = sum_untaxed_amount
-        data['sum_tax_amount'] = sum_tax_amount
-        data['sum_total_amount'] = sum_total_amount
-        localcontext['user'] = user
-        localcontext['company'] = user.company
 
-        return super(SaleReportSummary, cls).parse(report, new_objects, data,
-            localcontext)
+        report_context['sum_untaxed_amount'] = sum_untaxed_amount
+        report_context['sum_tax_amount'] = sum_tax_amount
+        report_context['sum_total_amount'] = sum_total_amount
+        report_context['company'] = report_context['user'].company
+        return report_context
 
 
 class SaleReportSummaryByParty(CompanyReport):
     __name__ = 'sale_pos.sales_summary_by_party'
 
     @classmethod
-    def parse(cls, report, objects, data, localcontext):
-        User = Pool().get('res.user')
-        user = User(Transaction().user)
+    def get_context(cls, records, data):
+        parties = {}
+
+        report_context = super(SaleReportSummaryByParty, cls).get_context(records, data)
+
+        report_context['start_date'] = report_context['end_date'] = \
+            records[0].sale_date if records else None
+
         sum_untaxed_amount = Decimal(0)
         sum_tax_amount = Decimal(0)
         sum_total_amount = Decimal(0)
-        parties = {}
-        data['start_date'] = data['end_date'] = \
-            objects[0].sale_date if objects else None
-        for sale in objects:
+        for sale in records:
             sum_untaxed_amount += sale.untaxed_amount
             sum_tax_amount += sale.tax_amount
             sum_total_amount += sale.total_amount
@@ -448,19 +446,18 @@ class SaleReportSummaryByParty(CompanyReport):
                 party.tax_amount += sale.tax_amount
                 party.total_amount += sale.total_amount
             parties[sale.party.id] = party
-            if not data['start_date'] or data['start_date'] > sale.sale_date:
-                data['start_date'] = sale.sale_date
-            if not data['end_date'] or data['end_date'] < sale.sale_date:
-                data['end_date'] = sale.sale_date
-        new_objects = parties.values()
-        data['sum_untaxed_amount'] = sum_untaxed_amount
-        data['sum_tax_amount'] = sum_tax_amount
-        data['sum_total_amount'] = sum_total_amount
-        localcontext['user'] = user
-        localcontext['company'] = user.company
+            if sale.sale_date:
+                if not report_context['start_date'] or report_context['start_date'] > sale.sale_date:
+                    report_context['start_date'] = sale.sale_date
+                if not report_context['end_date'] or report_context['end_date'] < sale.sale_date:
+                    report_context['end_date'] = sale.sale_date
 
-        return super(SaleReportSummaryByParty, cls).parse(report, new_objects,
-            data, localcontext)
+        report_context['parties'] = parties.values()
+        report_context['sum_untaxed_amount'] = sum_untaxed_amount
+        report_context['sum_tax_amount'] = sum_tax_amount
+        report_context['sum_total_amount'] = sum_total_amount
+        report_context['company'] = report_context['user'].company
+        return report_context
 
 
 class AddProductForm(ModelView):
