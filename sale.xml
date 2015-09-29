@@ -21,7 +21,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sales_summary</field>
             <field name="report">sale_pos/sale_pos_summary.odt</field>
-            <field name="style">company/letter.odt</field>
         </record>
         <record model="ir.action.keyword" id="report_sales_summary_keyword">
             <field name="keyword">form_print</field>
@@ -34,7 +33,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sales_summary_by_party</field>
             <field name="report">sale_pos/sale_pos_summary_by_party.odt</field>
-            <field name="style">company/letter.odt</field>
         </record>
         <record model="ir.action.keyword" id="report_sales_summary_by_party_keyword">
             <field name="keyword">form_print</field>
