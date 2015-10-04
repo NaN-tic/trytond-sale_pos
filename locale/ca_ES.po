@@ -114,54 +114,6 @@ msgstr ""
 "Els productes són recollits pel propi client abans de la venda, pel que no "
 "es generà albarà."
 
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Date"
-msgstr "Data"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Description"
-msgstr "Descripció"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Paid Amount"
-msgstr "Pagat"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Payment Type"
-msgstr "Tipus pagament"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Qty"
-msgstr "Qtat"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Residual Amount"
-msgstr "Pendent"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Salesman"
-msgstr "Venedor"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Simplified Invoice"
-msgstr "Factura simplificada"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Tax"
-msgstr "Imposts"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Ticket"
-msgstr "Tiquet"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Total"
-msgstr "Total"
-
-msgctxt "jasper:sale.sale_ticket:"
-msgid "Untaxed"
-msgstr "Base imposable"
-
 msgctxt "model:ir.action,name:"
 msgid "POS Device"
 msgstr "Dispositiu TPV"
