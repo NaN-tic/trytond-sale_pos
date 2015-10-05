@@ -57,12 +57,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <label name="residual_amount"/>
             <field name="residual_amount"/>
         </page>
-        <page string="Invoices" col="2" id="invoices">
+        <page name="invoices" col="2">
             <field name="invoices" colspan="2"/>
             <label name="invoice_state"/>
             <field name="invoice_state"/>
         </page>
-        <page string="Shipments" id="shipments" col="2">
+        <page name="shipments" col="2">
             <label name="warehouse"/>
             <field name="warehouse"/>
             <field name="moves" colspan="2"
