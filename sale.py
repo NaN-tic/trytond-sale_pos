@@ -145,13 +145,16 @@ class Sale:
     @ModelView.button
     def add_sum(cls, sales):
         Line = Pool().get('sale.line')
-        sale = sales[0]
-        line = Line(
-            sale=sale.id,
-            type='subtotal',
-            description='Subtotal',
-            )
-        line.save()
+        lines = []
+        for sale in sales:
+            line = Line(
+                sale=sale.id,
+                type='subtotal',
+                description='Subtotal',
+                sequence=10000,
+                )
+            lines.append(line)
+        Line.save(lines)
 
     @classmethod
     @ModelView.button_action('sale_pos.report_sale_ticket')
