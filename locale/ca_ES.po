@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -114,10 +114,6 @@ msgstr ""
 "Els productes són recollits pel propi client abans de la venda, pel que no "
 "es generà albarà."
 
-msgctxt "model:ir.action,name:"
-msgid "POS Device"
-msgstr "Dispositiu TPV"
-
 msgctxt "model:ir.action,name:act_sale_form"
 msgid "POS Sales"
 msgstr "Vendes TPV"
@@ -169,10 +165,6 @@ msgctxt "model:ir.sequence.type,name:sequence_type_sale_pos"
 msgid "Sale Pos"
 msgstr "Venda TPV"
 
-msgctxt "model:ir.ui.menu,name:"
-msgid "POS Devices"
-msgstr "Dispositius TPV"
-
 msgctxt "model:ir.ui.menu,name:menu_sale"
 msgid "POS Sales"
 msgstr "Vendes TPV"
@@ -181,65 +173,65 @@ msgctxt "model:sale_pos.add_product_form,name:"
 msgid "Add Product Form"
 msgstr "Formulari afegeix producte"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Amount"
 msgstr "Import"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Customer:"
 msgstr "Client:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Date:"
 msgstr "Data:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Description"
 msgstr "Descripció"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Draft Sale N°"
-msgstr "Factura esborrany Núm."
+msgstr "Comanda borrador Nº"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Paid:"
 msgstr "Pagat:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Qty"
-msgstr "Qtat"
+msgstr "Qt"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Residual:"
-msgstr "Pendent:"
+msgstr "Resta:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Sale N°"
-msgstr "Venda Núm"
+msgstr "Venda Nº"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Salesman:"
-msgstr "Atès per:"
+msgstr "Venedor:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Taxes:"
 msgstr "Impostos:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Ticket Nº"
 msgstr "Factura simplificada Núm."
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Total (excl. taxes):"
-msgstr "Total (sense imp.):"
+msgstr "Base imposable:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Total:"
 msgstr "Total:"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "odt:sale_pos.sale_ticket:"
 msgid "Unit Price"
-msgstr "Preu u."
+msgstr "Preu unitari"
 
 msgctxt "odt:sale_pos.sales_summary:"
 msgid "$"
@@ -368,8 +360,12 @@ msgid "Sale Payment Form"
 msgstr "Formulari de pagament de venda"
 
 msgctxt "view:sale.sale:"
-msgid "Add _Sum"
-msgstr "Afegeix _suma"
+msgid "Add Products"
+msgstr "Afegeix productes"
+
+msgctxt "view:sale.sale:"
+msgid "Add Sum"
+msgstr "Afegeix suma"
 
 msgctxt "view:sale.sale:"
 msgid "Cancel"
@@ -396,8 +392,8 @@ msgid "Handle Shipment Exception"
 msgstr "Gestiona excepció d'enviament"
 
 msgctxt "view:sale.sale:"
-msgid "Invoices"
-msgstr "Factures"
+msgid "Pay"
+msgstr "Paga"
 
 msgctxt "view:sale.sale:"
 msgid "Payments"
@@ -420,8 +416,8 @@ msgid "Sale"
 msgstr "Venda"
 
 msgctxt "view:sale.sale:"
-msgid "Shipments"
-msgstr "Enviaments"
+msgid "Ticket"
+msgstr "Tiquet"
 
 msgctxt "view:sale.sale:"
 msgid "Time"
@@ -434,18 +430,6 @@ msgstr "Total"
 msgctxt "view:sale.sale:"
 msgid "Untaxed Amount"
 msgstr "Base imponible"
-
-msgctxt "view:sale.sale:"
-msgid "_Add Products"
-msgstr "_Afegeix productes"
-
-msgctxt "view:sale.sale:"
-msgid "_Pay"
-msgstr "_Paga"
-
-msgctxt "view:sale.sale:"
-msgid "_Ticket"
-msgstr "_Tiquet"
 
 msgctxt "view:sale_pos.add_product_form:"
 msgid "Add products"
