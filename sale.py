@@ -287,14 +287,22 @@ class SaleLine:
 
     @fields.depends('sale')
     def on_change_product(self):
+        Sale = Pool().get('sale.sale')
+
         if not self.sale:
-            self.sale = Transaction().context.get('sale')
+            sale_id = Transaction().context.get('sale')
+            if sale_id:
+                self.sale = Sale(sale_id)
         super(SaleLine, self).on_change_product()
 
     @fields.depends('sale')
     def on_change_quantity(self):
+        Sale = Pool().get('sale.sale')
+
         if not self.sale:
-            self.sale = Transaction().context.get('sale')
+            sale_id = Transaction().context.get('sale')
+            if sale_id:
+                self.sale = Sale(sale_id)
         super(SaleLine, self).on_change_quantity()
 
     @fields.depends('sale')
