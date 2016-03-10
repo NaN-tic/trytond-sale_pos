@@ -35,7 +35,7 @@ class Sale:
 
     @classmethod
     def __register__(cls, module_name):
-        cursor = Transaction().cursor
+        cursor = Transaction().connection.cursor()
         sql_table = cls.__table__()
 
         super(Sale, cls).__register__(module_name)
