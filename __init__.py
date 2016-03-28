@@ -18,6 +18,7 @@ def register():
         SaleShop,
         module='sale_pos', type_='model')
     Pool.register(
+        SaleTicketReport,
         SaleReportSummary,
         SaleReportSummaryByParty,
         module='sale_pos', type_='report')

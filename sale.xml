@@ -7,7 +7,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.report" id="report_sale_ticket">
             <field name="name">Sale Ticket</field>
             <field name="model">sale.sale</field>
-            <field name="report_name">sale_pos.sale_pos_ticket</field>
+            <field name="report_name">sale_pos.sale_ticket</field>
             <field name="report">sale_pos/sale_pos_ticket.odt</field>
         </record>
         <record model="ir.action.keyword" id="report_sale_ticket_keyword">
@@ -21,7 +21,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sales_summary</field>
             <field name="report">sale_pos/sale_pos_summary.odt</field>
-            <field name="style">company/letter.odt</field>
         </record>
         <record model="ir.action.keyword" id="report_sales_summary_keyword">
             <field name="keyword">form_print</field>
@@ -34,7 +33,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sales_summary_by_party</field>
             <field name="report">sale_pos/sale_pos_summary_by_party.odt</field>
-            <field name="style">company/letter.odt</field>
         </record>
         <record model="ir.action.keyword" id="report_sales_summary_by_party_keyword">
             <field name="keyword">form_print</field>
@@ -70,7 +68,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </record>
         <record model="ir.ui.view" id="sale_line_view_form">
             <field name="model">sale.line</field>
-            <field name="type">form</field>
             <field name="inherit" ref="sale.sale_line_view_form"/>
             <field name="name">sale_line_form</field>
         </record>
@@ -97,7 +94,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.act_window" id="act_sale_form">
             <field name="name">POS Sales</field>
             <field name="res_model">sale.sale</field>
-            <field name="search_value">[('shop', 'ilike',  Eval('context', {}).get('shop.rec_name', '%'))]</field>
+            <field name="search_value"
+                eval="[('shop', 'ilike',  Eval('context', {}).get('shop.rec_name', '%'))]"
+                pyson="1"/>
         </record>
 
         <record model="ir.action.act_window.view" id="act_sale_view_form">
@@ -115,25 +114,33 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.action.act_window.domain" id="act_sale_form_domain_draft">
             <field name="name">Draft</field>
             <field name="sequence" eval="10"/>
-            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
             <field name="act_window" ref="act_sale_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_sale_form_domain_quotation">
             <field name="name">Quotation</field>
             <field name="sequence" eval="20"/>
-            <field name="domain">[('state', '=', 'quotation')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'quotation')]"
+                pyson="1"/>
             <field name="act_window" ref="act_sale_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_sale_form_domain_confirmed">
             <field name="name">Confirmed</field>
             <field name="sequence" eval="30"/>
-            <field name="domain">[('state', '=', 'confirmed')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'confirmed')]"
+                pyson="1"/>
             <field name="act_window" ref="act_sale_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_sale_form_domain_processing">
             <field name="name">Processing</field>
             <field name="sequence" eval="40"/>
-            <field name="domain">[('state', '=', 'processing')]</field>
+            <field name="domain"
+                eval="[('state', '=', 'processing')]"
+                pyson="1"/>
             <field name="act_window" ref="act_sale_form"/>
         </record>
         <record model="ir.action.act_window.domain" id="act_sale_form_domain_all">
@@ -149,7 +156,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <data depends="sale_shipment_cost">
         <record model="ir.ui.view" id="sale_line_shipment_cost_view_tree">
             <field name="model">sale.line</field>
-            <field name="type">tree</field>
+            <field name="type" eval="None"/>
             <field name="inherit" ref="sale.sale_line_view_tree"/>
             <field name="name">sale_shipment_cost_line_tree</field>
         </record>
@@ -157,7 +164,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <data depends="sale_margin">
         <record model="ir.ui.view" id="sale_line_margin_view_tree">
             <field name="model">sale.line</field>
-            <field name="type">tree</field>
+            <field name="type" eval="None"/>
             <field name="inherit" ref="sale_pos.sale_line_view_tree"/>
             <field name="name">sale_line_margin_view</field>
         </record>

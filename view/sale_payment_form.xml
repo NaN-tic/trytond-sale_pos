@@ -4,13 +4,10 @@
      copyright notices and license terms. -->
 <form string="Sale Payment Form">
     <label id="self_pick_up_note1" colspan="4" xalign="0.0"
-        states="{'invisible': ~Eval('self_pick_up', False)}"
         string="If you pay the entire amount, it will process this sale, moving the products without shipment and invoicing it."/>
     <label id="self_pick_up_note2" colspan="4" xalign="0.0"
-        states="{'invisible': ~Eval('self_pick_up', False)}"
         string="If you want to manage the sale step by step or generate a shipment to manage the delivery, uncheck the Self Pick Up field in Sale's form and use the buttons in the bottom line."/>
-    <separator id="workflow_notes" colspan="4"
-        states="{'invisible': ~Eval('self_pick_up', False)}"/>
+    <separator id="workflow_notes" colspan="4"/>
     <label name="journal"/>
     <field name="journal" widget="selection"/>
     <label name="payment_amount"/>

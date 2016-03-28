@@ -7,16 +7,19 @@ from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Bool, Eval, Or
-from trytond.wizard import (Wizard, StateView, StateAction, StateTransition,
+from trytond.report import Report
+from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
 
 __all__ = [
-    'Sale', 'SaleLine', 'StatementLine', 'SaleReportSummary',
+    'Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport', 'SaleReportSummary',
     'SaleReportSummaryByParty', 'AddProductForm', 'WizardAddProduct',
     'SalePaymentForm', 'WizardSalePayment',
     ]
 __metaclass__ = PoolMeta
+
+_ZERO = Decimal('0.00')
 
 
 class Sale:
@@ -32,7 +35,7 @@ class Sale:
 
     @classmethod
     def __register__(cls, module_name):
-        cursor = Transaction().cursor
+        cursor = Transaction().connection.cursor()
         sql_table = cls.__table__()
 
         super(Sale, cls).__register__(module_name)
@@ -88,40 +91,34 @@ class Sale:
 
     @fields.depends(methods=['self_pick_up'])
     def on_change_shop(self):
-        res = super(Sale, self).on_change_shop()
+        super(Sale, self).on_change_shop()
         if self.shop:
             self.self_pick_up = self.shop.self_pick_up
-            res['self_pick_up'] = self.self_pick_up
-            res.update(self.on_change_self_pick_up())
-        return res
+            self.on_change_self_pick_up()
 
     def on_change_party(self):
-        res = super(Sale, self).on_change_party()
+        super(Sale, self).on_change_party()
         if hasattr(self, 'self_pick_up') and self.self_pick_up:
-            res.update(self.on_change_self_pick_up())
-        return res
+            self.on_change_self_pick_up()
 
     @fields.depends('self_pick_up', 'shop', methods=['party', 'lines'])
     def on_change_self_pick_up(self):
         if self.self_pick_up:
-            res = {
-                'invoice_method': 'order',
-                'shipment_method': 'order',
-                }
+            self.invoice_method = 'order'
+            self.shipment_method = 'order'
             if self.shop and self.shop.address:
-                res['shipment_address'] = self.shop.address.id
-                res['shipment_address.rec_name'] = self.shop.address.rec_name
+                self.shipment_address = self.shop.address
         else:
-            party_onchange = self.on_change_party()
-            res = {
-                'invoice_method': self.default_invoice_method(),
-                'shipment_method': self.default_shipment_method(),
-                'shipment_address': party_onchange.get('shipment_address'),
-                'shipment_address.rec_name':
-                    party_onchange.get('shipment_address.rec_name'),
-                }
-        res.update(self.on_change_lines())
-        return res
+            self.on_change_party()
+            self.invoice_method = self.default_invoice_method()
+            self.shipment_method = self.default_shipment_method()
+
+    @classmethod
+    def view_attributes(cls):
+        return super(Sale, cls).view_attributes() + [
+            ('//group[@id="full_workflow_buttons"]', 'states', {
+                    'invisible': Eval('self_pick_up', False),
+                    })]
 
     @classmethod
     def create(cls, vlist):
@@ -148,13 +145,16 @@ class Sale:
     @ModelView.button
     def add_sum(cls, sales):
         Line = Pool().get('sale.line')
-        sale = sales[0]
-        line = Line(
-            sale=sale.id,
-            type='subtotal',
-            description='Subtotal',
-            )
-        line.save()
+        lines = []
+        for sale in sales:
+            line = Line(
+                sale=sale.id,
+                type='subtotal',
+                description='Subtotal',
+                sequence=10000,
+                )
+            lines.append(line)
+        Line.save(lines)
 
     @classmethod
     @ModelView.button_action('sale_pos.report_sale_ticket')
@@ -201,54 +201,31 @@ class Sale:
         computed values in sale lines.
         '''
         if not self.self_pick_up:
-            return super(Sale, self).on_change_lines()
+            super(Sale, self).on_change_lines()
 
-        res = {
-            'untaxed_amount': Decimal('0.0'),
-            'tax_amount': Decimal('0.0'),
-            'total_amount': Decimal('0.0'),
-            }
+        self.untaxed_amount = Decimal('0.0')
+        self.tax_amount = Decimal('0.0')
+        self.total_amount = Decimal('0.0')
+
         if self.lines:
-            res['untaxed_amount'] = reduce(lambda x, y: x + y,
+            self.untaxed_amount = reduce(lambda x, y: x + y,
                 [(getattr(l, 'amount', None) or Decimal(0))
                     for l in self.lines if l.type == 'line'], Decimal(0)
                 )
-            res['total_amount'] = reduce(lambda x, y: x + y,
+            self.total_amount = reduce(lambda x, y: x + y,
                 [(getattr(l, 'amount_w_tax', None) or Decimal(0))
                     for l in self.lines if l.type == 'line'], Decimal(0)
                 )
         if self.currency:
-            res['untaxed_amount'] = self.currency.round(res['untaxed_amount'])
-            res['total_amount'] = self.currency.round(res['total_amount'])
-        res['tax_amount'] = res['total_amount'] - res['untaxed_amount']
+            self.untaxed_amount = self.currency.round(self.untaxed_amount)
+            self.total_amount = self.currency.round(self.total_amount)
+        self.tax_amount = self.total_amount - self.untaxed_amount
         if self.currency:
-            res['tax_amount'] = self.currency.round(res['tax_amount'])
-        return res
+            self.tax_amount = self.currency.round(self.tax_amount)
 
 
 class SaleLine:
     __name__ = 'sale.line'
-    unit_price_w_tax = fields.Function(fields.Numeric('Unit Price with Tax',
-            digits=(16, Eval('_parent_sale', {}).get('currency_digits',
-                    Eval('currency_digits', 2))),
-            states={
-                'invisible': Eval('type') != 'line',
-                },
-            depends=['type', 'currency_digits']), 'get_price_with_tax')
-    amount_w_tax = fields.Function(fields.Numeric('Amount with Tax',
-            digits=(16, Eval('_parent_sale', {}).get('currency_digits',
-                    Eval('currency_digits', 2))),
-            states={
-                'invisible': ~Eval('type').in_(['line', 'subtotal']),
-                },
-            depends=['type', 'currency_digits']), 'get_price_with_tax')
-    currency_digits = fields.Function(fields.Integer('Currency Digits'),
-        'on_change_with_currency_digits')
-    currency = fields.Many2One('currency.currency', 'Currency',
-        states={
-            'required': ~Eval('sale'),
-            },
-        depends=['sale'])
 
     @classmethod
     def __setup__(cls):
@@ -266,116 +243,31 @@ class SaleLine:
             return Transaction().context.get('sale')
         return None
 
-    @staticmethod
-    def default_currency_digits():
-        Company = Pool().get('company.company')
-        if Transaction().context.get('company'):
-            company = Company(Transaction().context['company'])
-            return company.currency.digits
-        return 2
-
-    @staticmethod
-    def default_currency():
-        Company = Pool().get('company.company')
-        if Transaction().context.get('company'):
-            company = Company(Transaction().context['company'])
-            return company.currency.id
-
-    @fields.depends('currency')
-    def on_change_with_currency_digits(self, name=None):
-        if self.currency:
-            return self.currency.digits
-        return 2
-
     @fields.depends('sale')
     def on_change_product(self):
+        Sale = Pool().get('sale.sale')
+
         if not self.sale:
-            self.sale = Transaction().context.get('sale')
-        return super(SaleLine, self).on_change_product()
+            sale_id = Transaction().context.get('sale')
+            if sale_id:
+                self.sale = Sale(sale_id)
+        super(SaleLine, self).on_change_product()
 
     @fields.depends('sale')
     def on_change_quantity(self):
+        Sale = Pool().get('sale.sale')
+
         if not self.sale:
-            self.sale = Transaction().context.get('sale')
-        return super(SaleLine, self).on_change_quantity()
+            sale_id = Transaction().context.get('sale')
+            if sale_id:
+                self.sale = Sale(sale_id)
+        super(SaleLine, self).on_change_quantity()
 
     @fields.depends('sale')
     def on_change_with_amount(self):
         if not self.sale:
             self.sale = Transaction().context.get('sale')
         return super(SaleLine, self).on_change_with_amount()
-
-    @classmethod
-    def get_price_with_tax(cls, lines, names):
-        pool = Pool()
-        Tax = pool.get('account.tax')
-        amount_w_tax = {}
-        unit_price_w_tax = {}
-
-        def compute_amount_with_tax(line):
-            tax_list = Tax.compute(line.taxes,
-                line.unit_price or Decimal('0.0'),
-                line.quantity or 0.0)
-            tax_amount = sum([t['amount'] for t in tax_list], Decimal('0.0'))
-            return line.get_amount(None) + tax_amount
-
-        for line in lines:
-            amount = Decimal('0.0')
-            unit_price = Decimal('0.0')
-            currency = (line.sale.currency if line.sale else line.currency)
-
-            if line.type == 'line':
-                if line.quantity and line.product:
-                    amount = compute_amount_with_tax(line)
-                    unit_price = amount / Decimal(str(line.quantity))
-                elif line.product:
-                    old_quantity = line.quantity
-                    line.quantity = 1.0
-                    unit_price = compute_amount_with_tax(line)
-                    line.quantity = old_quantity
-
-            # Only compute subtotals if the two fields are provided to speed up
-            elif line.type == 'subtotal' and len(names) == 2:
-                for line2 in line.sale.lines:
-                    if line2.type == 'line':
-                        amount2 = compute_amount_with_tax(line2)
-                        if currency:
-                            amount2 = currency.round(amount2)
-                        amount += amount2
-                    elif line2.type == 'subtotal':
-                        if line == line2:
-                            break
-                        amount = Decimal('0.0')
-
-            if currency:
-                amount = currency.round(amount)
-            amount_w_tax[line.id] = amount
-            unit_price_w_tax[line.id] = unit_price
-
-        result = {
-            'amount_w_tax': amount_w_tax,
-            'unit_price_w_tax': unit_price_w_tax,
-            }
-        for key in result.keys():
-            if key not in names:
-                del result[key]
-        return result
-
-    @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency', 'currency', 'product')
-    def on_change_with_unit_price_w_tax(self, name=None):
-        if not self.sale:
-            self.sale = Transaction().context.get('sale')
-        return SaleLine.get_price_with_tax([self],
-            ['unit_price_w_tax'])['unit_price_w_tax'][self.id]
-
-    @fields.depends('type', 'unit_price', 'quantity', 'taxes', 'sale',
-        '_parent_sale.currency', 'currency', 'product')
-    def on_change_with_amount_w_tax(self, name=None):
-        if not self.sale:
-            self.sale = Transaction().context.get('sale')
-        return SaleLine.get_price_with_tax([self],
-            ['amount_w_tax'])['amount_w_tax'][self.id]
 
     def get_from_location(self, name):
         res = super(SaleLine, self).get_from_location(name)
@@ -397,46 +289,48 @@ class StatementLine:
     sale = fields.Many2One('sale.sale', 'Sale', ondelete='RESTRICT')
 
 
+class SaleTicketReport(Report):
+    __name__ = 'sale_pos.sale_ticket'
+
+
 class SaleReportSummary(CompanyReport):
     __name__ = 'sale_pos.sales_summary'
 
     @classmethod
-    def parse(cls, report, objects, data, localcontext):
-        User = Pool().get('res.user')
-        user = User(Transaction().user)
+    def get_context(cls, records, data):
+        report_context = super(SaleReportSummary, cls).get_context(records, data)
+
         sum_untaxed_amount = Decimal(0)
         sum_tax_amount = Decimal(0)
         sum_total_amount = Decimal(0)
-        new_objects = []
-        for sale in objects:
+        for sale in records:
             sum_untaxed_amount += sale.untaxed_amount
             sum_tax_amount += sale.tax_amount
             sum_total_amount += sale.total_amount
-            new_objects.append(sale)
-        data['sum_untaxed_amount'] = sum_untaxed_amount
-        data['sum_tax_amount'] = sum_tax_amount
-        data['sum_total_amount'] = sum_total_amount
-        localcontext['user'] = user
-        localcontext['company'] = user.company
 
-        return super(SaleReportSummary, cls).parse(report, new_objects, data,
-            localcontext)
+        report_context['sum_untaxed_amount'] = sum_untaxed_amount
+        report_context['sum_tax_amount'] = sum_tax_amount
+        report_context['sum_total_amount'] = sum_total_amount
+        report_context['company'] = report_context['user'].company
+        return report_context
 
 
 class SaleReportSummaryByParty(CompanyReport):
     __name__ = 'sale_pos.sales_summary_by_party'
 
     @classmethod
-    def parse(cls, report, objects, data, localcontext):
-        User = Pool().get('res.user')
-        user = User(Transaction().user)
+    def get_context(cls, records, data):
+        parties = {}
+
+        report_context = super(SaleReportSummaryByParty, cls).get_context(records, data)
+
+        report_context['start_date'] = report_context['end_date'] = \
+            records[0].sale_date if records else None
+
         sum_untaxed_amount = Decimal(0)
         sum_tax_amount = Decimal(0)
         sum_total_amount = Decimal(0)
-        parties = {}
-        data['start_date'] = data['end_date'] = \
-            objects[0].sale_date if objects else None
-        for sale in objects:
+        for sale in records:
             sum_untaxed_amount += sale.untaxed_amount
             sum_tax_amount += sale.tax_amount
             sum_total_amount += sale.total_amount
@@ -453,19 +347,18 @@ class SaleReportSummaryByParty(CompanyReport):
                 party.tax_amount += sale.tax_amount
                 party.total_amount += sale.total_amount
             parties[sale.party.id] = party
-            if not data['start_date'] or data['start_date'] > sale.sale_date:
-                data['start_date'] = sale.sale_date
-            if not data['end_date'] or data['end_date'] < sale.sale_date:
-                data['end_date'] = sale.sale_date
-        new_objects = parties.values()
-        data['sum_untaxed_amount'] = sum_untaxed_amount
-        data['sum_tax_amount'] = sum_tax_amount
-        data['sum_total_amount'] = sum_total_amount
-        localcontext['user'] = user
-        localcontext['company'] = user.company
+            if sale.sale_date:
+                if not report_context['start_date'] or report_context['start_date'] > sale.sale_date:
+                    report_context['start_date'] = sale.sale_date
+                if not report_context['end_date'] or report_context['end_date'] < sale.sale_date:
+                    report_context['end_date'] = sale.sale_date
 
-        return super(SaleReportSummaryByParty, cls).parse(report, new_objects,
-            data, localcontext)
+        report_context['parties'] = parties.values()
+        report_context['sum_untaxed_amount'] = sum_untaxed_amount
+        report_context['sum_tax_amount'] = sum_tax_amount
+        report_context['sum_total_amount'] = sum_total_amount
+        report_context['company'] = report_context['user'].company
+        return report_context
 
 
 class AddProductForm(ModelView):
@@ -514,10 +407,23 @@ class SalePaymentForm:
     __name__ = 'sale.payment.form'
     self_pick_up = fields.Boolean('Self Pick Up', readonly=True)
 
+    @classmethod
+    def view_attributes(cls):
+        return super(SalePaymentForm, cls).view_attributes() + [
+            ('//label[@id="self_pick_up_note1"]', 'states', {
+                    'invisible': ~Eval('self_pick_up', False),
+                    }),
+            ('//label[@id="self_pick_up_note2"]', 'states', {
+                    'invisible': ~Eval('self_pick_up', False),
+                    }),
+            ('//separator[@id="workflow_notes"]', 'states', {
+                    'invisible': ~Eval('self_pick_up', False),
+                    })]
+
 
 class WizardSalePayment:
     __name__ = 'sale.payment'
-    print_ = StateAction('sale_pos.report_sale_ticket')
+    print_ = StateReport('sale_pos.sale_ticket')
 
     def default_start(self, fields):
         Sale = Pool().get('sale.sale')

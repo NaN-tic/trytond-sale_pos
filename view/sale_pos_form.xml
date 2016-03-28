@@ -57,12 +57,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <label name="residual_amount"/>
             <field name="residual_amount"/>
         </page>
-        <page string="Invoices" col="2" id="invoices">
+        <page name="invoices" col="2">
             <field name="invoices" colspan="2"/>
             <label name="invoice_state"/>
             <field name="invoice_state"/>
         </page>
-        <page string="Shipments" id="shipments" col="2">
+        <page name="shipments" col="2">
             <label name="warehouse"/>
             <field name="warehouse"/>
             <field name="moves" colspan="2"
@@ -77,19 +77,18 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </page>
     </notebook>
     <group id="cash" colspan="2">
-        <button name="wizard_add_product" string="_Add Products"
+        <button name="wizard_add_product" string="Add Products"
             icon="tryton-list-add"/>
-        <button name="add_sum" string="Add _Sum"
+        <button name="add_sum" string="Add Sum"
             icon="tryton-list-add"/>
-        <button name="wizard_sale_payment" string="_Pay"
+        <button name="wizard_sale_payment" string="Pay"
             icon="tryton-go-next"/>
-        <button name="print_ticket" string="_Ticket"
+        <button name="print_ticket" string="Ticket"
             icon="tryton-print"/>
     </group>
     <label name="state"/>
     <field name="state"/>
-    <group col="7" colspan="4" id="full_workflow_buttons"
-        states="{'invisible': Eval('self_pick_up', False)}">
+    <group col="7" colspan="4" id="full_workflow_buttons">
         <button name="cancel" string="Cancel" icon="tryton-cancel"/>
         <button name="draft" string="Draft"/>
         <button name="quote" string="Quote" icon="tryton-go-next"/>
