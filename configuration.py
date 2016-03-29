@@ -5,10 +5,10 @@ from trytond.pool import PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['Configuration']
-__metaclass__ = PoolMeta
 
 
 class Configuration:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.configuration'
     pos_sequence = fields.Property(fields.Many2One('ir.sequence.strict',
             'Sale Pos Code Sequence', domain=[

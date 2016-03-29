@@ -17,12 +17,12 @@ __all__ = [
     'SaleReportSummaryByParty', 'AddProductForm', 'WizardAddProduct',
     'SalePaymentForm', 'WizardSalePayment',
     ]
-__metaclass__ = PoolMeta
 
 _ZERO = Decimal('0.00')
 
 
 class Sale:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
 
     ticket_number = fields.Char('Ticket Number', readonly=True, select=True)
@@ -225,6 +225,7 @@ class Sale:
 
 
 class SaleLine:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.line'
 
     @classmethod
@@ -285,15 +286,18 @@ class SaleLine:
 
 
 class StatementLine:
+    __metaclass__ = PoolMeta
     __name__ = 'account.statement.line'
     sale = fields.Many2One('sale.sale', 'Sale', ondelete='RESTRICT')
 
 
 class SaleTicketReport(Report):
+    __metaclass__ = PoolMeta
     __name__ = 'sale_pos.sale_ticket'
 
 
 class SaleReportSummary(CompanyReport):
+    __metaclass__ = PoolMeta
     __name__ = 'sale_pos.sales_summary'
 
     @classmethod
@@ -316,6 +320,7 @@ class SaleReportSummary(CompanyReport):
 
 
 class SaleReportSummaryByParty(CompanyReport):
+    __metaclass__ = PoolMeta
     __name__ = 'sale_pos.sales_summary_by_party'
 
     @classmethod
@@ -404,6 +409,7 @@ class WizardAddProduct(Wizard):
 
 
 class SalePaymentForm:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.payment.form'
     self_pick_up = fields.Boolean('Self Pick Up', readonly=True)
 
@@ -422,6 +428,7 @@ class SalePaymentForm:
 
 
 class WizardSalePayment:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.payment'
     print_ = StateReport('sale_pos.sale_ticket')
 
