@@ -335,160 +335,160 @@ msgctxt "model:sale_pos.sale_payment_form,name:"
 msgid "Sale Payment Form"
 msgstr "Formulaire des paiements de vente"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Amount"
 msgstr "Montant"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Customer:"
 msgstr "Client :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Date:"
 msgstr "Date :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Description"
 msgstr "Description"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Draft Sale N°"
 msgstr "Brouillon de vente n°"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Paid:"
 msgstr "Payé :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Qty"
 msgstr "Qté"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Residual:"
 msgstr "Solde :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Sale N°"
 msgstr "Vente n°"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Salesman:"
 msgstr "Vendeur :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Taxes:"
 msgstr "Taxes :"
 
 #, fuzzy
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Ticket Nº"
 msgstr "Ticket n°"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Total (excl. taxes):"
 msgstr "Total (ht) :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Total:"
 msgstr "Total :"
 
-msgctxt "odt:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Unit Price"
 msgstr "Prix unit."
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "$"
 msgstr ""
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "("
 msgstr ""
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid ")"
 msgstr ""
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Amount"
 msgstr "Montant"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Date"
 msgstr "Date"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Notes:"
 msgstr "Note :"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "POS SALES SUMMARY"
 msgstr "RÉSUMÉ DES VENTES PDV"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Party"
 msgstr "Tiers"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "TOTAL"
 msgstr "TOTAL"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Tax"
 msgstr "Taxes"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Ticket Nº"
 msgstr "Ticket n°"
 
-msgctxt "odt:sale_pos.sales_summary:"
+msgctxt "report:sale_pos.sales_summary:"
 msgid "Total"
 msgstr "Total"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "$"
 msgstr ""
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "("
 msgstr ""
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid ")"
 msgstr ""
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "Amount"
 msgstr "Montant"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "From:"
 msgstr "De :"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "Notes:"
 msgstr "Note :"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "POS SALES BY PARTY"
 msgstr "VENTE PDV PAR TIERS"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "Party"
 msgstr "Tiers"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "TOTAL"
 msgstr "TOTAL"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "Tax"
 msgstr "Taxes"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "To:"
 msgstr "À :"
 
-msgctxt "odt:sale_pos.sales_summary_by_party:"
+msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "Total"
 msgstr "Total"
 
