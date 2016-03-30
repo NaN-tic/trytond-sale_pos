@@ -49,7 +49,7 @@ for dep in info.get('depends', []):
         requires.append(get_require_version('%s_%s' % (prefix, dep)))
 requires.append(get_require_version('trytond'))
 
-tests_require = []
+tests_require = [get_require_version('proteus')]
 dependency_links = []
 if minor_version % 2:
     # Add development index for testing with proteus
@@ -116,4 +116,5 @@ setup(name=name,
     test_loader='trytond.test_loader:Loader',
     tests_require=tests_require,
     use_2to3=True,
+    convert_2to3_doctests=['tests/scenario_sale_pos.rst'],
     )
