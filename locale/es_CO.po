@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -44,7 +44,7 @@ msgstr "Tercero por Defecto"
 
 msgctxt "field:sale.shop,self_pick_up:"
 msgid "Default Self Pick Up"
-msgstr "Seleccionado por Defecto"
+msgstr "Entrega Directa por Defecto"
 
 msgctxt "field:sale_pos.add_product_form,id:"
 msgid "ID"
@@ -133,63 +133,63 @@ msgctxt "model:sale_pos.add_product_form,name:"
 msgid "Add Product Form"
 msgstr "Formulario Agregar Producto"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Amount"
 msgstr "Valor"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Customer:"
 msgstr "Cliente:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Date:"
 msgstr "Fecha:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Description"
 msgstr "Descripción"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Draft Sale N°"
-msgstr "Venta en Borrador N°"
+msgstr "Venta Borrador N°"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Paid:"
 msgstr "Pagado:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Qty"
-msgstr "Cant."
+msgstr "Cant"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Residual:"
 msgstr "Cambio:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Sale N°"
-msgstr "Factura Venta N°"
+msgstr "Venta N°"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Salesman:"
 msgstr "Vendedor:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Taxes:"
 msgstr "Impuestos:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Ticket Nº"
 msgstr "Recibo N°"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Total (excl. taxes):"
-msgstr "Total (sin impuestos):"
+msgstr "Base (sin Impuestos):"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Total:"
 msgstr "Total:"
 
-msgctxt "report:sale_pos.sale_pos_ticket:"
+msgctxt "report:sale_pos.sale_ticket:"
 msgid "Unit Price"
 msgstr "Precio Unitario"
 
@@ -263,7 +263,7 @@ msgstr "De:"
 
 msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "Notes:"
-msgstr "Notas:"
+msgstr "Observaciones:"
 
 msgctxt "report:sale_pos.sales_summary_by_party:"
 msgid "POS SALES BY PARTY"
@@ -316,8 +316,12 @@ msgid "Sale Payment Form"
 msgstr "Formulario de Pago"
 
 msgctxt "view:sale.sale:"
-msgid "Add _Sum"
-msgstr "Agregar _Suma"
+msgid "Add Products"
+msgstr "Agregar Productos"
+
+msgctxt "view:sale.sale:"
+msgid "Add Sum"
+msgstr "Agregar Suma"
 
 msgctxt "view:sale.sale:"
 msgid "Cancel"
@@ -344,8 +348,8 @@ msgid "Handle Shipment Exception"
 msgstr "Gestionar Excepción de Envío"
 
 msgctxt "view:sale.sale:"
-msgid "Invoices"
-msgstr "Facturas"
+msgid "Pay"
+msgstr "Pago"
 
 msgctxt "view:sale.sale:"
 msgid "Payments"
@@ -368,8 +372,12 @@ msgid "Sale"
 msgstr "Venta"
 
 msgctxt "view:sale.sale:"
-msgid "Shipments"
-msgstr "Envíos"
+msgid "Ticket"
+msgstr "Recibo"
+
+msgctxt "view:sale.sale:"
+msgid "Time"
+msgstr "Tiempo"
 
 msgctxt "view:sale.sale:"
 msgid "Total Amount"
@@ -378,18 +386,6 @@ msgstr "Valor Total"
 msgctxt "view:sale.sale:"
 msgid "Untaxed Amount"
 msgstr "Subtotal (Base)"
-
-msgctxt "view:sale.sale:"
-msgid "_Add Products"
-msgstr "_Agregar Productos"
-
-msgctxt "view:sale.sale:"
-msgid "_Pay"
-msgstr "_Pago"
-
-msgctxt "view:sale.sale:"
-msgid "_Ticket"
-msgstr "_Recibo"
 
 msgctxt "view:sale_pos.add_product_form:"
 msgid "Add products"
