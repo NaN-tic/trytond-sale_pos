@@ -176,20 +176,21 @@ class Sale:
         return super(Sale, self).create_shipment(shipment_type)
 
     def create_moves_without_shipment(self, shipment_type):
-        pool = Pool()
-        Move = pool.get('stock.move')
+        Move = Pool().get('stock.move')
 
         if not self.self_pick_up:
             return
 
         assert self.shipment_method == 'order'
-        moves = self._get_move_sale_line(shipment_type)
-        to_create = []
-        for m in moves:
-            to_create.append(moves[m]._save_values)
 
-        Move.create(to_create)
-        Move.do(self.moves)
+        moves = []
+        for line in self.lines:
+            move = line.get_move(shipment_type)
+            if move:
+                moves.append(move)
+        if moves:
+            moves = Move.create([m._save_values for m in moves])
+            Move.do(moves)
 
         self.set_shipment_state()
 
