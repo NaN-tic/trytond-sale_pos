@@ -203,26 +203,26 @@ class Sale:
         '''
         if not self.self_pick_up:
             super(Sale, self).on_change_lines()
+        else:
+            self.untaxed_amount = Decimal('0.0')
+            self.tax_amount = Decimal('0.0')
+            self.total_amount = Decimal('0.0')
 
-        self.untaxed_amount = Decimal('0.0')
-        self.tax_amount = Decimal('0.0')
-        self.total_amount = Decimal('0.0')
-
-        if self.lines:
-            self.untaxed_amount = reduce(lambda x, y: x + y,
-                [(getattr(l, 'amount', None) or Decimal(0))
-                    for l in self.lines if l.type == 'line'], Decimal(0)
-                )
-            self.total_amount = reduce(lambda x, y: x + y,
-                [(getattr(l, 'amount_w_tax', None) or Decimal(0))
-                    for l in self.lines if l.type == 'line'], Decimal(0)
-                )
-        if self.currency:
-            self.untaxed_amount = self.currency.round(self.untaxed_amount)
-            self.total_amount = self.currency.round(self.total_amount)
-        self.tax_amount = self.total_amount - self.untaxed_amount
-        if self.currency:
-            self.tax_amount = self.currency.round(self.tax_amount)
+            if self.lines:
+                self.untaxed_amount = reduce(lambda x, y: x + y,
+                    [(getattr(l, 'amount', None) or Decimal(0))
+                        for l in self.lines if l.type == 'line'], Decimal(0)
+                    )
+                self.total_amount = reduce(lambda x, y: x + y,
+                    [(getattr(l, 'amount_w_tax', None) or Decimal(0))
+                        for l in self.lines if l.type == 'line'], Decimal(0)
+                    )
+            if self.currency:
+                self.untaxed_amount = self.currency.round(self.untaxed_amount)
+                self.total_amount = self.currency.round(self.total_amount)
+            self.tax_amount = self.total_amount - self.untaxed_amount
+            if self.currency:
+                self.tax_amount = self.currency.round(self.tax_amount)
 
 
 class SaleLine:
