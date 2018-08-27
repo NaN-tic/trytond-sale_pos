@@ -2,7 +2,7 @@
 <!-- This file is part sale_pos module for Tryton.
      The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<form string="Sale Payment Form">
+<form>
     <label id="self_pick_up_note1" colspan="4" xalign="0.0"
         string="If you pay the entire amount, it will process this sale, moving the products without shipment and invoicing it."/>
     <label id="self_pick_up_note2" colspan="4" xalign="0.0"
