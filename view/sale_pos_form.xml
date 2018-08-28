@@ -79,26 +79,20 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </page>
     </notebook>
     <group id="cash" colspan="2">
-        <button name="wizard_add_product" string="Add Products"
-            icon="tryton-list-add"/>
-        <button name="add_sum" string="Add Sum"
-            icon="tryton-list-add"/>
-        <button name="wizard_sale_payment" string="Pay"
-            icon="tryton-go-next"/>
-        <button name="print_ticket" string="Ticket"
-            icon="tryton-print"/>
+        <button name="wizard_add_product" icon="tryton-list-add"/>
+        <button name="add_sum" icon="tryton-list-add"/>
+        <button name="wizard_sale_payment" icon="tryton-go-next"/>
+        <button name="print_ticket" icon="tryton-print"/>
     </group>
     <label name="state"/>
     <field name="state"/>
     <group col="7" colspan="4" id="full_workflow_buttons">
-        <button name="cancel" string="Cancel" icon="tryton-cancel"/>
-        <button name="draft" string="Draft"/>
-        <button name="quote" string="Quote" icon="tryton-go-next"/>
-        <button name="handle_invoice_exception"
-            string="Handle Invoice Exception" icon="tryton-go-next"/>
-        <button name="handle_shipment_exception"
-            string="Handle Shipment Exception" icon="tryton-go-next"/>
-        <button name="confirm" string="Confirm" icon="tryton-go-next"/>
-        <button name="process" string="Process" icon="tryton-go-next"/>
+        <button name="cancel" icon="tryton-cancel"/>
+        <button name="draft"/>
+        <button name="quote" icon="tryton-go-next"/>
+        <button name="handle_invoice_exception" icon="tryton-go-next"/>
+        <button name="handle_shipment_exception" icon="tryton-go-next"/>
+        <button name="confirm" icon="tryton-go-next"/>
+        <button name="process" icon="tryton-go-next"/>
     </group>
 </form>

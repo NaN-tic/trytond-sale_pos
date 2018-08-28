@@ -152,6 +152,28 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
 
         <menuitem name="POS Sales" parent="sale.menu_sale" id="menu_sale"
             sequence="1" icon="tryton-list" action="act_sale_form"/>
+
+        <!-- buttons -->
+        <record model="ir.model.button" id="wizard_add_product_button">
+            <field name="name">wizard_add_product</field>
+            <field name="string">Add Products</field>
+            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+        </record>
+        <record model="ir.model.button" id="add_sum_button">
+            <field name="name">add_sum</field>
+            <field name="string">Add Sum</field>
+            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+        </record>
+        <record model="ir.model.button" id="wizard_sale_payment_button">
+            <field name="name">wizard_sale_payment</field>
+            <field name="string">Pay</field>
+            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+        </record>
+        <record model="ir.model.button" id="print_ticket_button">
+            <field name="name">print_ticket</field>
+            <field name="string">Ticket</field>
+            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+        </record>
     </data>
     <data depends="sale_shipment_cost">
         <record model="ir.ui.view" id="sale_line_shipment_cost_view_tree">
