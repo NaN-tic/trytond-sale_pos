@@ -19,7 +19,7 @@ msgid "Sale"
 msgstr "Venda"
 
 msgctxt "field:sale.configuration,pos_sequence:"
-msgid "Sale Pos Code Sequence"
+msgid "Sale POS Sequence"
 msgstr "Seqüencia Venda TPV"
 
 msgctxt "field:sale.line,amount_w_tax:"

@@ -12,11 +12,9 @@ from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
 
-__all__ = [
-    'Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport', 'SaleReportSummary',
-    'SaleReportSummaryByParty', 'AddProductForm', 'WizardAddProduct',
-    'SalePaymentForm', 'WizardSalePayment',
-    ]
+__all__ = ['Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport',
+    'SaleReportSummary', 'SaleReportSummaryByParty', 'AddProductForm',
+    'WizardAddProduct', 'SalePaymentForm', 'WizardSalePayment']
 
 _ZERO = Decimal('0.00')
 
@@ -162,12 +160,12 @@ class Sale:
         pool = Pool()
         Config = pool.get('sale.configuration')
         Sequence = pool.get('ir.sequence.strict')
-        sequence = Config(1).pos_sequence
 
+        config = Config(1)
         for sale in sales:
             if (not sale.ticket_number and
                     sale.residual_amount == Decimal('0.0')):
-                sale.ticket_number = Sequence.get_id(sequence.id)
+                sale.ticket_number = Sequence.get_id(config.pos_sequence.id)
                 sale.save()
 
     def create_shipment(self, shipment_type):
@@ -292,7 +290,7 @@ class StatementLine:
     sale = fields.Many2One('sale.sale', 'Sale', ondelete='RESTRICT')
 
 
-class SaleTicketReport(Report):
+class SaleTicketReport(CompanyReport):
     __metaclass__ = PoolMeta
     __name__ = 'sale_pos.sale_ticket'
 

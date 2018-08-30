@@ -8,7 +8,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">Sale Ticket</field>
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sale_ticket</field>
-            <field name="report">sale_pos/sale_pos_ticket.odt</field>
+            <field name="report">sale_pos/sale_pos_ticket.fodt</field>
         </record>
         <record model="ir.action.keyword" id="report_sale_ticket_keyword">
             <field name="keyword">form_print</field>
@@ -20,7 +20,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">Sales Summary</field>
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sales_summary</field>
-            <field name="report">sale_pos/sale_pos_summary.odt</field>
+            <field name="report">sale_pos/sale_pos_summary.fodt</field>
         </record>
         <record model="ir.action.keyword" id="report_sales_summary_keyword">
             <field name="keyword">form_print</field>
@@ -32,7 +32,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">Sales Summary by Party</field>
             <field name="model">sale.sale</field>
             <field name="report_name">sale_pos.sales_summary_by_party</field>
-            <field name="report">sale_pos/sale_pos_summary_by_party.odt</field>
+            <field name="report">sale_pos/sale_pos_summary_by_party.fodt</field>
         </record>
         <record model="ir.action.keyword" id="report_sales_summary_by_party_keyword">
             <field name="keyword">form_print</field>
@@ -157,22 +157,17 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.model.button" id="wizard_add_product_button">
             <field name="name">wizard_add_product</field>
             <field name="string">Add Products</field>
-            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
         </record>
         <record model="ir.model.button" id="add_sum_button">
             <field name="name">add_sum</field>
             <field name="string">Add Sum</field>
-            <field name="model" search="[('model', '=', 'sale.sales')]"/>
-        </record>
-        <record model="ir.model.button" id="wizard_sale_payment_button">
-            <field name="name">wizard_sale_payment</field>
-            <field name="string">Pay</field>
-            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
         </record>
         <record model="ir.model.button" id="print_ticket_button">
             <field name="name">print_ticket</field>
             <field name="string">Ticket</field>
-            <field name="model" search="[('model', '=', 'sale.sales')]"/>
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
         </record>
     </data>
     <data depends="sale_shipment_cost">

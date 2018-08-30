@@ -28,11 +28,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Sale Pos</field>
             <field name="code">sale.pos</field>
         </record>
-
-        <record model="ir.property" id="property_sale_sequence">
-            <field name="field"
-                search="[('model.model', '=', 'sale.configuration'), ('name', '=', 'pos_sequence')]"/>
-            <field name="value" eval="'ir.sequence,' + str(ref('sequence_sale_pos'))"/>
-        </record>
     </data>
 </tryton>

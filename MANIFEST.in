@@ -6,7 +6,7 @@ include COPYRIGHT
 include LICENSE
 include tryton.cfg
 include *.xml
-include *.odt
+include *.fodt
 include view/*.xml
 include locale/*.po
 include doc/*

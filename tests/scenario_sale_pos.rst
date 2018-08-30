@@ -16,6 +16,7 @@ Imports::
     ...     create_chart, get_accounts, create_tax
     >>> from.trytond.modules.account_invoice.tests.tools import \
     ...     set_fiscalyear_invoice_sequences, create_payment_term
+    >>> from trytond.modules.sale_shop.tests.tools import create_shop
     >>> today = datetime.date.today()
 
 Install sale_pos::
@@ -40,6 +41,7 @@ Create chart of accounts::
     >>> revenue = accounts['revenue']
     >>> expense = accounts['expense']
     >>> cash = accounts['cash']
+    >>> receivable = accounts['receivable']
 
 Create tax::
 
@@ -50,6 +52,7 @@ Create parties::
 
     >>> Party = Model.get('party.party')
     >>> customer = Party(name='Customer')
+    >>> customer.account_receivable = receivable
     >>> customer.save()
 
 Create category::
@@ -86,33 +89,24 @@ Create payment term::
     >>> payment_term = create_payment_term()
     >>> payment_term.save()
 
-Create a shop::
+Create price list::
 
-    >>> Shop = Model.get('sale.shop')
     >>> PriceList = Model.get('product.price_list')
-    >>> Location = Model.get('stock.location')
-    >>> Sequence = Model.get('ir.sequence')
-    >>> warehouse, = Location.find([
-    ...         ('code', '=', 'WH'),
-    ...         ])
     >>> price_list = PriceList()
     >>> price_list.name = 'Default price list'
     >>> price_list.save()
-    >>> shop = Shop()
-    >>> shop.name = 'Local shop'
-    >>> shop.warehouse = warehouse
-    >>> shop.shipment_method = 'order'
-    >>> shop.invoice_method = 'order'
-    >>> sequence, = Sequence.find([('code', '=', 'sale.sale')])
-    >>> shop.sale_sequence = sequence
-    >>> shop.payment_term = payment_term
-    >>> shop.price_list = price_list
+
+Create shop::
+
+    >>> shop = create_shop(payment_term, price_list)
     >>> shop.party = customer
+    >>> shop.sale_invoice_method = 'order'
     >>> shop.self_pick_up = True
     >>> shop.save()
 
 Create journals::
 
+    >>> Sequence = Model.get('ir.sequence')
     >>> Journal = Model.get('account.journal')
     >>> StatementJournal = Model.get('account.statement.journal')
     >>> sequence = Sequence(name='Satement',
@@ -154,51 +148,9 @@ Reload the context::
     >>> user.save()
     >>> config._context = User.get_preferences(True, config.context)
 
-Create sale user::
-
-    >>> shop = Shop(shop.id)
-    >>> sale_user = User()
-    >>> sale_user.name = 'Sale'
-    >>> sale_user.login = 'sale'
-    >>> sale_user.main_company = company
-    >>> sale_group, = Group.find([('name', '=', 'Sales')])
-    >>> sale_user.groups.append(sale_group)
-    >>> sale_user.shops.append(shop)
-    >>> sale_user.shop = shop
-    >>> sale_user.sale_device = device
-    >>> sale_user.save()
-
-Create stock user::
-
-    >>> shop = Shop(shop.id)
-    >>> stock_user = User()
-    >>> stock_user.name = 'Stock'
-    >>> stock_user.login = 'stock'
-    >>> stock_user.main_company = company
-    >>> stock_group, = Group.find([('name', '=', 'Stock')])
-    >>> stock_user.groups.append(stock_group)
-    >>> stock_user.shops.append(shop)
-    >>> stock_user.shop = shop
-    >>> stock_user.sale_device = device
-    >>> stock_user.save()
-
-Create account user::
-
-    >>> shop = Shop(shop.id)
-    >>> account_user = User()
-    >>> account_user.name = 'Account'
-    >>> account_user.login = 'account'
-    >>> account_user.main_company = company
-    >>> account_group, = Group.find([('name', '=', 'Account')])
-    >>> account_user.groups.append(account_group)
-    >>> account_user.shops.append(shop)
-    >>> account_user.shop = shop
-    >>> account_user.sale_device = device
-    >>> account_user.save()
-
 Create an Inventory::
 
-    >>> config.user = stock_user.id
+    >>> Location = Model.get('stock.location')
     >>> Inventory = Model.get('stock.inventory')
     >>> InventoryLine = Model.get('stock.inventory.line')
     >>> storage, = Location.find([
@@ -213,12 +165,11 @@ Create an Inventory::
     >>> inventory.save()
     >>> inventory_line.save()
     >>> Inventory.confirm([inventory.id], config.context)
-    >>> inventory.state
-    u'done'
+    >>> inventory.state == 'done'
+    True
 
 Sale 2 products::
 
-    >>> config.user = sale_user.id
     >>> Sale = Model.get('sale.sale')
     >>> SaleLine = Model.get('sale.line')
     >>> sale = Sale()
@@ -230,11 +181,11 @@ Sale 2 products::
     True
     >>> sale.price_list == price_list
     True
-    >>> sale.invoice_method
-    'order'
-    >>> sale.shipment_method
-    'order'
-    >>> bool(sale.self_pick_up)
+    >>> sale.invoice_method == 'order'
+    True
+    >>> sale.shipment_method == 'order'
+    True
+    >>> sale.self_pick_up == True
     True
     >>> sale_line = sale.lines.new()
     >>> sale_line.product = product
@@ -255,8 +206,8 @@ Open statements for current device::
     0
     >>> open_statment = Wizard('open.statement')
     >>> open_statment.execute('create_')
-    >>> open_statment.form.result
-    u'Statement Default opened. \n'
+    >>> open_statment.form.result == 'Statement Default opened. \n'
+    True
     >>> payment_statement, = Statement.find([('state', '=', 'draft')])
 
 When the sale is paid moves and invoices are generated::
@@ -271,20 +222,18 @@ When the sale is paid moves and invoices are generated::
 Stock moves should be created for the sale::
 
     >>> move, = sale.moves
-    >>> config.user = stock_user.id
     >>> move.quantity
     2.0
     >>> move.product == product
     True
-    >>> move.state
-    u'done'
+    >>> move.state == 'done'
+    True
 
 An invoice should be created for the sale::
 
     >>> invoice, = sale.invoices
-    >>> config.user = account_user.id
-    >>> invoice.state
-    u'posted'
+    >>> invoice.state == 'posted'
+    True
     >>> invoice.untaxed_amount
     Decimal('20.00')
     >>> invoice.tax_amount
@@ -296,22 +245,21 @@ When the statement is closed the invoices are paid and sale is done::
 
     >>> close_statment = Wizard('close.statement')
     >>> close_statment.execute('validate')
-    >>> close_statment.form.result
-    u'Statement Default - Default closed. \n'
+    >>> close_statment.form.result == 'Statement Default - Default closed. \n'
+    True
     >>> payment_statement.reload()
-    >>> payment_statement.state
-    u'validated'
+    >>> payment_statement.state == 'validated'
+    True
     >>> all(l.invoice == invoice for l in payment_statement.lines)
     True
     >>> payment_statement.balance
     Decimal('22.00')
     >>> invoice.reload()
-    >>> invoice.state
-    u'paid'
-    >>> config.user = sale_user.id
+    >>> invoice.state == 'paid'
+    True
     >>> sale.reload()
-    >>> sale.state
-    u'done'
+    >>> sale.state == 'done'
+    True
 
 Execute Reports::
 
