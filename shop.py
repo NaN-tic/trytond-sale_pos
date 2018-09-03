@@ -7,8 +7,7 @@ from trytond.pool import PoolMeta
 __all__ = ['SaleShop']
 
 
-class SaleShop:
-    __metaclass__ = PoolMeta
+class SaleShop(metaclass=PoolMeta):
     __name__ = 'sale.shop'
     party = fields.Many2One('party.party', "Default Party")
     self_pick_up = fields.Boolean('Default Self Pick Up',

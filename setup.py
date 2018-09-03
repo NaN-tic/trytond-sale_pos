@@ -7,10 +7,7 @@ from setuptools import setup
 import re
 import os
 import io
-try:
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 MODULE2PREFIX = {}
 

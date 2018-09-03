@@ -17,8 +17,7 @@ def default_func(field_name):
     return default
 
 
-class Configuration:
-    __metaclass__ = PoolMeta
+class Configuration(metaclass=PoolMeta):
     __name__ = 'sale.configuration'
     pos_sequence = fields.MultiValue(fields.Many2One(
         'ir.sequence.strict', "Sale POS Sequence", required=True,
@@ -38,8 +37,7 @@ class Configuration:
     default_pos_sequence = default_func('pos_sequence')
 
 
-class ConfigurationSequence:
-    __metaclass__ = PoolMeta
+class ConfigurationSequence(metaclass=PoolMeta):
     __name__ = 'sale.configuration.sequence'
     pos_sequence = fields.Many2One(
         'ir.sequence.strict', "Sale POS Sequence", required=True,

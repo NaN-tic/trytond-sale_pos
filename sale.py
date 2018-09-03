@@ -7,10 +7,10 @@ from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Bool, Eval, Or
-from trytond.report import Report
 from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
+from functools import reduce
 
 __all__ = ['Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport',
     'SaleReportSummary', 'SaleReportSummaryByParty', 'AddProductForm',
@@ -19,8 +19,7 @@ __all__ = ['Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport',
 _ZERO = Decimal('0.00')
 
 
-class Sale:
-    __metaclass__ = PoolMeta
+class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
 
     ticket_number = fields.Char('Ticket Number', readonly=True, select=True)
@@ -87,7 +86,7 @@ class Sale:
         user = User(Transaction().user)
         return user.shop.party.id if user.shop and user.shop.party else None
 
-    @fields.depends(methods=['self_pick_up'])
+    @fields.depends(methods=['on_change_self_pick_up'])
     def on_change_shop(self):
         super(Sale, self).on_change_shop()
         if self.shop:
@@ -99,7 +98,7 @@ class Sale:
         if hasattr(self, 'self_pick_up') and self.self_pick_up:
             self.on_change_self_pick_up()
 
-    @fields.depends('self_pick_up', 'shop', methods=['party', 'lines'])
+    @fields.depends('self_pick_up', 'shop', methods=['on_change_party'])
     def on_change_self_pick_up(self):
         if self.self_pick_up:
             self.invoice_method = 'order'
@@ -223,8 +222,7 @@ class Sale:
             self.tax_amount = self.currency.round(self.tax_amount)
 
 
-class SaleLine:
-    __metaclass__ = PoolMeta
+class SaleLine(metaclass=PoolMeta):
     __name__ = 'sale.line'
 
     @classmethod
@@ -284,19 +282,16 @@ class SaleLine:
         return res
 
 
-class StatementLine:
-    __metaclass__ = PoolMeta
+class StatementLine(metaclass=PoolMeta):
     __name__ = 'account.statement.line'
     sale = fields.Many2One('sale.sale', 'Sale', ondelete='RESTRICT')
 
 
-class SaleTicketReport(CompanyReport):
-    __metaclass__ = PoolMeta
+class SaleTicketReport(CompanyReport, metaclass=PoolMeta):
     __name__ = 'sale_pos.sale_ticket'
 
 
-class SaleReportSummary(CompanyReport):
-    __metaclass__ = PoolMeta
+class SaleReportSummary(CompanyReport, metaclass=PoolMeta):
     __name__ = 'sale_pos.sales_summary'
 
     @classmethod
@@ -318,8 +313,7 @@ class SaleReportSummary(CompanyReport):
         return report_context
 
 
-class SaleReportSummaryByParty(CompanyReport):
-    __metaclass__ = PoolMeta
+class SaleReportSummaryByParty(CompanyReport, metaclass=PoolMeta):
     __name__ = 'sale_pos.sales_summary_by_party'
 
     @classmethod
@@ -338,7 +332,7 @@ class SaleReportSummaryByParty(CompanyReport):
             sum_untaxed_amount += sale.untaxed_amount
             sum_tax_amount += sale.tax_amount
             sum_total_amount += sale.total_amount
-            if sale.party.id not in parties.keys():
+            if sale.party.id not in list(parties.keys()):
                 party = sale.party
                 party.name = sale.party.full_name
                 party.untaxed_amount = sale.untaxed_amount
@@ -357,7 +351,7 @@ class SaleReportSummaryByParty(CompanyReport):
                 if not report_context['end_date'] or report_context['end_date'] < sale.sale_date:
                     report_context['end_date'] = sale.sale_date
 
-        report_context['parties'] = parties.values()
+        report_context['parties'] = list(parties.values())
         report_context['sum_untaxed_amount'] = sum_untaxed_amount
         report_context['sum_tax_amount'] = sum_tax_amount
         report_context['sum_total_amount'] = sum_total_amount
@@ -407,8 +401,7 @@ class WizardAddProduct(Wizard):
         return 'end'
 
 
-class SalePaymentForm:
-    __metaclass__ = PoolMeta
+class SalePaymentForm(metaclass=PoolMeta):
     __name__ = 'sale.payment.form'
     self_pick_up = fields.Boolean('Self Pick Up', readonly=True)
 
@@ -426,8 +419,7 @@ class SalePaymentForm:
                     })]
 
 
-class WizardSalePayment:
-    __metaclass__ = PoolMeta
+class WizardSalePayment(metaclass=PoolMeta):
     __name__ = 'sale.payment'
     print_ = StateReport('sale_pos.sale_ticket')
 
