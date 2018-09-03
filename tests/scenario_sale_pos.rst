@@ -117,13 +117,12 @@ Create journals::
     >>> sequence.save()
     >>> account_journal = Journal(name='Statement',
     ...     type='statement',
-    ...     credit_account=cash,
-    ...     debit_account=cash,
     ...     sequence=sequence,
     ... )
     >>> account_journal.save()
     >>> statement_journal = StatementJournal(name='Default',
     ...     journal=account_journal,
+    ...     account=cash,
     ...     validation='balance',
     ... )
     >>> statement_journal.save()
