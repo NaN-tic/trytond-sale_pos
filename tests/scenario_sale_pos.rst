@@ -58,8 +58,12 @@ Create parties::
 Create category::
 
     >>> ProductCategory = Model.get('product.category')
-    >>> category = ProductCategory(name='Category')
-    >>> category.save()
+    >>> account_category = ProductCategory(name='Category')
+    >>> account_category.accounting = True
+    >>> account_category.account_expense = expense
+    >>> account_category.account_revenue = revenue
+    >>> account_category.customer_taxes.append(tax)
+    >>> account_category.save()
 
 Create product::
 
@@ -70,15 +74,12 @@ Create product::
     >>> product = Product()
     >>> template = ProductTemplate()
     >>> template.name = 'product'
-    >>> template.category = category
     >>> template.default_uom = unit
     >>> template.type = 'goods'
     >>> template.purchasable = True
     >>> template.salable = True
     >>> template.list_price = Decimal('10')
-    >>> template.account_expense = expense
-    >>> template.account_revenue = revenue
-    >>> template.customer_taxes.append(tax)
+    >>> template.account_category = account_category
     >>> product, = template.products
     >>> product.cost_price = Decimal('5')
     >>> template.save()
