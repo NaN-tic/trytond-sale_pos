@@ -44,15 +44,6 @@ class Sale(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super(Sale, cls).__setup__()
-
-        for fname in cls.self_pick_up.on_change:
-            if fname not in cls.shop.on_change:
-                cls.shop.on_change.add(fname)
-            if fname not in cls.party.on_change:
-                cls.party.on_change.add(fname)
-        for fname in cls.party.on_change:
-            if fname not in cls.self_pick_up.on_change:
-                cls.self_pick_up.on_change.add(fname)
         for fname in ('invoice_method', 'invoice_address', 'shipment_method',
                 'shipment_address'):
             fstates = getattr(cls, fname).states
@@ -79,6 +70,9 @@ class Sale(metaclass=PoolMeta):
                     },
                 'print_ticket': {}
                 })
+        for fname in ('self_pick_up', 'currency', 'party'):
+            if fname not in cls.lines.on_change:
+                cls.lines.on_change.add(fname)
 
     @staticmethod
     def default_party():
@@ -93,12 +87,13 @@ class Sale(metaclass=PoolMeta):
             self.self_pick_up = self.shop.self_pick_up
             self.on_change_self_pick_up()
 
+    @fields.depends(methods=['on_change_self_pick_up'])
     def on_change_party(self):
         super(Sale, self).on_change_party()
         if hasattr(self, 'self_pick_up') and self.self_pick_up:
             self.on_change_self_pick_up()
 
-    @fields.depends('self_pick_up', 'shop', methods=['on_change_party'])
+    @fields.depends('self_pick_up', 'shop', 'party')
     def on_change_self_pick_up(self):
         if self.self_pick_up:
             self.invoice_method = 'order'
@@ -106,9 +101,10 @@ class Sale(metaclass=PoolMeta):
             if self.shop and self.shop.address:
                 self.shipment_address = self.shop.address
         else:
-            self.on_change_party()
             self.invoice_method = self.default_invoice_method()
             self.shipment_method = self.default_shipment_method()
+            if self.party:
+                self.shipment_address = self.party.address_get(type='delivery')
 
     @classmethod
     def view_attributes(cls):
