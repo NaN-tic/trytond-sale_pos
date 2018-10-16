@@ -196,7 +196,7 @@ class Sale:
         performance: Computes untaxed, total and tax amounts from the already
         computed values in sale lines.
         '''
-        if not self.self_pick_up:
+        if hasattr(self, 'self_pick_up') and  not self.self_pick_up:
             super(Sale, self).on_change_lines()
         else:
             self.untaxed_amount = Decimal('0.0')
@@ -212,12 +212,11 @@ class Sale:
                     [(getattr(l, 'amount_w_tax', None) or Decimal(0))
                         for l in self.lines if l.type == 'line'], Decimal(0)
                     )
-            if self.currency:
+            if hasattr(self, 'currency') and self.currency:
                 self.untaxed_amount = self.currency.round(self.untaxed_amount)
                 self.total_amount = self.currency.round(self.total_amount)
-            self.tax_amount = self.total_amount - self.untaxed_amount
-            if self.currency:
-                self.tax_amount = self.currency.round(self.tax_amount)
+                tax_amount = self.total_amount - self.untaxed_amount
+                self.tax_amount = self.currency.round(tax_amount)
 
 
 class SaleLine:
