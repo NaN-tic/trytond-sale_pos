@@ -190,6 +190,7 @@ class Sale:
 
         self.set_shipment_state()
 
+    @fields.depends('self_pick_up')
     def on_change_lines(self):
         '''
         Overrides this method completely if the sale is self pick up to improve
