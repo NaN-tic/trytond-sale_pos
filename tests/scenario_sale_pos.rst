@@ -206,7 +206,7 @@ Open statements for current device::
     0
     >>> open_statment = Wizard('open.statement')
     >>> open_statment.execute('create_')
-    >>> open_statment.form.result == 'Statement Default opened. \n'
+    >>> open_statment.form.result == 'Statement Default opened.'
     True
     >>> payment_statement, = Statement.find([('state', '=', 'draft')])
 
@@ -245,7 +245,7 @@ When the statement is closed the invoices are paid and sale is done::
 
     >>> close_statment = Wizard('close.statement')
     >>> close_statment.execute('validate')
-    >>> close_statment.form.result == 'Statement Default - Default closed. \n'
+    >>> close_statment.form.result == 'Statement Default - Default closed.'
     True
     >>> payment_statement.reload()
     >>> payment_statement.state == 'validated'

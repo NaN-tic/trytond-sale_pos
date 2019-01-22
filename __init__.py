@@ -2,6 +2,7 @@
 # the full copyright notices and license terms.
 from trytond.pool import Pool
 from . import configuration
+from . import party
 from . import sale
 from . import shop
 
@@ -23,6 +24,7 @@ def register():
         sale.SaleReportSummaryByParty,
         module='sale_pos', type_='report')
     Pool.register(
+        party.PartyReplace,
         sale.WizardAddProduct,
         sale.WizardSalePayment,
         module='sale_pos', type_='wizard')
