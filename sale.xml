@@ -173,7 +173,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <data depends="sale_shipment_cost">
         <record model="ir.ui.view" id="sale_line_shipment_cost_view_tree">
             <field name="model">sale.line</field>
-            <field name="type" eval="None"/>
             <field name="inherit" ref="sale.sale_line_view_tree"/>
             <field name="name">sale_shipment_cost_line_tree</field>
         </record>
@@ -181,7 +180,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <data depends="sale_margin">
         <record model="ir.ui.view" id="sale_line_margin_view_tree">
             <field name="model">sale.line</field>
-            <field name="type" eval="None"/>
             <field name="inherit" ref="sale_pos.sale_line_view_tree"/>
             <field name="name">sale_line_margin_view</field>
         </record>
