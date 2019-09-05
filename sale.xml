@@ -205,4 +205,10 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">sale_pos_commission_form</field>
         </record>
     </data>
+
+    <!-- Icons -->
+    <record model="ir.ui.icon" id="go_jump_icon">
+            <field name="name">tryton-go-jump</field>
+            <field name="path">icons/tryton-go-jump.svg</field>
+    </record>
 </tryton>
