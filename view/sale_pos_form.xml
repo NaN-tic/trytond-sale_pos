@@ -79,9 +79,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </page>
     </notebook>
     <group id="cash" colspan="2">
-        <button name="wizard_add_product" icon="tryton-list-add"/>
-        <button name="add_sum" icon="tryton-list-add"/>
-        <button name="wizard_sale_payment" icon="tryton-go-next"/>
+        <button name="wizard_add_product" icon="tryton-add"/>
+        <button name="add_sum" icon="tryton-add"/>
+        <button name="wizard_sale_payment" icon="tryton-forward"/>
         <button name="print_ticket" icon="tryton-print"/>
     </group>
     <label name="state"/>
@@ -89,10 +89,10 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <group col="7" colspan="4" id="full_workflow_buttons">
         <button name="cancel" icon="tryton-cancel"/>
         <button name="draft"/>
-        <button name="quote" icon="tryton-go-next"/>
-        <button name="handle_invoice_exception" icon="tryton-go-next"/>
-        <button name="handle_shipment_exception" icon="tryton-go-next"/>
-        <button name="confirm" icon="tryton-go-next"/>
-        <button name="process" icon="tryton-go-next"/>
+        <button name="quote" icon="tryton-forward"/>
+        <button name="handle_invoice_exception" icon="tryton-forward"/>
+        <button name="handle_shipment_exception" icon="tryton-forward"/>
+        <button name="confirm" icon="tryton-forward"/>
+        <button name="process" icon="tryton-forward"/>
     </group>
 </form>
