@@ -21,7 +21,6 @@ def register():
     Pool.register(
         sale.SaleTicketReport,
         sale.SaleReportSummary,
-        sale.SaleReportSummaryByParty,
         module='sale_pos', type_='report')
     Pool.register(
         party.PartyReplace,

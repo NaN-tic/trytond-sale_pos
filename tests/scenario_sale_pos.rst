@@ -260,10 +260,3 @@ When the statement is closed the invoices are paid and sale is done::
     >>> sale.reload()
     >>> sale.state == 'done'
     True
-
-Execute Reports::
-
-    >>> summary = Report('sale_pos.sales_summary')
-    >>> report = summary.execute([sale], {})
-    >>> party_summary = Report('sale_pos.sales_summary_by_party')
-    >>> party_report = party_summary.execute([sale], {})
