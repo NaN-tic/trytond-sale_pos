@@ -169,6 +169,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="string">Ticket</field>
             <field name="model" search="[('model', '=', 'sale.sale')]"/>
         </record>
+
+        <!-- Icons -->
+        <record model="ir.ui.icon" id="go_jump_icon">
+            <field name="name">tryton-go-jump</field>
+            <field name="path">icons/tryton-go-jump.svg</field>
+        </record>
     </data>
     <data depends="sale_shipment_cost">
         <record model="ir.ui.view" id="sale_line_shipment_cost_view_tree">
@@ -205,10 +211,4 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">sale_pos_commission_form</field>
         </record>
     </data>
-
-    <!-- Icons -->
-    <record model="ir.ui.icon" id="go_jump_icon">
-            <field name="name">tryton-go-jump</field>
-            <field name="path">icons/tryton-go-jump.svg</field>
-    </record>
 </tryton>
