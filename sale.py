@@ -309,52 +309,6 @@ class SaleReportSummary(CompanyReport, metaclass=PoolMeta):
         return report_context
 
 
-class SaleReportSummaryByParty(CompanyReport, metaclass=PoolMeta):
-    __name__ = 'sale_pos.sales_summary_by_party'
-
-    @classmethod
-    def get_context(cls, records, data):
-        parties = {}
-
-        report_context = super(SaleReportSummaryByParty, cls).get_context(records, data)
-
-        report_context['start_date'] = report_context['end_date'] = \
-            records[0].sale_date if records else None
-
-        sum_untaxed_amount = Decimal(0)
-        sum_tax_amount = Decimal(0)
-        sum_total_amount = Decimal(0)
-        for sale in records:
-            sum_untaxed_amount += sale.untaxed_amount
-            sum_tax_amount += sale.tax_amount
-            sum_total_amount += sale.total_amount
-            if sale.party.id not in list(parties.keys()):
-                party = sale.party
-                party.name = sale.party.full_name
-                party.untaxed_amount = sale.untaxed_amount
-                party.tax_amount = sale.tax_amount
-                party.total_amount = sale.total_amount
-                party.currency = sale.currency
-            else:
-                party = parties.get(sale.party.id)
-                party.untaxed_amount += sale.untaxed_amount
-                party.tax_amount += sale.tax_amount
-                party.total_amount += sale.total_amount
-            parties[sale.party.id] = party
-            if sale.sale_date:
-                if not report_context['start_date'] or report_context['start_date'] > sale.sale_date:
-                    report_context['start_date'] = sale.sale_date
-                if not report_context['end_date'] or report_context['end_date'] < sale.sale_date:
-                    report_context['end_date'] = sale.sale_date
-
-        report_context['parties'] = list(parties.values())
-        report_context['sum_untaxed_amount'] = sum_untaxed_amount
-        report_context['sum_tax_amount'] = sum_tax_amount
-        report_context['sum_total_amount'] = sum_total_amount
-        report_context['company'] = report_context['user'].company
-        return report_context
-
-
 class AddProductForm(ModelView):
     'Add Product Form'
     __name__ = 'sale_pos.add_product_form'
