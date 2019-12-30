@@ -13,8 +13,8 @@ from trytond.modules.company import CompanyReport
 from functools import reduce
 
 __all__ = ['Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport',
-    'SaleReportSummary', 'AddProductForm', 'WizardAddProduct',
-    'SalePaymentForm', 'WizardSalePayment']
+    'SaleReportSummary', 'SaleReportSummaryByParty', 'AddProductForm',
+    'WizardAddProduct', 'SalePaymentForm', 'WizardSalePayment']
 
 _ZERO = Decimal('0.00')
 
