@@ -2,8 +2,7 @@
 <!-- This file is part sale_pos module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <data>
-    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;warehouse&quot;]"
-            position="after">
+    <xpath expr="/form/field[@name='warehouse']" position="after">
         <label name="party"/>
         <field name="party"/>
         <label name="self_pick_up"/>
