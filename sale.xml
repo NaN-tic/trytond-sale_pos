@@ -28,18 +28,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="action" ref="report_sales_summary"/>
         </record>
 
-        <record model="ir.action.report" id="report_sales_summary_by_party">
-            <field name="name">Sales Summary by Party</field>
-            <field name="model">sale.sale</field>
-            <field name="report_name">sale_pos.sales_summary_by_party</field>
-            <field name="report">sale_pos/sale_pos_summary_by_party.fodt</field>
-        </record>
-        <record model="ir.action.keyword" id="report_sales_summary_by_party_keyword">
-            <field name="keyword">form_print</field>
-            <field name="model">sale.sale,-1</field>
-            <field name="action" ref="report_sales_summary_by_party"/>
-        </record>
-
         <!-- Wizards -->
         <record model="ir.action.wizard" id="wizard_add_product">
             <field name="name">Add Products</field>
