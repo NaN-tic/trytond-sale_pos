@@ -249,13 +249,12 @@ When the statement is closed the invoices are paid and sale is done::
     >>> payment_statement.reload()
     >>> payment_statement.state == 'validated'
     True
-    >>> all(l.invoice == invoice for l in payment_statement.lines)
+    >>> all(l.sale == sale for l in payment_statement.lines)
     True
     >>> payment_statement.balance
     Decimal('22.00')
-    >>> invoice.reload()
-    >>> invoice.state == 'paid'
-    True
     >>> sale.reload()
-    >>> sale.state == 'done'
-    True
+    >>> sale.paid_amount
+    Decimal('22.00')
+    >>> sale.residual_amount
+    Decimal('0.00')
