@@ -12,4 +12,5 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <field name="description" tree_invisible="1"/>
     <field name="unit_digits" tree_invisible="1"/>
     <field name="taxes" tree_invisible="1"/>
+    <field name="sale" tree_invisible="1"/>
 </tree>
