@@ -6,6 +6,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         view_ids="sale_pos.sale_line_view_tree,sale.sale_line_view_form"/>
     <notebook colspan="2">
         <page string="Sale" col="2" id="sale">
+            <label name="company"/>
+            <field name="company"/>
             <label name="shop"/>
             <field name="shop"/>
             <label name="sale_device"/>
