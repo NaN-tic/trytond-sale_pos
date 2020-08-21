@@ -100,6 +100,8 @@ class Sale(metaclass=PoolMeta):
             self.shipment_method = 'order'
             if self.shop and self.shop.address:
                 self.shipment_address = self.shop.address
+            if hasattr(self, 'carrier'):
+                self.carrier = None
         else:
             self.invoice_method = self.default_invoice_method()
             self.shipment_method = self.default_shipment_method()
