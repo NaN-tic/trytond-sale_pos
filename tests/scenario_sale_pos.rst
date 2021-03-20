@@ -107,10 +107,12 @@ Create shop::
 Create journals::
 
     >>> Sequence = Model.get('ir.sequence')
+    >>> SequenceType = Model.get('ir.sequence.type')
+    >>> sequence_type, = SequenceType.find([('name', '=', 'Account Journal')])
     >>> Journal = Model.get('account.journal')
     >>> StatementJournal = Model.get('account.statement.journal')
     >>> sequence = Sequence(name='Satement',
-    ...     code='account.journal',
+    ...     sequence_type=sequence_type,
     ...     company=company,
     ... )
     >>> sequence.save()

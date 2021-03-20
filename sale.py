@@ -12,10 +12,6 @@ from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
 from trytond.modules.company import CompanyReport
 from functools import reduce
 
-__all__ = ['Sale', 'SaleLine', 'StatementLine', 'SaleTicketReport',
-    'SaleReportSummary', 'SaleReportSummaryByParty', 'AddProductForm',
-    'WizardAddProduct', 'SalePaymentForm', 'WizardSalePayment']
-
 _ZERO = Decimal('0.00')
 
 
@@ -156,13 +152,12 @@ class Sale(metaclass=PoolMeta):
     def print_ticket(cls, sales):
         pool = Pool()
         Config = pool.get('sale.configuration')
-        Sequence = pool.get('ir.sequence.strict')
 
         config = Config(1)
         for sale in sales:
             if (not sale.ticket_number and
                     sale.residual_amount == Decimal('0.0')):
-                sale.ticket_number = Sequence.get_id(config.pos_sequence.id)
+                sale.ticket_number = config.pos_sequence.get()
                 sale.save()
 
     def create_shipment(self, shipment_type):
