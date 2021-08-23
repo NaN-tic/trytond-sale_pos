@@ -26,14 +26,6 @@ msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Total amb impostos"
 
-msgctxt "field:sale.line,currency:"
-msgid "Currency"
-msgstr "Moneda"
-
-msgctxt "field:sale.line,currency_digits:"
-msgid "Currency Digits"
-msgstr "Decimals de la moneda"
-
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"
 msgstr "Preu unitat imp. incl."

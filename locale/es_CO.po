@@ -10,14 +10,6 @@ msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Valor Total"
 
-msgctxt "field:sale.line,currency:"
-msgid "Currency"
-msgstr "Monedas"
-
-msgctxt "field:sale.line,currency_digits:"
-msgid "Currency Digits"
-msgstr "Decimales de Moneda"
-
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"
 msgstr "Precio Unitario con Impuestos"
