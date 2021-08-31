@@ -110,10 +110,6 @@ msgctxt "field:sale_pos.add_product_form,unit:"
 msgid "Unit"
 msgstr "Unité"
 
-msgctxt "field:sale_pos.add_product_form,unit_digits:"
-msgid "Unit Digits"
-msgstr "Décimales de l'unité"
-
 msgctxt "field:sale_pos.add_product_form,unit_price:"
 msgid "Unit price"
 msgstr "Prix unit."
