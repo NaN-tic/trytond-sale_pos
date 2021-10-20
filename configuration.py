@@ -3,7 +3,7 @@
 from trytond import backend
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
+from trytond.pyson import Eval, Id
 from trytond.tools.multivalue import migrate_property
 
 __all__ = ['Configuration', 'ConfigurationSequence']
@@ -24,7 +24,7 @@ class Configuration(metaclass=PoolMeta):
         domain=[
             ('company', 'in',
                 [Eval('context', {}).get('company', -1), None]),
-            ('code', '=', 'sale.pos'),
+            ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
             ]))
 
     @classmethod
@@ -43,7 +43,7 @@ class ConfigurationSequence(metaclass=PoolMeta):
         'ir.sequence.strict', "Sale POS Sequence", required=True,
         domain=[
             ('company', 'in', [Eval('company', -1), None]),
-            ('code', '=', 'sale.pos'),
+            ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
             ],
         depends=['company'])
 
