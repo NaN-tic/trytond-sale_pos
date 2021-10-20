@@ -166,7 +166,9 @@ class Sale(metaclass=PoolMeta):
         return super(Sale, self).create_shipment(shipment_type)
 
     def create_moves_without_shipment(self, shipment_type):
-        Move = Pool().get('stock.move')
+        pool = Pool()
+        Sale = pool.get('sale.sale')
+        Move = pool.get('stock.move')
 
         if not self.self_pick_up:
             return
@@ -182,7 +184,8 @@ class Sale(metaclass=PoolMeta):
             moves = Move.create([m._save_values for m in moves])
             Move.do(moves)
 
-        self.set_shipment_state()
+        Sale._process_invoice_shipment_states([self])
+        Sale._process_state([self])
 
     @fields.depends('lines', 'currency', 'party', 'self_pick_up')
     def on_change_lines(self):
