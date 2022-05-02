@@ -48,7 +48,7 @@ class Sale(metaclass=PoolMeta):
                     Eval('self_pick_up', False))
             else:
                 fstates['readonly'] = Eval('self_pick_up', False)
-            getattr(cls, fname).depends.append('self_pick_up')
+            getattr(cls, fname).depends.add('self_pick_up')
         if hasattr(cls, 'carrier'):
             if 'invisible' not in cls.carrier.states:
                 cls.carrier.states['invisible'] = Bool(Eval('self_pick_up'))
