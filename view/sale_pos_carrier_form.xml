@@ -3,7 +3,7 @@
 The COPYRIGHT file at the top level of this repository contains the full
 copyright notices and license terms. -->
 <data>
-    <xpath expr="/form/notebook/page/field[@name=&quot;warehouse&quot;]"
+    <xpath expr="/form/notebook/page/field[@name='warehouse']"
             position="after">
         <label name="carrier"/>
         <field name="carrier"/>
