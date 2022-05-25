@@ -2,18 +2,16 @@
 <!-- This file is part sale_pos module for Tryton.
      The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<form>
-    <label id="self_pick_up_note1" colspan="4" xalign="0.0"
-        string="If you pay the entire amount, it will process this sale, moving the products without shipment and invoicing it."/>
-    <label id="self_pick_up_note2" colspan="4" xalign="0.0"
-        string="If you want to manage the sale step by step or generate a shipment to manage the delivery, uncheck the Self Pick Up field in Sale's form and use the buttons in the bottom line."/>
-    <separator id="workflow_notes" colspan="4"/>
-    <label name="journal"/>
-    <field name="journal" widget="selection"/>
-    <label name="payment_amount"/>
-    <field name="payment_amount"/>
-    <label name="party"/>
-    <field name="party"/>
-    <label name="self_pick_up"/>
-    <field name="self_pick_up"/>
-</form>
+<data>
+    <xpath expr="/form/label[@name='journal']" position="before">
+        <label id="self_pick_up_note1" colspan="4" xalign="0.0"
+            string="If you pay the entire amount, it will process this sale, moving the products without shipment and invoicing it."/>
+        <label id="self_pick_up_note2" colspan="4" xalign="0.0"
+            string="If you want to manage the sale step by step or generate a shipment to manage the delivery, uncheck the Self Pick Up field in Sale's form and use the buttons in the bottom line."/>
+        <separator id="workflow_notes" colspan="4"/>
+    </xpath>
+    <xpath expr="/form/field[@name='party']" position="after">
+        <label name="self_pick_up"/>
+        <field name="self_pick_up"/>
+    </xpath>
+</data>
