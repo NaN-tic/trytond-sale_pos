@@ -10,6 +10,7 @@ from trytond.pyson import Bool, Eval, Or
 from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
     Button)
 from trytond.modules.company import CompanyReport
+from trytond.model.fields.selection import TranslatedSelection
 from functools import reduce
 
 _ZERO = Decimal('0.00')
@@ -310,28 +311,55 @@ class AddProductForm(ModelView):
     'Add Product Form'
     __name__ = 'sale_pos.add_product_form'
     sale = fields.Many2One('sale.sale', 'Sale')
+    input_value = fields.Char('Input Value')
+    last_product = fields.Many2One('product.product' , 'Last Product',
+        readonly=True)
     lines = fields.One2Many('sale.line', None, 'Lines',
         context={
             'sale': Eval('sale'),
             },
         depends=['sale'],)
 
+class ChooseProductForm(ModelView):
+    'Choose Product Form'
+    __name__ = 'sale_pos.choose_product_form'
+    product =  fields.Many2One('product.product', 'Product To Pick',
+        domain =[('id', 'in', Eval('products'))])
+    products = fields.One2Many('product.product', None, 'Products',
+        readonly=True)
 
 class WizardAddProduct(Wizard):
     'Wizard Add Product'
     __name__ = 'sale_pos.add_product'
     start = StateView('sale_pos.add_product_form',
         'sale_pos.add_product_view_form', [
-            Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Add and New', 'add_new_', 'tryton-go-jump', default=True),
-            Button('Add', 'add_', 'tryton-ok'),
+            Button('Accept', 'end', 'tryton-cancel'),
+            Button('Scan', 'scan_', 'tryton-go-jump', default=True),
         ])
-    add_new_ = StateTransition()
-    add_ = StateTransition()
+    choose = StateView('sale_pos.choose_product_form',
+        'sale_pos.choose_product_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Choose', 'pick_product_', 'tryton-go-jump', default=True),
+        ])
+    scan_ = StateTransition()
+    pick_product_ = StateTransition()
+
+
+    def default_choose(self, fields):
+        return  {
+        'products': [x.id for x in self.choose.products]
+        }
 
     def default_start(self, fields):
+        pool = Pool()
+        Sale = pool.get('sale.sale')
+        sale_id = Transaction().context.get('active_id')
+        sale = Sale(sale_id)
+
         return {
             'sale': Transaction().context.get('active_id'),
+            'lines': [x.id for x in sale.lines],
+            'last_product': Transaction().context.get('last_product'),
             }
 
     def add_lines(self):
@@ -339,13 +367,111 @@ class WizardAddProduct(Wizard):
             line.sale = Transaction().context.get('active_id', False)
             line.save()
 
-    def transition_add_new_(self):
+    def transition_pick_product_(self):
+        pool = Pool()
+        Sale = pool.get('sale.sale')
+        SaleLine = pool.get('sale.line')
+        product = self.choose.product
+        if not product and self.choose.products:
+            return 'choose'
+        if not product and not self.choose.products:
+            return 'start'
+
+        quantity = None
+        sale_id = Transaction().context.get('active_id')
+        sale = Sale(sale_id)
+        sale_lines = sale.lines
+        lines = self.add_sale_line(sale_lines, product, quantity)
+        self.start.lines = lines
+        self.add_lines()
+        context = Transaction().context
+        context['last_product'] = product.id
+        with Transaction().set_context(context):
+            pass
+        return 'start'
+
+    def transition_scan_(self):
+        pool = Pool()
+        Product = pool.get('product.product')
+        Line = pool.get('sale.line')
+
+        def qty(value):
+            try:
+                return float(value)
+            except ValueError:
+                return False
+
+        value = self.start.input_value
+        quantity = qty(value)
+        if len(value) > 4:
+            quantity = None
+
+        if not quantity:
+            domain = ['OR', ('code','=', value),
+                ('identifiers.code', '=', value),]
+            products = Product.search(domain)
+            if not products:
+                return 'start'
+
+            if len(products) > 1:
+                self.choose.products = [x.id for x in products]
+                return 'choose'
+
+            product,  = products
+
+            context = Transaction().context
+            context['last_product'] = product.id
+            with Transaction().set_context(context):
+                pass
+
+        if quantity and self.start.last_product:
+            product = self.start.last_product
+
+        lines = self.add_sale_line(self.start.lines, product, quantity)
+        self.start.lines = lines
         self.add_lines()
         return 'start'
 
-    def transition_add_(self):
-        self.add_lines()
-        return 'end'
+    def add_sale_line(self, lines, product, quantity):
+        pool = Pool()
+        Sale = pool.get('sale.sale')
+        Line = pool.get('sale.line')
+
+        if not hasattr(self, 'lines'):
+            self.lines = ()
+        line = [x for x in lines if x.product == product]
+
+        sale_id = Transaction().context.get('active_id', False)
+        sale = Sale(sale_id)
+        if not line:
+            values = Line.default_get(
+                list(Line._fields.keys()), with_rec_name=False)
+            line = Line(**values)
+            line.product = product
+            line.on_change_product()
+            line.quantity = 0
+            line.company = sale.company
+            line.currency = sale.currency
+            line.on_change_quantity()
+            if 'warehouse' in Line._fields:
+                line.warehouse = sale.warehouse
+            lines += (line, )
+        else:
+            line = line[0]
+
+        if quantity:
+            line.quantity = quantity
+        else:
+            line.quantity += 1
+        line.unit_price = line.compute_unit_price()
+        line.amount = line.on_change_with_amount()
+        line.on_change_quantity()
+        if 'unit_price_w_tax' in Line._fields:
+            line.amount_w_tax = line.on_change_with_amount_w_tax()
+            line.unit_price_w_tax = line.on_change_with_unit_price_w_tax()
+
+
+        return lines
 
 
 class SalePaymentForm(metaclass=PoolMeta):

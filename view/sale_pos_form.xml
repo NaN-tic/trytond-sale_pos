@@ -2,64 +2,71 @@
 <!-- This file is part sale_pos module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <form col="4">
-    <field name="lines" colspan="2"
-        view_ids="sale_pos.sale_line_view_tree,sale.sale_line_view_form"/>
-    <notebook colspan="2">
-        <page string="Sale" col="2" id="sale">
+    <label name="ticket_number"/>
+    <field name="ticket_number"/>
+    <newline/>
+    <label name="party"/>
+    <field name="party"/>
+    <label name="price_list"/>
+    <field name="price_list"/>
+    <label name="sale_date"/>
+    <field name="sale_date"/>
+    <button name="wizard_add_product" icon="tryton-add"/>
+    <notebook colspan="4">
+        <page name="lines">
+            <field name="lines" colspan="4"
+                    view_ids="sale_pos.sale_line_view_tree,sale.sale_line_view_form"/>
+            <group col="2" colspan="2" id="residual">
+                <label name="paid_amount"/>
+                <field name="paid_amount"/>
+                <label name="residual_amount"/>
+                <field name="residual_amount"/>
+            </group>
+            <group col="2" colspan="2" id="amount">
+                <button name="add_sum" icon="tryton-add" colspan="2"/>
+                <newline/>
+                <label name="untaxed_amount"/>
+                <field name="untaxed_amount"/>
+                <label name="tax_amount"/>
+                <field name="tax_amount"/>
+                <label name="total_amount"/>
+                <field name="total_amount"/>
+            </group>
+        </page>
+        <page string="Comment" id="comment">
+            <label name="reference"/>
+            <field name="reference"/>
+            <field name="comment" colspan="4"/>
+        </page>
+        <page string="Payments" col="2" id="payments">
+            <field name="payments" colspan="2" readonly="1"/>
+        </page>
+        <page string="Other Info" col="4" id="other">
             <label name="company"/>
             <field name="company"/>
+            <newline/>
             <label name="shop"/>
             <field name="shop"/>
             <label name="sale_device"/>
             <field name="sale_device"/>
             <label name="number"/>
             <field name="number"/>
-            <label name="ticket_number"/>
-            <field name="ticket_number"/>
-            <label name="reference"/>
-            <field name="reference"/>
-            <separator colspan="2" id="party_info"/>
-            <label name="party"/>
-            <field name="party"/>
-            <label name="price_list"/>
-            <field name="price_list"/>
-            <label name="payment_term"/>
-            <field name="payment_term"/>
             <label name="pos_create_date"/>
             <field name="pos_create_date"/>
-            <label name="sale_date"/>
-            <field name="sale_date"/>
-            <separator colspan="2" id="amount_info"/>
-            <label name="untaxed_amount"/>
-            <field name="untaxed_amount"/>
-            <label name="tax_amount"/>
-            <field name="tax_amount"/>
-            <label name="total_amount"/>
-            <field name="total_amount"/>
-            <separator colspan="2" id="payment_info"/>
-            <label name="paid_amount"/>
-            <field name="paid_amount"/>
-            <label name="residual_amount"/>
-            <field name="residual_amount"/>
-            <separator colspan="2" id="shipment_info"/>
+            <label name="payment_term"/>
+            <field name="payment_term"/>
             <label name="self_pick_up"/>
             <field name="self_pick_up"/>
-            <label name="shipment_method"/>
-            <field name="shipment_method"/>
+            <newline/>
             <label name="shipment_address"/>
             <field name="shipment_address"/>
-            <label name="invoice_method"/>
-            <field name="invoice_method"/>
+            <label name="shipment_method"/>
+            <field name="shipment_method"/>
             <label name="invoice_address"/>
             <field name="invoice_address"/>
+            <label name="invoice_method"/>
+            <field name="invoice_method"/>
             <field name="currency" invisible="1"/>
-        </page>
-        <page string="Payments" col="2" id="payments">
-            <field name="payments" colspan="2" readonly="1"/>
-            <label name="paid_amount"/>
-            <field name="paid_amount"/>
-            <label name="residual_amount"/>
-            <field name="residual_amount"/>
         </page>
         <page name="invoices" col="2">
             <field name="invoices" colspan="2"/>
@@ -76,13 +83,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <label name="shipment_state"/>
             <field name="shipment_state"/>
         </page>
-        <page string="Comment" id="comment" col="2">
-            <field name="comment"/>
-        </page>
     </notebook>
     <group id="cash" colspan="2">
-        <button name="wizard_add_product" icon="tryton-add"/>
-        <button name="add_sum" icon="tryton-add"/>
         <button name="wizard_sale_payment" icon="tryton-forward"/>
         <button name="print_ticket" icon="tryton-print"/>
     </group>

@@ -1,7 +1,12 @@
 <?xml version="1.0"?>
 <!-- This file is part sale_pos module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
-<form>
+<form cursor="input_valu">
+    <label name="input_value"/>
+    <field name="input_value" colspan="3"/>
+
+    <label name="last_product" />
+    <field name="last_product" colspan="3"/>
     <field name="lines" colspan="4"
         view_ids="sale_pos.sale_line_view_tree,sale.sale_line_view_form"/>
 </form>
