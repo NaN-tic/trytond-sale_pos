@@ -333,13 +333,13 @@ class WizardAddProduct(Wizard):
     __name__ = 'sale_pos.add_product'
     start = StateView('sale_pos.add_product_form',
         'sale_pos.add_product_view_form', [
-            Button('Accept', 'end', 'tryton-cancel'),
-            Button('Scan', 'scan_', 'tryton-go-jump', default=True),
+            Button('Accept', 'end', 'tryton-accept'),
+            Button('Scan', 'scan_', 'tryton-ok', default=True),
         ])
     choose = StateView('sale_pos.choose_product_form',
         'sale_pos.choose_product_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Choose', 'pick_product_', 'tryton-go-jump', default=True),
+            Button('Choose', 'pick_product_', 'tryton-ok', default=True),
         ])
     scan_ = StateTransition()
     pick_product_ = StateTransition()
@@ -401,6 +401,7 @@ class WizardAddProduct(Wizard):
             except ValueError:
                 return False
 
+        product = None
         value = self.start.input_value
         quantity = qty(value)
         if len(value) > 4:
@@ -426,6 +427,9 @@ class WizardAddProduct(Wizard):
 
         if quantity and self.start.last_product:
             product = self.start.last_product
+
+        if not product:
+            return 'start'
 
         lines = self.add_sale_line(self.start.lines, product, quantity)
         self.start.lines = lines
