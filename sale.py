@@ -351,13 +351,9 @@ class WizardAddProduct(Wizard):
         }
 
     def default_start(self, fields):
-        pool = Pool()
-        Sale = pool.get('sale.sale')
-        sale_id = Transaction().context.get('active_id')
-        sale = Sale(sale_id)
-
+        sale = self.record
         return {
-            'sale': Transaction().context.get('active_id'),
+            'sale': sale.id,
             'lines': [x.id for x in sale.lines],
             'last_product': Transaction().context.get('last_product'),
             }
@@ -369,8 +365,6 @@ class WizardAddProduct(Wizard):
 
     def transition_pick_product_(self):
         pool = Pool()
-        Sale = pool.get('sale.sale')
-        SaleLine = pool.get('sale.line')
         product = self.choose.product
         if not product and self.choose.products:
             return 'choose'
@@ -378,8 +372,7 @@ class WizardAddProduct(Wizard):
             return 'start'
 
         quantity = None
-        sale_id = Transaction().context.get('active_id')
-        sale = Sale(sale_id)
+        sale = self.record
         sale_lines = sale.lines
         lines = self.add_sale_line(sale_lines, product, quantity)
         self.start.lines = lines
@@ -445,8 +438,7 @@ class WizardAddProduct(Wizard):
             self.lines = ()
         line = [x for x in lines if x.product == product]
 
-        sale_id = Transaction().context.get('active_id', False)
-        sale = Sale(sale_id)
+        sale = self.record
         if not line:
             values = Line.default_get(
                 list(Line._fields.keys()), with_rec_name=False)
