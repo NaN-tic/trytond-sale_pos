@@ -18,7 +18,7 @@ _ZERO = Decimal('0.00')
 class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
 
-    ticket_number = fields.Char('Ticket Number', readonly=True, select=True)
+    ticket_number = fields.Char('Ticket Number', readonly=True)
     self_pick_up = fields.Boolean('Self Pick Up', states={
             'readonly': Eval('state') != 'draft',
             }, depends=['state'],
