@@ -347,20 +347,20 @@ class WizardAddProduct(Wizard):
 
     def default_choose(self, fields):
         return  {
-        'products': [x.id for x in self.choose.products]
-        }
+            'products': [x.id for x in self.choose.products]
+            }
 
     def default_start(self, fields):
-        sale = self.record
+        last_product = getattr(self.start, 'last_product', None)
         return {
-            'sale': sale.id,
-            'lines': [x.id for x in sale.lines],
-            'last_product': Transaction().context.get('last_product'),
+            'sale': self.record.id,
+            'lines': [x.id for x in self.record.lines],
+            'last_product': last_product.id if last_product else None
             }
 
     def add_lines(self):
         for line in self.start.lines:
-            line.sale = Transaction().context.get('active_id', False)
+            line.sale = self.record
             line.save()
 
     def transition_pick_product_(self):
@@ -377,10 +377,7 @@ class WizardAddProduct(Wizard):
         lines = self.add_sale_line(sale_lines, product, quantity)
         self.start.lines = lines
         self.add_lines()
-        context = Transaction().context
-        context['last_product'] = product.id
-        with Transaction().set_context(context):
-            pass
+        self.start.last_product = product
         return 'start'
 
     def transition_scan_(self):
@@ -413,10 +410,7 @@ class WizardAddProduct(Wizard):
 
             product,  = products
 
-            context = Transaction().context
-            context['last_product'] = product.id
-            with Transaction().set_context(context):
-                pass
+            self.start.last_product = product
 
         if quantity and self.start.last_product:
             product = self.start.last_product
