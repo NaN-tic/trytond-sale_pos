@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -25,14 +25,6 @@ msgstr "Código de Secuencia Venta TPV"
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Total"
-
-msgctxt "field:sale.line,currency:"
-msgid "Currency"
-msgstr "Moneda"
-
-msgctxt "field:sale.line,currency_digits:"
-msgid "Currency Digits"
-msgstr "Decimales de moneda"
 
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"

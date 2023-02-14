@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -41,16 +41,6 @@ msgstr ""
 msgctxt "field:sale.line,amount_w_tax:"
 msgid "Amount with Tax"
 msgstr "Montant TTC"
-
-#, fuzzy
-msgctxt "field:sale.line,currency:"
-msgid "Currency"
-msgstr "Devises"
-
-#, fuzzy
-msgctxt "field:sale.line,currency_digits:"
-msgid "Currency Digits"
-msgstr "Décimales de la devise"
 
 msgctxt "field:sale.line,unit_price_w_tax:"
 msgid "Unit Price with Tax"
@@ -119,10 +109,6 @@ msgstr "Vente"
 msgctxt "field:sale_pos.add_product_form,unit:"
 msgid "Unit"
 msgstr "Unité"
-
-msgctxt "field:sale_pos.add_product_form,unit_digits:"
-msgid "Unit Digits"
-msgstr "Décimales de l'unité"
 
 msgctxt "field:sale_pos.add_product_form,unit_price:"
 msgid "Unit price"
@@ -220,7 +206,6 @@ msgctxt "field:sale_pos.sale_payment_form,journals:"
 msgid "Allowed Statement Journals"
 msgstr "Journaux de relevés permis"
 
-#, fuzzy
 msgctxt "field:sale_pos.sale_payment_form,party:"
 msgid "Party"
 msgstr "Tiers"
@@ -275,29 +260,24 @@ msgctxt "model:ir.action,name:wizard_sale_payment"
 msgid "Pay"
 msgstr "Payer"
 
-#, fuzzy
 msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_all"
 msgid "All"
 msgstr "Toutes"
 
-#, fuzzy
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_sale_form_domain_confirmed"
 msgid "Confirmed"
 msgstr "Confirmée"
 
-#, fuzzy
 msgctxt "model:ir.action.act_window.domain,name:act_sale_form_domain_draft"
 msgid "Draft"
 msgstr "Brouillon"
 
-#, fuzzy
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_sale_form_domain_processing"
 msgid "Processing"
 msgstr "Traitement"
 
-#, fuzzy
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_sale_form_domain_quotation"
 msgid "Quotation"
@@ -379,7 +359,6 @@ msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Taxes:"
 msgstr "Taxes :"
 
-#, fuzzy
 msgctxt "report:sale_pos.sale_pos_ticket:"
 msgid "Ticket Nº"
 msgstr "Ticket n°"
@@ -500,27 +479,22 @@ msgctxt "view:sale.sale:"
 msgid "Add _Sum"
 msgstr "Ajout _S/Total"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Cancel"
 msgstr "Annuler"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Confirm"
 msgstr "Confirmer"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Draft"
 msgstr "Brouillon"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Handle Invoice Exception"
 msgstr "Gérer l'exception de facture"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Handle Shipment Exception"
 msgstr "Gérer l'exception d'expédition"
@@ -537,12 +511,10 @@ msgctxt "view:sale.sale:"
 msgid "Pos Cash Sales"
 msgstr "Ventes PdV en espèces"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Process"
 msgstr "Traiter"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Quote"
 msgstr "Devis"
@@ -551,7 +523,6 @@ msgctxt "view:sale.sale:"
 msgid "Sale"
 msgstr "Vente"
 
-#, fuzzy
 msgctxt "view:sale.sale:"
 msgid "Shipments"
 msgstr "Expéditions"
