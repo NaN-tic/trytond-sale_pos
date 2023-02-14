@@ -225,12 +225,14 @@ class SaleLine(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super(SaleLine, cls).__setup__()
-
         # Allow edit product, quantity and unit in lines without parent sale
         for fname in ('product', 'quantity', 'unit'):
             field = getattr(cls, fname)
             if field.states.get('readonly'):
+                readonly = field.states['readonly']
                 del field.states['readonly']
+                field.states['readonly'] = Or(readonly, ~Eval('sale', -1))
+
 
     @staticmethod
     def default_sale():
@@ -266,14 +268,14 @@ class SaleLine(metaclass=PoolMeta):
 
     def get_from_location(self, name):
         res = super(SaleLine, self).get_from_location(name)
-        if self.sale.self_pick_up:
+        if self.sale.self_pick_up and self.quantity:
             if self.warehouse and self.quantity >= 0:
                 return self.warehouse.storage_location.id
         return res
 
     def get_to_location(self, name):
         res = super(SaleLine, self).get_to_location(name)
-        if self.sale.self_pick_up:
+        if self.sale.self_pick_up and self.quantity:
             if self.warehouse and self.quantity < 0:
                 return self.warehouse.storage_location.id
         return res
@@ -367,7 +369,6 @@ class WizardAddProduct(Wizard):
             line.save()
 
     def transition_pick_product_(self):
-        pool = Pool()
         product = self.choose.product
         if not product and self.choose.products:
             return 'choose'
@@ -386,7 +387,6 @@ class WizardAddProduct(Wizard):
     def transition_scan_(self):
         pool = Pool()
         Product = pool.get('product.product')
-        Line = pool.get('sale.line')
 
         def qty(value):
             try:
@@ -428,7 +428,6 @@ class WizardAddProduct(Wizard):
 
     def add_sale_line(self, lines, product, quantity):
         pool = Pool()
-        Sale = pool.get('sale.sale')
         Line = pool.get('sale.line')
 
         if not hasattr(self, 'lines'):
