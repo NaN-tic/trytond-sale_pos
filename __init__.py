@@ -15,6 +15,7 @@ def register():
         sale.SaleLine,
         sale.StatementLine,
         sale.AddProductForm,
+        sale.ChooseProductForm,
         sale.SalePaymentForm,
         shop.SaleShop,
         module='sale_pos', type_='model')
