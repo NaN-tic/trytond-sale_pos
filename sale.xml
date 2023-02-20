@@ -40,6 +40,15 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">add_product_form</field>
         </record>
 
+
+        <record model="ir.ui.view" id="choose_product_view_form">
+            <field name="model">sale_pos.choose_product_form</field>
+            <field name="type">form</field>
+            <field name="priority">20</field>
+            <field name="name">choose_product_form</field>
+        </record>
+
+
         <record model="ir.ui.view" id="sale_payment_view_form">
             <field name="model">sale.payment.form</field>
             <field name="inherit"
@@ -54,6 +63,14 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="priority">20</field>
             <field name="name">sale_line_tree</field>
         </record>
+
+        <record model="ir.ui.view" id="sale_line_view_tree_no_editable">
+            <field name="model">sale.line</field>
+            <field name="type">tree</field>
+            <field name="priority">40</field>
+            <field name="name">sale_line_tree_no_editable</field>
+        </record>
+
         <record model="ir.ui.view" id="sale_line_view_form">
             <field name="model">sale.line</field>
             <field name="inherit" ref="sale.sale_line_view_form"/>
@@ -152,6 +169,11 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="string">Add Sum</field>
             <field name="model" search="[('model', '=', 'sale.sale')]"/>
         </record>
+        <record model="ir.model.button" id="scan_button">
+            <field name="name">scan_</field>
+            <field name="string">Scan</field>
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+        </record>
         <record model="ir.model.button" id="print_ticket_button">
             <field name="name">print_ticket</field>
             <field name="string">Ticket</field>
@@ -200,3 +222,5 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </record>
     </data>
 </tryton>
+
+
