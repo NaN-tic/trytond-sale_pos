@@ -4,9 +4,7 @@ from trytond import backend
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Id
-from trytond.tools.multivalue import migrate_property
 
-__all__ = ['Configuration', 'ConfigurationSequence']
 
 def default_func(field_name):
     @classmethod
@@ -46,24 +44,6 @@ class ConfigurationSequence(metaclass=PoolMeta):
             ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
             ],
         depends=['company'])
-
-    @classmethod
-    def __register__(cls, module_name):
-        exist = backend.TableHandler.table_exist(cls._table)
-
-        super(ConfigurationSequence, cls).__register__(module_name)
-
-        if not exist:
-            cls._migrate_property([], [], [])
-
-    @classmethod
-    def _migrate_property(cls, field_names, value_names, fields):
-        field_names.append('pos_sequence')
-        value_names.append('pos_sequence')
-        fields.append('company')
-        migrate_property(
-            'sale.configuration', field_names, cls, value_names,
-            fields=fields)
 
     @classmethod
     def default_pos_sequence(cls):
