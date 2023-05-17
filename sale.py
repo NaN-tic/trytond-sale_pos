@@ -67,9 +67,6 @@ class Sale(metaclass=PoolMeta):
                     },
                 'print_ticket': {}
                 })
-        for fname in ('self_pick_up', 'currency', 'party'):
-            if fname not in cls.lines.on_change:
-                cls.lines.on_change.add(fname)
 
     @staticmethod
     def default_party():
