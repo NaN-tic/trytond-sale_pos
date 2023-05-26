@@ -26,6 +26,8 @@ class Configuration(metaclass=PoolMeta):
                 [Eval('context', {}).get('company', -1), None]),
             ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
             ]))
+    ticket_report = fields.Many2One('ir.action.report', "Ticket Report",
+        required=True)
 
     @classmethod
     def multivalue_model(cls, field):
@@ -35,6 +37,15 @@ class Configuration(metaclass=PoolMeta):
         return super(Configuration, cls).multivalue_model(field)
 
     default_pos_sequence = default_func('pos_sequence')
+
+    @classmethod
+    def default_ticket_report(cls):
+        pool = Pool()
+        ModelData = pool.get('ir.model.data')
+        try:
+            return ModelData.get_id('sale_pos', 'report_sale_ticket')
+        except KeyError:
+            return None
 
 
 class ConfigurationSequence(metaclass=PoolMeta):

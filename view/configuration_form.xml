@@ -5,5 +5,7 @@
     <xpath expr="/form/field[@name='sale_sequence']" position="after">
         <label name="pos_sequence"/>
         <field name="pos_sequence"/>
+        <label name="ticket_report"/>
+        <field name="ticket_report"/>
     </xpath>
 </data>
