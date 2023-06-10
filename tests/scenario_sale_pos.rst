@@ -207,7 +207,7 @@ Open statements for current device::
     0
     >>> open_statment = Wizard('open.statement')
     >>> open_statment.execute('create_')
-    >>> open_statment.form.result == 'Statement Default opened.'
+    >>> open_statment.form.result == 'sale_payment.open_statement'
     True
     >>> payment_statement, = Statement.find([('state', '=', 'draft')])
 
