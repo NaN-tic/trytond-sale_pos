@@ -486,6 +486,18 @@ class SalePaymentForm(metaclass=PoolMeta):
 
 class WizardSalePayment(metaclass=PoolMeta):
     __name__ = 'sale.payment'
+
+    @classmethod
+    def __setup__(cls):
+        pool = Pool()
+        Config = pool.get('sale.configuration')
+
+        super().__setup__()
+        config = Config(1)
+
+        if config.ticket_report:
+            cls.print_ = StateReport(config.ticket_report.report_name)
+
     print_ = StateReport('sale_pos.sale_ticket')
 
     def default_start(self, fields):
