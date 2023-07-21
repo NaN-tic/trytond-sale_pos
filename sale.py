@@ -146,10 +146,11 @@ class Sale(metaclass=PoolMeta):
         Line.save(lines)
 
     @classmethod
-    @ModelView.button_action('sale_pos.report_sale_ticket')
+    @ModelView.button
     def print_ticket(cls, sales):
         pool = Pool()
         Config = pool.get('sale.configuration')
+        Action = pool.get('ir.action')
 
         config = Config(1)
         for sale in sales:
@@ -157,6 +158,8 @@ class Sale(metaclass=PoolMeta):
                     sale.residual_amount == Decimal('0.0')):
                 sale.ticket_number = config.pos_sequence.get()
                 sale.save()
+
+        return Action(config.ticket_report.action.id).get_action_value()
 
     def create_shipment(self, shipment_type):
         if self.self_pick_up:
@@ -483,6 +486,18 @@ class SalePaymentForm(metaclass=PoolMeta):
 
 class WizardSalePayment(metaclass=PoolMeta):
     __name__ = 'sale.payment'
+
+    @classmethod
+    def __setup__(cls):
+        pool = Pool()
+        Config = pool.get('sale.configuration')
+
+        super().__setup__()
+        config = Config(1)
+
+        if config.ticket_report:
+            cls.print_ = StateReport(config.ticket_report.report_name)
+
     print_ = StateReport('sale_pos.sale_ticket')
 
     def default_start(self, fields):
