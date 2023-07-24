@@ -491,12 +491,13 @@ class WizardSalePayment(metaclass=PoolMeta):
     def __setup__(cls):
         pool = Pool()
         Config = pool.get('sale.configuration')
-
-        super().__setup__()
         config = Config(1)
 
-        if config.ticket_report:
+        super().__setup__()
+        try:
             cls.print_ = StateReport(config.ticket_report.report_name)
+        except:
+            pass
 
     print_ = StateReport('sale_pos.sale_ticket')
 
