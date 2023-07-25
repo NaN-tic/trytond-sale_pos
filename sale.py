@@ -487,6 +487,7 @@ class SalePaymentForm(metaclass=PoolMeta):
 class WizardSalePayment(metaclass=PoolMeta):
     __name__ = 'sale.payment'
 
+    '''
     @classmethod
     def __setup__(cls):
         pool = Pool()
@@ -498,6 +499,7 @@ class WizardSalePayment(metaclass=PoolMeta):
             cls.print_ = StateReport(config.ticket_report.report_name)
         except:
             pass
+    '''
 
     print_ = StateReport('sale_pos.sale_ticket')
 
