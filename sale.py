@@ -487,20 +487,6 @@ class SalePaymentForm(metaclass=PoolMeta):
 class WizardSalePayment(metaclass=PoolMeta):
     __name__ = 'sale.payment'
 
-    '''
-    @classmethod
-    def __setup__(cls):
-        pool = Pool()
-        Config = pool.get('sale.configuration')
-        config = Config(1)
-
-        super().__setup__()
-        try:
-            cls.print_ = StateReport(config.ticket_report.report_name)
-        except:
-            pass
-    '''
-
     print_ = StateReport('sale_pos.sale_ticket')
 
     def default_start(self, fields):
@@ -525,6 +511,18 @@ class WizardSalePayment(metaclass=PoolMeta):
         return 'end'
 
     def do_print_(self, action):
+        pool = Pool()
+        Config = pool.get('sale.configuration')
+        config = Config(1)
+
+        if config.ticket_report:
+            action['report_name'] = config.ticket_report.report_name
+            action['direct_print'] = config.ticket_report.direct_print
+            action['id'] = config.ticket_report.id
+            action['records'] = config.ticket_report.records
+            action['type'] = config.ticket_report.type
+            action['name'] = config.ticket_report.name
+
         data = {}
         data['id'] = Transaction().context['active_ids'].pop()
         data['ids'] = [data['id']]
