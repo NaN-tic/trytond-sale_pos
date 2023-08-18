@@ -325,6 +325,7 @@ class AddProductForm(ModelView):
             },
         depends=['sale'],)
 
+
 class ChooseProductForm(ModelView):
     'Choose Product Form'
     __name__ = 'sale_pos.choose_product_form'
@@ -332,6 +333,7 @@ class ChooseProductForm(ModelView):
         domain =[('id', 'in', Eval('products'))])
     products = fields.One2Many('product.product', None, 'Products',
         readonly=True)
+
 
 class WizardAddProduct(Wizard):
     'Wizard Add Product'
@@ -439,6 +441,7 @@ class WizardAddProduct(Wizard):
             values = Line.default_get(
                 list(Line._fields.keys()), with_rec_name=False)
             line = Line(**values)
+            line.sale = sale
             line.product = product
             line.on_change_product()
             line.quantity = 0
@@ -461,8 +464,6 @@ class WizardAddProduct(Wizard):
         if 'unit_price_w_tax' in Line._fields:
             line.amount_w_tax = line.on_change_with_amount_w_tax()
             line.unit_price_w_tax = line.on_change_with_unit_price_w_tax()
-
-
         return lines
 
 
