@@ -92,8 +92,9 @@ Create payment term::
 Create price list::
 
     >>> PriceList = Model.get('product.price_list')
-    >>> price_list = PriceList()
-    >>> price_list.name = 'Default price list'
+    >>> price_list = PriceList(name='Default', price='list_price')
+    >>> price_list_line = price_list.lines.new()
+    >>> price_list_line.formula = 'unit_price'
     >>> price_list.save()
 
 Create shop::
@@ -207,7 +208,7 @@ Open statements for current device::
     0
     >>> open_statment = Wizard('open.statement')
     >>> open_statment.execute('create_')
-    >>> open_statment.form.result == 'sale_payment.open_statement'
+    >>> open_statment.form.result == 'Statement Default opened.'
     True
     >>> payment_statement, = Statement.find([('state', '=', 'draft')])
 
