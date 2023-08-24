@@ -153,6 +153,9 @@ class Sale(metaclass=PoolMeta):
         Action = pool.get('ir.action')
 
         config = Config(1)
+        if not config.ticket_report:
+            return
+
         for sale in sales:
             if (not sale.ticket_number and
                     sale.residual_amount == Decimal('0.0')):
@@ -284,32 +287,6 @@ class SaleLine(metaclass=PoolMeta):
 class StatementLine(metaclass=PoolMeta):
     __name__ = 'account.statement.line'
     sale = fields.Many2One('sale.sale', 'Sale', ondelete='RESTRICT')
-
-
-class SaleTicketReport(CompanyReport, metaclass=PoolMeta):
-    __name__ = 'sale_pos.sale_ticket'
-
-
-class SaleReportSummary(CompanyReport, metaclass=PoolMeta):
-    __name__ = 'sale_pos.sales_summary'
-
-    @classmethod
-    def get_context(cls, records, data):
-        report_context = super(SaleReportSummary, cls).get_context(records, data)
-
-        sum_untaxed_amount = Decimal(0)
-        sum_tax_amount = Decimal(0)
-        sum_total_amount = Decimal(0)
-        for sale in records:
-            sum_untaxed_amount += sale.untaxed_amount
-            sum_tax_amount += sale.tax_amount
-            sum_total_amount += sale.total_amount
-
-        report_context['sum_untaxed_amount'] = sum_untaxed_amount
-        report_context['sum_tax_amount'] = sum_tax_amount
-        report_context['sum_total_amount'] = sum_total_amount
-        report_context['company'] = report_context['user'].company
-        return report_context
 
 
 class AddProductForm(ModelView):
@@ -482,48 +459,3 @@ class SalePaymentForm(metaclass=PoolMeta):
             ('//separator[@id="workflow_notes"]', 'states', {
                     'invisible': ~Eval('self_pick_up', False),
                     })]
-
-
-class WizardSalePayment(metaclass=PoolMeta):
-    __name__ = 'sale.payment'
-
-    print_ = StateReport('sale_pos.sale_ticket')
-
-    def default_start(self, fields):
-        Sale = Pool().get('sale.sale')
-        sale = Sale(Transaction().context['active_id'])
-        result = super(WizardSalePayment, self).default_start(fields)
-        result['self_pick_up'] = sale.self_pick_up
-        return result
-
-    def transition_pay_(self):
-        pool = Pool()
-        Sale = pool.get('sale.sale')
-        active_id = Transaction().context.get('active_id', False)
-        sale = Sale(active_id)
-        result = super(WizardSalePayment, self).transition_pay_()
-        Sale.print_ticket([sale])
-        if result == 'end':
-            return 'print_'
-        return result
-
-    def transition_print_(self):
-        return 'end'
-
-    def do_print_(self, action):
-        pool = Pool()
-        Config = pool.get('sale.configuration')
-        config = Config(1)
-
-        if config.ticket_report:
-            action['report_name'] = config.ticket_report.report_name
-            action['direct_print'] = config.ticket_report.direct_print
-            action['id'] = config.ticket_report.id
-            action['records'] = config.ticket_report.records
-            action['type'] = config.ticket_report.type
-            action['name'] = config.ticket_report.name
-
-        data = {}
-        data['id'] = Transaction().context['active_ids'].pop()
-        data['ids'] = [data['id']]
-        return action, data
