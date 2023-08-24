@@ -3,31 +3,6 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-        <!-- Reports -->
-        <record model="ir.action.report" id="report_sale_ticket">
-            <field name="name">Sale Ticket</field>
-            <field name="model">sale.sale</field>
-            <field name="report_name">sale_pos.sale_ticket</field>
-            <field name="report">sale_pos/sale_pos_ticket.fodt</field>
-        </record>
-        <record model="ir.action.keyword" id="report_sale_ticket_keyword">
-            <field name="keyword">form_print</field>
-            <field name="model">sale.sale,-1</field>
-            <field name="action" ref="report_sale_ticket"/>
-        </record>
-
-        <record model="ir.action.report" id="report_sales_summary">
-            <field name="name">Sales Summary</field>
-            <field name="model">sale.sale</field>
-            <field name="report_name">sale_pos.sales_summary</field>
-            <field name="report">sale_pos/sale_pos_summary.fodt</field>
-        </record>
-        <record model="ir.action.keyword" id="report_sales_summary_keyword">
-            <field name="keyword">form_print</field>
-            <field name="model">sale.sale,-1</field>
-            <field name="action" ref="report_sales_summary"/>
-        </record>
-
         <!-- Wizards -->
         <record model="ir.action.wizard" id="wizard_add_product">
             <field name="name">Add Products</field>
@@ -222,5 +197,3 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </record>
     </data>
 </tryton>
-
-
