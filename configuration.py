@@ -4,9 +4,7 @@ from trytond import backend
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Id
-from trytond.tools.multivalue import migrate_property
 
-__all__ = ['Configuration', 'ConfigurationSequence']
 
 def default_func(field_name):
     @classmethod
@@ -26,8 +24,13 @@ class Configuration(metaclass=PoolMeta):
                 [Eval('context', {}).get('company', -1), None]),
             ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
             ]))
-    ticket_report = fields.Many2One('ir.action.report', "Ticket Report",
-        required=True)
+    ticket_report = fields.Many2One('ir.action.report', "Ticket Report")
+
+    @classmethod
+    def __register__(cls, module_name):
+        super().__register__(module_name)
+        table = cls.__table_handler__(module_name)
+        table.not_null_action('ticket_report', action='remove')
 
     @classmethod
     def multivalue_model(cls, field):
@@ -37,15 +40,6 @@ class Configuration(metaclass=PoolMeta):
         return super(Configuration, cls).multivalue_model(field)
 
     default_pos_sequence = default_func('pos_sequence')
-
-    @classmethod
-    def default_ticket_report(cls):
-        pool = Pool()
-        ModelData = pool.get('ir.model.data')
-        try:
-            return ModelData.get_id('sale_pos', 'report_sale_ticket')
-        except KeyError:
-            return None
 
 
 class ConfigurationSequence(metaclass=PoolMeta):
@@ -57,24 +51,6 @@ class ConfigurationSequence(metaclass=PoolMeta):
             ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
             ],
         depends=['company'])
-
-    @classmethod
-    def __register__(cls, module_name):
-        exist = backend.TableHandler.table_exist(cls._table)
-
-        super(ConfigurationSequence, cls).__register__(module_name)
-
-        if not exist:
-            cls._migrate_property([], [], [])
-
-    @classmethod
-    def _migrate_property(cls, field_names, value_names, fields):
-        field_names.append('pos_sequence')
-        value_names.append('pos_sequence')
-        fields.append('company')
-        migrate_property(
-            'sale.configuration', field_names, cls, value_names,
-            fields=fields)
 
     @classmethod
     def default_pos_sequence(cls):

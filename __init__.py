@@ -20,11 +20,6 @@ def register():
         shop.SaleShop,
         module='sale_pos', type_='model')
     Pool.register(
-        sale.SaleTicketReport,
-        sale.SaleReportSummary,
-        module='sale_pos', type_='report')
-    Pool.register(
         party.PartyReplace,
         sale.WizardAddProduct,
-        sale.WizardSalePayment,
         module='sale_pos', type_='wizard')
