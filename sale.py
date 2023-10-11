@@ -7,10 +7,8 @@ from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.transaction import Transaction
 from trytond.pyson import Bool, Eval, Or
-from trytond.wizard import (Wizard, StateView, StateReport, StateTransition,
+from trytond.wizard import (Wizard, StateView, StateTransition,
     Button)
-from trytond.modules.company import CompanyReport
-from trytond.model.fields.selection import TranslatedSelection
 from functools import reduce
 
 _ZERO = Decimal('0.00')
