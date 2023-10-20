@@ -363,6 +363,15 @@ class WizardAddProduct(Wizard):
         self.start.last_product = product
         return 'start'
 
+    def _product_domain(self, value):
+         return [
+            ('salable', '=', True),
+            ['OR',
+                ('code','=', value),
+                ('identifiers.code', '=', value),
+                ('name', 'ilike', '%'+value+'%'),
+            ]]
+
     def transition_scan_(self):
         pool = Pool()
         Product = pool.get('product.product')
@@ -373,15 +382,14 @@ class WizardAddProduct(Wizard):
             except ValueError:
                 return False
 
-        product = None
         value = self.start.input_value
         quantity = qty(value)
-        if len(value) > 4:
-            quantity = None
 
-        if not quantity:
-            domain = ['OR', ('code','=', value),
-                ('identifiers.code', '=', value),]
+        if (self.start.last_product and (quantity or quantity == 0.0)
+                and len(str(int(quantity))) < 5):
+            product = self.start.last_product
+        else:
+            domain = self._product_domain(value)
             products = Product.search(domain)
             if not products:
                 return 'start'
@@ -391,14 +399,7 @@ class WizardAddProduct(Wizard):
                 return 'choose'
 
             product,  = products
-
             self.start.last_product = product
-
-        if quantity and self.start.last_product:
-            product = self.start.last_product
-
-        if not product:
-            return 'start'
 
         lines = self.add_sale_line(self.start.lines, product, quantity)
         self.start.lines = lines
