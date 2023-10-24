@@ -399,6 +399,8 @@ class WizardAddProduct(Wizard):
                 return 'choose'
 
             product,  = products
+            # set quantity to None in case product code is numeric
+            quantity = None
             self.start.last_product = product
 
         lines = self.add_sale_line(self.start.lines, product, quantity)
