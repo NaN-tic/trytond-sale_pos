@@ -12,7 +12,7 @@ class SaleShop(metaclass=PoolMeta):
     __name__ = 'sale.shop'
     party = fields.Many2One('party.party', "Default Party",
         context={
-            'company': Eval('company'),
+            'company': Eval('company', -1),
         }, depends=['company'])
     self_pick_up = fields.Boolean('Default Self Pick Up',
         help='The goods are picked up by the customer before the sale, so no '
