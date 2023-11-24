@@ -22,4 +22,5 @@ def register():
     Pool.register(
         party.PartyReplace,
         sale.WizardAddProduct,
+        sale.WizardSalePayment,
         module='sale_pos', type_='wizard')
