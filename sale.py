@@ -461,3 +461,12 @@ class SalePaymentForm(metaclass=PoolMeta):
             ('//separator[@id="workflow_notes"]', 'states', {
                     'invisible': ~Eval('self_pick_up', False),
                     })]
+
+
+class WizardSalePayment(metaclass=PoolMeta):
+    __name__ = 'sale.payment'
+
+    def default_start(self, fields):
+        result = super(WizardSalePayment, self).default_start(fields)
+        result['self_pick_up'] = self.record.self_pick_up
+        return result
