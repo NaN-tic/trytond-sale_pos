@@ -38,7 +38,7 @@ class Sale(metaclass=PoolMeta):
 
     @classmethod
     def __setup__(cls):
-        super(Sale, cls).__setup__()
+        super().__setup__()
         for fname in ('invoice_method', 'invoice_address', 'shipment_method',
                 'shipment_address'):
             fstates = getattr(cls, fname).states
@@ -48,14 +48,6 @@ class Sale(metaclass=PoolMeta):
             else:
                 fstates['readonly'] = Eval('self_pick_up', False)
             getattr(cls, fname).depends.add('self_pick_up')
-        if hasattr(cls, 'carrier'):
-            if 'invisible' not in cls.carrier.states:
-                cls.carrier.states['invisible'] = Bool(Eval('self_pick_up'))
-            else:
-                invisible = cls.carrier.states['invisible']
-                cls.carrier.states['invisible'] = Or(invisible,
-                    Bool(Eval('self_pick_up')))
-
         cls._buttons.update({
                 'add_sum': {
                     'invisible': Eval('state') != 'draft'
@@ -472,6 +464,22 @@ class WizardSalePayment(metaclass=PoolMeta):
 
 class SaleShipmentCost(metaclass=PoolMeta):
     __name__ = 'sale.sale'
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        if 'invisible' not in cls.carrier.states:
+            cls.carrier.states['invisible'] = Bool(Eval('self_pick_up'))
+        else:
+            invisible = cls.carrier.states['invisible']
+            cls.carrier.states['invisible'] = Or(invisible,
+                Bool(Eval('self_pick_up')))
+        if 'invisible' not in cls.shipment_cost_method.states:
+            cls.shipment_cost_method.states['invisible'] = Bool(Eval('self_pick_up'))
+        else:
+            invisible = cls.shipment_cost_method.states['invisible']
+            cls.shipment_cost_method.states['invisible'] = Or(invisible,
+                Bool(Eval('self_pick_up')))
 
     @fields.depends('company', 'carrier', methods=['on_change_with_available_carriers'])
     def on_change_self_pick_up(self):
