@@ -24,3 +24,7 @@ def register():
         sale.WizardAddProduct,
         sale.WizardSalePayment,
         module='sale_pos', type_='wizard')
+    Pool.register(
+        sale.SaleShipmentCost,
+        module='sale_pos', type_='model',
+        depends=['sale_shipment_cost'])
