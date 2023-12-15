@@ -7,5 +7,7 @@ copyright notices and license terms. -->
             position="after">
         <label name="carrier"/>
         <field name="carrier"/>
+        <label name="shipment_cost_method"/>
+        <field name="shipment_cost_method"/>
     </xpath>
 </data>
