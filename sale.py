@@ -20,7 +20,7 @@ class Sale(metaclass=PoolMeta):
     ticket_number = fields.Char('Ticket Number', readonly=True)
     self_pick_up = fields.Boolean('Self Pick Up', states={
             'readonly': Eval('state') != 'draft',
-            }, depends=['state'],
+            },
         help='The goods are picked up by the customer before the sale, so no '
         'shipment is created.')
     pos_create_date = fields.DateTime('Create Date', readonly=True)
