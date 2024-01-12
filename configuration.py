@@ -48,8 +48,7 @@ class ConfigurationSequence(metaclass=PoolMeta):
         domain=[
             ('company', 'in', [Eval('company', -1), None]),
             ('sequence_type', '=', Id('sale_pos', 'sequence_type_sale_pos')),
-            ],
-        depends=['company'])
+            ])
 
     @classmethod
     def default_pos_sequence(cls):
