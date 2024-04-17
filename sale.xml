@@ -137,22 +137,22 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.model.button" id="wizard_add_product_button">
             <field name="name">wizard_add_product</field>
             <field name="string">Add Products</field>
-            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+            <field name="model">sale.sale</field>
         </record>
         <record model="ir.model.button" id="add_sum_button">
             <field name="name">add_sum</field>
             <field name="string">Add Sum</field>
-            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+            <field name="model">sale.sale</field>
         </record>
         <record model="ir.model.button" id="scan_button">
             <field name="name">scan_</field>
             <field name="string">Scan</field>
-            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+            <field name="model">sale.sale</field>
         </record>
         <record model="ir.model.button" id="print_ticket_button">
             <field name="name">print_ticket</field>
             <field name="string">Ticket</field>
-            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+            <field name="model">sale.sale</field>
         </record>
 
         <!-- Icons -->
