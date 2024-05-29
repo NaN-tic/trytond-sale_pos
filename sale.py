@@ -146,7 +146,7 @@ class Sale(metaclass=PoolMeta):
 
         for sale in sales:
             if (not sale.ticket_number and
-                    sale.residual_amount == Decimal('0.0')):
+                    sale.residual_amount == Decimal(0)):
                 sale.ticket_number = config.pos_sequence.get()
                 sale.save()
 
@@ -189,9 +189,9 @@ class Sale(metaclass=PoolMeta):
         if not self.self_pick_up:
             super(Sale, self).on_change_lines()
 
-        self.untaxed_amount = Decimal('0.0')
-        self.tax_amount = Decimal('0.0')
-        self.total_amount = Decimal('0.0')
+        self.untaxed_amount = Decimal(0)
+        self.tax_amount = Decimal(0)
+        self.total_amount = Decimal(0)
 
         if self.lines:
             self.untaxed_amount = reduce(lambda x, y: x + y,
