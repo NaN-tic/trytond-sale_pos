@@ -193,10 +193,10 @@ Sale 2 products::
     >>> sale_line.quantity = 2.0
     >>> sale.save()
     >>> sale_line, = sale.lines
-    >>> sale_line.unit_price_w_tax
-    Decimal('11.000000')
-    >>> sale_line.amount_w_tax
-    Decimal('22.00')
+    >>> sale_line.unit_price_w_tax == Decimal('11.0000')
+    True
+    >>> sale_line.amount_w_tax ==  Decimal('22.00')
+    True
     >>> len(sale.shipments), len(sale.invoices), len(sale.payments)
     (0, 0, 0)
 
