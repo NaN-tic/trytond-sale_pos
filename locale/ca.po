@@ -110,10 +110,6 @@ msgstr ""
 "Els productes són recollits pel propi client abans de la venda, pel que no "
 "es generà albarà."
 
-msgctxt "model:ir.action,name:"
-msgid "Sales Summary by Party"
-msgstr "Resum de vendes per tercer"
-
 msgctxt "model:ir.action,name:act_sale_form"
 msgid "POS Sales"
 msgstr "Vendes TPV"

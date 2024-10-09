@@ -106,10 +106,6 @@ msgstr ""
 "Los productos son recogidos por el propio cliente antes de la venta, por lo "
 "que no se crea albarán."
 
-msgctxt "model:ir.action,name:"
-msgid "Sales Summary by Party"
-msgstr "Resumen de ventas por tercero"
-
 msgctxt "model:ir.action,name:act_sale_form"
 msgid "POS Sales"
 msgstr "Ventas TPV"
