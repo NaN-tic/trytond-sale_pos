@@ -106,10 +106,6 @@ msgstr ""
 "Los productos son recogidos por el propio cliente antes de la venta, por lo "
 "que no se crea guía de remisión."
 
-msgctxt "model:ir.action,name:"
-msgid "POS Device"
-msgstr "Dispositivo TPV"
-
 msgctxt "model:ir.action,name:act_sale_form"
 msgid "POS Sales"
 msgstr "Ventas TPV"
