@@ -157,10 +157,6 @@ msgctxt "model:ir.sequence.type,name:sequence_type_sale_pos"
 msgid "Sale Pos"
 msgstr "Venta TPV"
 
-msgctxt "model:ir.ui.menu,name:"
-msgid "POS Devices"
-msgstr "Dispositivos TPV"
-
 msgctxt "model:ir.ui.menu,name:menu_sale"
 msgid "POS Sales"
 msgstr "Ventas TPV"
