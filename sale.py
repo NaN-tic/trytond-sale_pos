@@ -167,13 +167,13 @@ class Sale(metaclass=PoolMeta):
 
         assert self.shipment_method == 'order'
 
-        moves = []
+        to_create = []
         for line in self.lines:
             move = line.get_move(shipment_type)
             if move:
-                moves.append(move)
-        if moves:
-            moves = Move.create([m._save_values for m in moves])
+                to_create.append(move._save_values())
+        if to_create:
+            moves = Move.create(to_create)
             Move.do(moves)
 
         Sale._process_invoice_shipment_states([self])
