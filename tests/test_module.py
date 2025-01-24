@@ -9,7 +9,8 @@ from trytond.tests.test_tryton import ModuleTestCase
 class SalePosTestCase(SaleShopCompanyTestMixin, ModuleTestCase):
     'Test SalePos module'
     module = 'sale_pos'
-    extras = ['sale_payment_type', 'sale_shipment_cost', 'sale_margin', 'commission']
+    extras = ['sale_payment_type', 'sale_shipment_cost', 'sale_margin',
+        'commission', 'discount_formula']
 
 
 del ModuleTestCase
