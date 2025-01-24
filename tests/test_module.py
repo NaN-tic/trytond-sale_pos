@@ -10,7 +10,7 @@ class SalePosTestCase(SaleShopCompanyTestMixin, ModuleTestCase):
     'Test SalePos module'
     module = 'sale_pos'
     extras = ['sale_payment_type', 'sale_shipment_cost', 'sale_margin',
-        'commission', 'discount_formula']
+        'commission', 'sale_discount', 'discount_formula']
 
 
 del ModuleTestCase
