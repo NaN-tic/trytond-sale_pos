@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- This file is part of the sale_discount module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/notebook/page[@name='lines']/group[@id='amount']/field[@name='untaxed_amount']" position="after">
+        <label name="sale_discount_formula"/>
+        <field name="sale_discount_formula"/>
+    </xpath>
+</data>
