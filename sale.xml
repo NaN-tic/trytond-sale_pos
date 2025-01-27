@@ -190,11 +190,23 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">sale_pos_commission_form</field>
         </record>
     </data>
+    <data depends="sale_discount">
+        <record model="ir.ui.view" id="sale_pos_line_discount_view_tree">
+            <field name="model">sale.line</field>
+            <field name="inherit" ref="sale_pos.sale_line_view_tree"/>
+            <field name="name">sale_line_discount_tree</field>
+        </record>
+    </data>
     <data depends="discount_formula">
         <record model="ir.ui.view" id="sale_pos_discount_formula_view_form">
             <field name="model">sale.sale</field>
             <field name="inherit" ref="sale_pos.sale_pos_view_form"/>
             <field name="name">sale_pos_discount_formula_form</field>
+        </record>
+        <record model="ir.ui.view" id="sale_pos_line_discount_formula_view_tree">
+            <field name="model">sale.line</field>
+            <field name="inherit" ref="sale_pos.sale_line_view_tree"/>
+            <field name="name">sale_line_discount_formula_tree</field>
         </record>
     </data>
 </tryton>
