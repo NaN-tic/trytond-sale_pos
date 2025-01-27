@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="/tree/field[@name='unit_price_w_tax']" position="before">
+        <field name="base_price" optional="1"/>
+    </xpath>
+    <xpath expr="/tree/field[@name='unit_price_w_tax']" position="after">
+        <field name="discount_rate" factor="100" optional="1">
+            <suffix name="discount_rate" string="%"/>
+        </field>
+        <field name="discount_amount" optional="1"/>
+    </xpath>
+</data>
