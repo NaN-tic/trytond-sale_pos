@@ -197,7 +197,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">sale_line_discount_tree</field>
         </record>
     </data>
-    <data depends="discount_formula">
+    <data depends="discount_formula,sale_discount">
         <record model="ir.ui.view" id="sale_pos_discount_formula_view_form">
             <field name="model">sale.sale</field>
             <field name="inherit" ref="sale_pos.sale_pos_view_form"/>
