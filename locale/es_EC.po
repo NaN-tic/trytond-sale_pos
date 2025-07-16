@@ -2,18 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:account.statement.line:"
-msgid "Amount should be a positive or negative value."
-msgstr "Importe debe ser una cantidad positiva o negativa."
-
-msgctxt "error:res.user:"
-msgid "You can not have two users with the same login!"
-msgstr "No puede tener dos usuarios con el mismo nombre de usuario."
-
-msgctxt "error:sale.sale:"
-msgid "Go to user preferences and select a shop (\"%s\")"
-msgstr "Seleccione una tienda en sus preferencias (\"%s\")."
-
 msgctxt "field:account.statement.line,sale:"
 msgid "Sale"
 msgstr "Venta"
@@ -343,9 +331,9 @@ msgid ""
 " the delivery, uncheck the Self Pick Up field in Sale's form and use the "
 "buttons in the bottom line."
 msgstr ""
-"Si desea gestionar la venta paso a paso o generar una guía de remisión para gestionar "
-"la entrega, desmarque el campo de autorecogida en el formulario de venta y "
-"use los botones de la línea inferior."
+"Si desea gestionar la venta paso a paso o generar una guía de remisión para "
+"gestionar la entrega, desmarque el campo de autorecogida en el formulario de"
+" venta y use los botones de la línea inferior."
 
 msgctxt "view:sale.payment.form:"
 msgid "Sale Payment Form"
