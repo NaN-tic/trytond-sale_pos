@@ -2,30 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:account.statement.line:"
-msgid "Amount should be a positive or negative value."
-msgstr ""
-
-msgctxt "error:res.user:"
-msgid "You can not have two users with the same login!"
-msgstr ""
-
-msgctxt "error:sale.sale:"
-msgid "Go to user preferences and select a shop (\"%s\")"
-msgstr ""
-
-msgctxt "error:sale_pos.sale_payment:"
-msgid "A customer invoice/refund from POS sale has not been created."
-msgstr "Un avoir/facture client venant du PdV n'a pas été crée."
-
-msgctxt "error:sale_pos.sale_payment:"
-msgid "A draft statement for \"%s\" payments has not been created."
-msgstr "Un relevé brouillon pour le paiement \"%s\" n'a pas été créé."
-
-msgctxt "error:sale_pos.sale_payment:"
-msgid "You have not defined a POS device for your user."
-msgstr "Vous n'avez pas créé de périphérique PdV pour votre utilisateur."
-
 msgctxt "field:account.statement.line,sale:"
 msgid "Sale"
 msgstr "Vente"
