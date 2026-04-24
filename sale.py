@@ -176,7 +176,7 @@ class Sale(metaclass=PoolMeta):
             moves = Move.create(to_create)
             Move.do(moves)
 
-        Sale._process_invoice_shipment_states([self])
+        Sale._process_invoice_fulfillment_states([self])
         Sale._process_state([self])
 
     @fields.depends('lines', 'currency', 'party', 'self_pick_up')
