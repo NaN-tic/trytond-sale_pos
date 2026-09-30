@@ -42,11 +42,11 @@ class Sale(metaclass=PoolMeta):
         for fname in ('invoice_method', 'invoice_address', 'shipment_method',
                 'shipment_address'):
             fstates = getattr(cls, fname).states
-            if fstates.get('readonly'):
-                fstates['readonly'] = Or(fstates['readonly'],
-                    Eval('self_pick_up', False))
+            editable = ~Eval('self_pick_up', False)
+            if fstates.get('editable') is not None:
+                fstates['editable'] &= editable
             else:
-                fstates['readonly'] = Eval('self_pick_up', False)
+                fstates['editable'] = editable
             getattr(cls, fname).depends.add('self_pick_up')
         cls._buttons.update({
                 'add_sum': {
@@ -98,12 +98,11 @@ class Sale(metaclass=PoolMeta):
                     })]
 
     @classmethod
-    def create(cls, vlist):
-        now = datetime.now()
-        vlist = [x.copy() for x in vlist]
-        for vals in vlist:
-            vals['pos_create_date'] = now
-        return super(Sale, cls).create(vlist)
+    def preprocess_values(cls, mode, values):
+        values = super().preprocess_values(mode, values)
+        if mode == 'create':
+            values['pos_create_date'] = datetime.now()
+        return values
 
     @classmethod
     def copy(cls, sales, default=None):
@@ -407,7 +406,10 @@ class WizardAddProduct(Wizard):
         sale = self.record
         if not line:
             values = Line.default_get(
-                list(Line._fields.keys()), with_rec_name=False)
+                [
+                        name for name, field in Line._fields.items()
+                        if not field.readonly
+                        ], with_rec_name=False)
             line = Line(**values)
             line.sale = sale
             line.product = product
