@@ -209,4 +209,10 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">sale_line_discount_formula_tree</field>
         </record>
     </data>
+    <data>
+        <record model="ir.action-res.group" id="add_product_group_sale">
+            <field name="action" ref="wizard_add_product"/>
+            <field name="group" ref="sale.group_sale"/>
+        </record>
+    </data>
 </tryton>
